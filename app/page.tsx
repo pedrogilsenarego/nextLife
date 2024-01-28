@@ -1,3 +1,9 @@
+<<<<<<< HEAD
+=======
+import ConnectSupabaseSteps from "@/components/ConnectSupabaseSteps";
+import Header from "@/components/Header";
+import SignUpUserSteps from "@/components/SignUpUserSteps";
+>>>>>>> 350d2358b08ca55cbd526dafb54699dbc8f33c78
 import { createClient } from "@/utils/supabase/server";
 import { cookies } from "next/headers";
 import AuthButton from "../components/AuthButton";
