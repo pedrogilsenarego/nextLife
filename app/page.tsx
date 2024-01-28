@@ -1,10 +1,10 @@
-import DeployButton from "../components/DeployButton";
-import AuthButton from "../components/AuthButton";
-import { createClient } from "@/utils/supabase/server";
 import ConnectSupabaseSteps from "@/components/ConnectSupabaseSteps";
-import SignUpUserSteps from "@/components/SignUpUserSteps";
 import Header from "@/components/Header";
+import SignUpUserSteps from "@/components/SignUpUserSteps";
+import { createClient } from "@/utils/supabase/server";
 import { cookies } from "next/headers";
+import AuthButton from "../components/AuthButton";
+import DeployButton from "../components/DeployButton";
 
 export default async function Index() {
   const cookieStore = cookies();
@@ -48,7 +48,7 @@ export default async function Index() {
             className="font-bold hover:underline"
             rel="noreferrer"
           >
-            Supabase
+            Supabases
           </a>
         </p>
       </footer>
