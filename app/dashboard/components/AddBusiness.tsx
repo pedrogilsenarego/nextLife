@@ -6,7 +6,7 @@ import { Button } from "@/components/UI/button";
 export default async function () {
   return (
     <Popup trigger={<Button>+</Button>} title="Add new Business">
-      <ControlledInput />
+      <ControlledInput placeholder="Name" />
     </Popup>
   );
 }
