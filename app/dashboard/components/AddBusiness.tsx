@@ -1,4 +1,4 @@
-import IconButton from "@/components/ui/IconButton";
+import IconButton from "@/components/UI/IconButton";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -9,7 +9,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
+} from "@/components/UI/alert-dialog";
 
 export default async function () {
   return (
