@@ -1,35 +1,12 @@
-import IconButton from "@/components/UI/IconButton";
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/components/UI/alert-dialog";
+import { ControlledInput } from "@/components/UI/Inputs/ControlledInput";
+import Popup from "@/components/UI/Popup";
+
+import { Button } from "@/components/UI/button";
 
 export default async function () {
   return (
-    <AlertDialog>
-      <AlertDialogTrigger>
-        <IconButton />
-      </AlertDialogTrigger>
-      <AlertDialogContent>
-        <AlertDialogHeader>
-          <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-          <AlertDialogDescription>
-            This action cannot be undone. This will permanently delete your
-            account and remove your data from our servers.
-          </AlertDialogDescription>
-        </AlertDialogHeader>
-        <AlertDialogFooter>
-          <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction>Continue</AlertDialogAction>
-        </AlertDialogFooter>
-      </AlertDialogContent>
-    </AlertDialog>
+    <Popup trigger={<Button>+</Button>} title="Add new Business">
+      <ControlledInput />
+    </Popup>
   );
 }
