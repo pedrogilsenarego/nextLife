@@ -1,3 +1,4 @@
+"use client";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -8,7 +9,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from "@/components/UI/Popup/alert-dialog";
+} from "@/components/UI/Alert/alert-dialog";
 
 type Props = {
   trigger: React.ReactNode;
@@ -16,7 +17,7 @@ type Props = {
   children?: React.ReactNode;
 };
 
-const Popup = ({ trigger, title, children }: Props) => {
+const Alert = ({ trigger, title, children }: Props) => {
   return (
     <AlertDialog>
       <AlertDialogTrigger>{trigger}</AlertDialogTrigger>
@@ -36,4 +37,4 @@ const Popup = ({ trigger, title, children }: Props) => {
   );
 };
 
-export default Popup;
+export default Alert;

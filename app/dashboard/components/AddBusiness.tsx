@@ -1,12 +1,11 @@
-import { Input } from "@/components/UI/Input";
-import Popup from "@/components/UI/Popup";
-
+import DialogWrapper from "@/components/UI/Dialog";
 import { Button } from "@/components/UI/button";
+import BusinessForm from "./BusinessForm";
 
 export default async function () {
   return (
-    <Popup trigger={<Button>+</Button>} title="Add new Business">
-      <Input placeholder="Name" />
-    </Popup>
+    <DialogWrapper trigger={<Button>+</Button>} title="Add new Business">
+      <BusinessForm />
+    </DialogWrapper>
   );
 }
