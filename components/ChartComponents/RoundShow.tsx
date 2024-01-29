@@ -1,13 +1,14 @@
 type Props = {
   value: number;
   currency?: string;
+  percentage?: number;
 };
 
-export default async function Ball({ value, currency }: Props) {
-  const red = 20;
-  const green = 80;
+export default async function Ball({ value, currency, percentage = 0 }: Props) {
   const gradientStyle = {
-    background: `conic-gradient(from 0deg, red 0%, red ${red}%, green ${red}%, green ${green}%)`,
+    background: `conic-gradient(from 0deg, red 0%, red ${percentage}%, green ${percentage}%, green ${
+      100 - percentage
+    }%)`,
   };
   return (
     <div
