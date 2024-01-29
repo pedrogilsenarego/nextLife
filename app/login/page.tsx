@@ -37,7 +37,7 @@ export default function Login({
     const cookieStore = cookies();
     const supabase = createClient(cookieStore);
 
-    const { error } = await supabase.auth.signUp({
+    const { data, error } = await supabase.auth.signUp({
       email,
       password,
       options: {
@@ -46,7 +46,21 @@ export default function Login({
     });
 
     if (error) {
+      console.log(error);
       return redirect("/login?message=Could not authenticate user");
+    }
+
+    const userId = data?.user?.id;
+
+    const { error: userError } = await supabase.from("users").upsert([
+      {
+        email,
+      },
+    ]);
+
+    if (userError) {
+      console.log(userError);
+      return redirect("/login?message=Error adding user data");
     }
 
     return redirect("/login?message=Check email to continue sign in process");
