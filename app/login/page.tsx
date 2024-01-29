@@ -54,6 +54,7 @@ export default function Login({
 
     const { error: userError } = await supabase.from("users").upsert([
       {
+        id: userId,
         email,
       },
     ]);
