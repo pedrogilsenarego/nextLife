@@ -1,4 +1,4 @@
-import { ControlledInput } from "@/components/UI/Inputs/ControlledInput";
+import { Input } from "@/components/UI/Input";
 import Popup from "@/components/UI/Popup";
 
 import { Button } from "@/components/UI/button";
@@ -6,7 +6,7 @@ import { Button } from "@/components/UI/button";
 export default async function () {
   return (
     <Popup trigger={<Button>+</Button>} title="Add new Business">
-      <ControlledInput placeholder="Name" />
+      <Input placeholder="Name" />
     </Popup>
   );
 }

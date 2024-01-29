@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 export interface InputProps
   extends React.InputHTMLAttributes<HTMLInputElement> {}
 
-const UncontrolledInput = React.forwardRef<HTMLInputElement, InputProps>(
+const Input = React.forwardRef<HTMLInputElement, InputProps>(
   ({ className, type, ...props }, ref) => {
     return (
       <input
@@ -20,6 +20,6 @@ const UncontrolledInput = React.forwardRef<HTMLInputElement, InputProps>(
     );
   }
 );
-UncontrolledInput.displayName = "Input";
+Input.displayName = "Input";
 
-export { UncontrolledInput };
+export { Input };
