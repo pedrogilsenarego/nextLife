@@ -5,7 +5,9 @@ import BusinessForm from "./BusinessForm";
 export default async function () {
   return (
     <DialogWrapper trigger={<Button>+</Button>} title="Add new Business">
-      <BusinessForm />
+      <div className="py-8">
+        <BusinessForm />
+      </div>
     </DialogWrapper>
   );
 }
