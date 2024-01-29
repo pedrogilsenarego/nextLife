@@ -1,17 +1,26 @@
 "use client";
 import { Input } from "@/components/UI/Input";
+import { Button } from "@/components/UI/button";
 import { addBusiness } from "@/server/businessActions";
-import { createClient } from "@/utils/supabase/server";
 import { AddBusiness, addBusinessSchema } from "@/zodSchema/addBusiness";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 const BusinessForm = () => {
-  const { handleSubmit, control } = useForm<AddBusiness>({
+  const { handleSubmit, control, reset } = useForm<AddBusiness>({
     resolver: zodResolver(addBusinessSchema),
   });
 
-  async function onSubmit(data: AddBusiness) {
-    await addBusiness(data.businessName);
+  const { mutate: addBusinessMutation, isPending } = useMutation({
+    mutationFn: addBusiness,
+    onError: (error: any) => {
+      console.log("error", error);
+    },
+    onSuccess: (data: any) => {},
+  });
+
+  function onSubmit(data: AddBusiness) {
+    addBusinessMutation(data.businessName);
   }
 
   return (
@@ -21,12 +30,10 @@ const BusinessForm = () => {
         name="businessName"
         control={control}
       />
-      <button
-        type="submit"
-        className="block w-full cursor-pointer rounded bg-rose-500 px-4 py-2 text-center font-semibold text-white hover:bg-rose-400 focus:outline-none focus:ring focus:ring-rose-500 focus:ring-opacity-80 focus:ring-offset-2 disabled:opacity-70"
-      >
+
+      <Button isLoading={isPending} type="submit">
         Submit
-      </button>
+      </Button>
     </form>
   );
 };
