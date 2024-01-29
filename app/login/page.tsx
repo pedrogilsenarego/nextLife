@@ -1,6 +1,6 @@
-import Link from "next/link";
-import { headers, cookies } from "next/headers";
 import { createClient } from "@/utils/supabase/server";
+import { cookies, headers } from "next/headers";
+import Link from "next/link";
 import { redirect } from "next/navigation";
 
 export default function Login({
@@ -25,7 +25,7 @@ export default function Login({
       return redirect("/login?message=Could not authenticate user");
     }
 
-    return redirect("/");
+    return redirect("/dashboard");
   };
 
   const signUp = async (formData: FormData) => {
