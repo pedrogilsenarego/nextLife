@@ -1,6 +1,7 @@
 import AuthButton from "@/components/AuthButton";
 import MainMetrics from "@/components/MainMetrics";
 import { createClient } from "@/utils/supabase/server";
+import Head from "next/head";
 import { cookies } from "next/headers";
 import MainCard from "./components/MainCard";
 
@@ -21,28 +22,34 @@ export default async function Index() {
   const isSupabaseConnected = canInitSupabaseClient();
 
   return (
-    <div className="flex-1 w-full flex flex-col gap-20 items-center">
-      <nav className="w-full flex justify-center border-b border-b-foreground/10 h-16">
-        <div className="w-full max-w-6xl flex justify-end items-center p-3 text-sm">
-          {isSupabaseConnected && <AuthButton />}
-        </div>
-      </nav>
-      <MainMetrics />
-      <MainCard />
+    <>
+      <Head>
+        <title>Dashboard</title>
+        <meta property="og:title" content="Dashboard" key="title" />
+      </Head>
+      <div className="flex-1 w-full flex flex-col gap-20 items-center">
+        <nav className="w-full flex justify-center border-b border-b-foreground/10 h-16">
+          <div className="w-full max-w-6xl flex justify-end items-center p-3 text-sm">
+            {isSupabaseConnected && <AuthButton />}
+          </div>
+        </nav>
+        <MainMetrics />
+        <MainCard />
 
-      <footer className="w-full border-t border-t-foreground/10 p-8 flex justify-center text-center text-xs">
-        <p>
-          Powered by{" "}
-          <a
-            href="https://supabase.com/?utm_source=create-next-app&utm_medium=template&utm_term=nextjs"
-            target="_blank"
-            className="font-bold hover:underline"
-            rel="noreferrer"
-          >
-            SenaRego
-          </a>
-        </p>
-      </footer>
-    </div>
+        <footer className="w-full border-t border-t-foreground/10 p-8 flex justify-center text-center text-xs">
+          <p>
+            Powered by{" "}
+            <a
+              href="https://supabase.com/?utm_source=create-next-app&utm_medium=template&utm_term=nextjs"
+              target="_blank"
+              className="font-bold hover:underline"
+              rel="noreferrer"
+            >
+              SenaRego
+            </a>
+          </p>
+        </footer>
+      </div>
+    </>
   );
 }

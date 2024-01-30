@@ -7,7 +7,6 @@ import {
   DialogDescription,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/UI/dialog";
 import { useState } from "react";
 import BusinessForm from "./BusinessForm";
@@ -17,14 +16,14 @@ export default function () {
   return (
     <>
       <Button onClick={() => setOpen(!open)}>+</Button>
-      <Dialog open={open}>
+      <Dialog open={open} setOpen={setOpen}>
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Add new Business</DialogTitle>
-            <DialogDescription>
-              <BusinessForm setOpen={setOpen} />
-            </DialogDescription>
           </DialogHeader>
+          <DialogDescription>
+            <BusinessForm setOpen={setOpen} />
+          </DialogDescription>
         </DialogContent>
       </Dialog>
     </>

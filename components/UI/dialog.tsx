@@ -6,7 +6,23 @@ import * as React from "react";
 
 import { cn } from "@/lib/utils";
 
-const Dialog = DialogPrimitive.Root;
+type DialogProps = {
+  open: boolean;
+  setOpen: (open: boolean) => void;
+  children: React.ReactNode;
+};
+
+const Dialog = ({ open, setOpen, children, ...props }: DialogProps) => {
+  return (
+    <DialogPrimitive.Root
+      open={open}
+      onOpenChange={(newOpen) => setOpen(newOpen)}
+      {...props}
+    >
+      {children}
+    </DialogPrimitive.Root>
+  );
+};
 
 const DialogTrigger = DialogPrimitive.Trigger;
 
