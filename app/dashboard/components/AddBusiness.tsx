@@ -1,13 +1,28 @@
-import DialogWrapper from "@/components/UI/Dialog";
 import { Button } from "@/components/UI/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/UI/dialog";
 import BusinessForm from "./BusinessForm";
 
 export default async function () {
   return (
-    <DialogWrapper trigger={<Button>+</Button>} title="Add new Business">
-      <div className="py-8">
-        <BusinessForm />
-      </div>
-    </DialogWrapper>
+    <Dialog>
+      <DialogTrigger>
+        <Button>+</Button>
+      </DialogTrigger>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>Add new Business</DialogTitle>
+          <DialogDescription>
+            <BusinessForm />
+          </DialogDescription>
+        </DialogHeader>
+      </DialogContent>
+    </Dialog>
   );
 }
