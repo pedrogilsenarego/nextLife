@@ -6,7 +6,10 @@ import { AddBusiness, addBusinessSchema } from "@/zodSchema/addBusiness";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
-const BusinessForm = () => {
+type Props = {
+  setOpen: (open: boolean) => void;
+};
+const BusinessForm = ({ setOpen }: Props) => {
   const { handleSubmit, control, reset } = useForm<AddBusiness>({
     resolver: zodResolver(addBusinessSchema),
   });
@@ -17,6 +20,10 @@ const BusinessForm = () => {
       console.log("error", error);
     },
     onSuccess: (data: any) => {},
+    onSettled: () => {
+      setOpen(false);
+      reset();
+    },
   });
 
   function onSubmit(data: AddBusiness) {
