@@ -1,18 +1,23 @@
 "use client";
 import { Input } from "@/components/UI/Input";
 import { Button } from "@/components/UI/button";
-import { addBusiness } from "@/server/businessActions";
+import { queryKeys } from "@/constants/queryKeys";
+import { addBusiness, getBusinesses } from "@/server/businessActions";
 import { AddBusiness, addBusinessSchema } from "@/zodSchema/addBusiness";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 type Props = {
   setOpen: (open: boolean) => void;
-  refetchBusinessData: () => void;
 };
-const BusinessForm = ({ setOpen, refetchBusinessData }: Props) => {
+const BusinessForm = ({ setOpen }: Props) => {
   const { handleSubmit, control, reset } = useForm<AddBusiness>({
     resolver: zodResolver(addBusinessSchema),
+  });
+
+  const { refetch } = useQuery({
+    queryKey: [queryKeys.businesses],
+    queryFn: () => getBusinesses(),
   });
 
   const { mutate: addBusinessMutation, isPending } = useMutation({
@@ -20,10 +25,8 @@ const BusinessForm = ({ setOpen, refetchBusinessData }: Props) => {
     onError: (error: any) => {
       console.log("error", error);
     },
-    onSuccess: (data: any) => {
-      //refetchBusinessData();
-    },
-    onSettled: () => {
+    onSuccess: (data: any) => {},
+    onSettled: async () => {
       setOpen(false);
       reset();
     },
