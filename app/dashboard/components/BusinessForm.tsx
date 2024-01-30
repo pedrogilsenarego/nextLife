@@ -2,10 +2,12 @@
 import { Input } from "@/components/UI/Input";
 import { Button } from "@/components/UI/button";
 import { queryKeys } from "@/constants/queryKeys";
+import { useGetBusinesses } from "@/data/get-business";
 import { addBusiness, getBusinesses } from "@/server/businessActions";
 import { AddBusiness, addBusinessSchema } from "@/zodSchema/addBusiness";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQuery } from "@tanstack/react-query";
+import { revalidatePath } from "next/cache";
 import { useForm } from "react-hook-form";
 type Props = {
   setOpen: (open: boolean) => void;
@@ -13,11 +15,6 @@ type Props = {
 const BusinessForm = ({ setOpen }: Props) => {
   const { handleSubmit, control, reset } = useForm<AddBusiness>({
     resolver: zodResolver(addBusinessSchema),
-  });
-
-  const { refetch } = useQuery({
-    queryKey: [queryKeys.businesses],
-    queryFn: () => getBusinesses(),
   });
 
   const { mutate: addBusinessMutation, isPending } = useMutation({

@@ -1,16 +1,27 @@
 import AuthButton from "@/components/AuthButton";
 import MainMetrics from "@/components/MainMetrics";
+import { queryKeys } from "@/constants/queryKeys";
+import { getBusinesses } from "@/server/businessActions";
 import { createClient } from "@/utils/supabase/server";
+import {
+  HydrationBoundary,
+  QueryClient,
+  dehydrate,
+} from "@tanstack/react-query";
 import Head from "next/head";
 import { cookies } from "next/headers";
-import DataBusiness from "./components/DataBusiness";
+import MainCard from "./components/MainCard";
 
-export default async function Index() {
+export default async function () {
   const cookieStore = cookies();
 
+  const queryClient = new QueryClient();
+  await queryClient.prefetchQuery({
+    queryKey: [queryKeys.businesses],
+    queryFn: getBusinesses,
+  });
+
   const canInitSupabaseClient = () => {
-    // This function is just for the interactive tutorial.
-    // Feel free to remove it once you have Supabase connected.
     try {
       createClient(cookieStore);
       return true;
@@ -22,7 +33,7 @@ export default async function Index() {
   const isSupabaseConnected = canInitSupabaseClient();
 
   return (
-    <>
+    <HydrationBoundary state={dehydrate(queryClient)}>
       <Head>
         <title>Dashboard</title>
         <meta property="og:title" content="Dashboard" key="title" />
@@ -34,13 +45,13 @@ export default async function Index() {
           </div>
         </nav>
         <MainMetrics />
-        <DataBusiness />
+        <MainCard />
 
         <footer className="w-full border-t border-t-foreground/10 p-8 flex justify-center text-center text-xs">
           <p>
             Powered by{" "}
             <a
-              href="https://supabase.com/?utm_source=create-next-app&utm_medium=template&utm_term=nextjs"
+              href=""
               target="_blank"
               className="font-bold hover:underline"
               rel="noreferrer"
@@ -50,6 +61,6 @@ export default async function Index() {
           </p>
         </footer>
       </div>
-    </>
+    </HydrationBoundary>
   );
 }

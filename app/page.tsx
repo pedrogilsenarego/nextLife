@@ -1,4 +1,3 @@
-import MainMetrics from "@/components/MainMetrics";
 import { createClient } from "@/utils/supabase/server";
 import { cookies } from "next/headers";
 import AuthButton from "../components/AuthButton";
