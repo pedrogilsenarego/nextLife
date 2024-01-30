@@ -4,12 +4,13 @@ import AddBusiness from "./AddBusiness";
 
 type Props = {
   businesses: Business[];
+  refetchBusinessData: () => void;
 };
 
-export default function ({ businesses }: Props) {
+export default function ({ businesses, refetchBusinessData }: Props) {
   return (
     <div className="flex gap-2 w-full">
-      <AddBusiness />
+      <AddBusiness refetchBusinessData={refetchBusinessData} />
       <div className="flex border-b-2 w-full justify-between ">
         <div className="flex items-center gap-4">
           <Button variant={"ghost"}>General</Button>

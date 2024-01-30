@@ -11,7 +11,7 @@ import {
 import { useState } from "react";
 import BusinessForm from "./BusinessForm";
 
-export default function () {
+export default function ({ refetchBusinessData }: any) {
   const [open, setOpen] = useState<boolean>(false);
   return (
     <>
@@ -22,7 +22,10 @@ export default function () {
             <DialogTitle>Add new Business</DialogTitle>
           </DialogHeader>
           <DialogDescription>
-            <BusinessForm setOpen={setOpen} />
+            <BusinessForm
+              setOpen={setOpen}
+              refetchBusinessData={refetchBusinessData}
+            />
           </DialogDescription>
         </DialogContent>
       </Dialog>

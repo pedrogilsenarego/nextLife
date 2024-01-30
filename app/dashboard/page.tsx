@@ -3,7 +3,7 @@ import MainMetrics from "@/components/MainMetrics";
 import { createClient } from "@/utils/supabase/server";
 import Head from "next/head";
 import { cookies } from "next/headers";
-import MainCard from "./components/MainCard";
+import DataBusiness from "./components/DataBusiness";
 
 export default async function Index() {
   const cookieStore = cookies();
@@ -34,7 +34,7 @@ export default async function Index() {
           </div>
         </nav>
         <MainMetrics />
-        <MainCard />
+        <DataBusiness />
 
         <footer className="w-full border-t border-t-foreground/10 p-8 flex justify-center text-center text-xs">
           <p>

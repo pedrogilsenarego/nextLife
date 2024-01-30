@@ -8,8 +8,9 @@ import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 type Props = {
   setOpen: (open: boolean) => void;
+  refetchBusinessData: () => void;
 };
-const BusinessForm = ({ setOpen }: Props) => {
+const BusinessForm = ({ setOpen, refetchBusinessData }: Props) => {
   const { handleSubmit, control, reset } = useForm<AddBusiness>({
     resolver: zodResolver(addBusinessSchema),
   });
@@ -19,7 +20,9 @@ const BusinessForm = ({ setOpen }: Props) => {
     onError: (error: any) => {
       console.log("error", error);
     },
-    onSuccess: (data: any) => {},
+    onSuccess: (data: any) => {
+      //refetchBusinessData();
+    },
     onSettled: () => {
       setOpen(false);
       reset();
