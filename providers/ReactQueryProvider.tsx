@@ -10,7 +10,7 @@ function ReactQueryProvider({ children }: React.PropsWithChildren) {
       new QueryClient({
         defaultOptions: {
           queries: {
-            staleTime: 60000,
+            staleTime: 6000000,
             //refetchInterval: 5 * 1000,
           },
         },

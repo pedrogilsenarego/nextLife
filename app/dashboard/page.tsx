@@ -1,5 +1,5 @@
+import MainMetrics from "@/app/dashboard/components/MainMetrics/MainMetrics";
 import AuthButton from "@/components/AuthButton";
-import MainMetrics from "@/components/MainMetrics";
 import { queryKeys } from "@/constants/queryKeys";
 import { getBusinesses } from "@/server/businessActions";
 
@@ -10,16 +10,16 @@ import {
   dehydrate,
 } from "@tanstack/react-query";
 import { cookies } from "next/headers";
-import MainCard from "./components/MainCard";
+import MainCard from "./components/MainCard/MainCard";
 
 export default async function () {
   const cookieStore = cookies();
 
   const queryClient = new QueryClient();
-  await queryClient.prefetchQuery({
-    queryKey: [queryKeys.businesses],
-    queryFn: getBusinesses,
-  });
+  // await queryClient.prefetchQuery({
+  //   queryKey: [queryKeys.businesses],
+  //   queryFn: getBusinesses,
+  // });
 
   const canInitSupabaseClient = () => {
     try {
@@ -41,7 +41,6 @@ export default async function () {
           </div>
         </nav>
         <MainMetrics />
-
         <MainCard />
 
         <footer className="w-full border-t border-t-foreground/10 p-8 flex justify-center text-center text-xs">

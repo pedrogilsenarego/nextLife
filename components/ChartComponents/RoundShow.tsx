@@ -1,10 +1,12 @@
+"use client";
+
 type Props = {
   value: number;
   currency?: string;
   percentage?: number;
 };
 
-export default async function Ball({ value, currency, percentage = 0 }: Props) {
+export default function Ball({ value, currency, percentage = 0 }: Props) {
   const greenColor = "green";
   const gradientStyle = {
     background: `conic-gradient(from 0deg, red 0%, red ${percentage}%, ${greenColor} ${percentage}%, ${greenColor} ${
