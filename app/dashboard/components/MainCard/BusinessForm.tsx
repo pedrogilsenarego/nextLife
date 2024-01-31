@@ -1,6 +1,8 @@
 "use client";
 import { Input } from "@/components/UI/Input";
+import InputForm from "@/components/UI/Wrappers/InputForm";
 import { Button } from "@/components/UI/button";
+import { Form } from "@/components/UI/form";
 import { queryKeys } from "@/constants/queryKeys";
 import { addBusiness, getBusinesses } from "@/server/businessActions";
 import { AddBusiness, addBusinessSchema } from "@/zodSchema/addBusiness";
@@ -11,7 +13,7 @@ type Props = {
   setOpen: (open: boolean) => void;
 };
 const BusinessForm = ({ setOpen }: Props) => {
-  const { handleSubmit, control, reset } = useForm<AddBusiness>({
+  const form = useForm<AddBusiness>({
     resolver: zodResolver(addBusinessSchema),
   });
 
@@ -29,7 +31,7 @@ const BusinessForm = ({ setOpen }: Props) => {
     onSettled: async () => {
       refetch();
       setOpen(false);
-      reset();
+      form.reset();
     },
   });
 
@@ -38,17 +40,22 @@ const BusinessForm = ({ setOpen }: Props) => {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="flex gap-4 flex-col">
-      <Input
-        placeholder="Name of business"
-        name="businessName"
-        control={control}
-      />
+    <Form {...form}>
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="flex gap-4 flex-col"
+      >
+        <InputForm
+          placeholder="Name of business"
+          name="businessName"
+          control={form.control}
+        />
 
-      <Button isLoading={isPending} type="submit">
-        Submit
-      </Button>
-    </form>
+        <Button isLoading={isPending} type="submit">
+          Submit
+        </Button>
+      </form>
+    </Form>
   );
 };
 

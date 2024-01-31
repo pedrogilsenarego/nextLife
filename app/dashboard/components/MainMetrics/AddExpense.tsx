@@ -9,7 +9,7 @@ import {
   DialogTitle,
 } from "@/components/UI/dialog";
 import { useState } from "react";
-import BusinessForm from "./ExpenseForm";
+import BusinessForm from "./ExpensesForm/ExpenseForm";
 
 export default function () {
   const [open, setOpen] = useState<boolean>(false);
