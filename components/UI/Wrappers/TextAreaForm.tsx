@@ -1,4 +1,3 @@
-import { Input, InputProps } from "../Input";
 import {
   FormControl,
   FormDescription,
@@ -7,21 +6,21 @@ import {
   FormLabel,
   FormMessage,
 } from "../form";
-
+import { Textarea } from "../textarea";
 type Props = {
   control: any;
   name: string;
   label?: string;
   placeholder?: string;
-  description?: string;
-} & InputProps;
 
-const InputForm = ({
+  description?: string;
+};
+const TextAreaForm = ({
   control,
   name,
   label,
   placeholder,
-  type,
+
   description,
 }: Props) => {
   return (
@@ -32,7 +31,11 @@ const InputForm = ({
         <FormItem>
           {label && <FormLabel>{label}</FormLabel>}
           <FormControl>
-            <Input placeholder={placeholder} {...field} type={type} />
+            <Textarea
+              placeholder={placeholder}
+              className="resize-none"
+              {...field}
+            />
           </FormControl>
           {description && <FormDescription>{description}</FormDescription>}
           <FormMessage />
@@ -41,4 +44,5 @@ const InputForm = ({
     />
   );
 };
-export default InputForm;
+
+export default TextAreaForm;
