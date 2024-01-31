@@ -1,13 +1,11 @@
-"use server";
 import { Business } from "@/types/businessTypes";
-import { createClient } from "@/utils/supabase/server";
-import { cookies } from "next/headers";
+import { createClient } from "@/utils/supabase/client";
 
-const cookieStore = cookies();
-const supabase = createClient(cookieStore);
+const supabase = createClient();
 
 export const addBusiness = async (businessName: string): Promise<string> => {
   return new Promise(async (resolve, reject) => {
+    console.log("addBusiness", businessName);
     try {
       const {
         data: { user },
@@ -38,6 +36,7 @@ export const addBusiness = async (businessName: string): Promise<string> => {
 };
 
 export const getBusinesses = async (): Promise<Business[]> => {
+  console.log("getingBusinesses");
   return new Promise(async (resolve, reject) => {
     try {
       const {

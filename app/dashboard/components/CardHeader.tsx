@@ -6,7 +6,7 @@ type Props = {
   businesses: Business[];
 };
 
-export default async function ({ businesses }: Props) {
+export default function ({ businesses }: Props) {
   return (
     <div className="flex gap-2 w-full">
       <AddBusiness />

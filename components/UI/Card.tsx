@@ -2,7 +2,7 @@ type Props = {
   children: React.ReactNode;
 };
 
-export default async function ({ children }: Props) {
+export default function ({ children }: Props) {
   return (
     <div
       className="w-full max-w-6xl flex bg-white items-center p-3 rounded-md"

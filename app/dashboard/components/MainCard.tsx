@@ -1,17 +1,22 @@
 "use client";
 
 import Card from "@/components/UI/Card";
-import { useGetBusinesses } from "@/data/get-business";
+import { queryKeys } from "@/constants/queryKeys";
+import { useQuery } from "@tanstack/react-query";
 import CardHeader from "./CardHeader";
 
+import { getBusinesses } from "@/server/businessActions";
 export default function () {
-  const { data: businessData, error } = useGetBusinesses();
-  if (error) return error.message;
-  if (!businessData) return;
+  const { data: businesses } = useQuery({
+    queryKey: [queryKeys.businesses],
+    queryFn: getBusinesses,
+  });
+  if (!businesses) return null;
+
   return (
     <>
       <Card>
-        <CardHeader businesses={businessData} />
+        <CardHeader businesses={businesses} />
       </Card>
     </>
   );
