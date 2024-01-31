@@ -10,7 +10,7 @@ import {
   dehydrate,
 } from "@tanstack/react-query";
 import { cookies } from "next/headers";
-import MainCard from "./components/MainCard/MainCard";
+import MainCard from "./components/MainCard";
 
 export default async function () {
   const cookieStore = cookies();
