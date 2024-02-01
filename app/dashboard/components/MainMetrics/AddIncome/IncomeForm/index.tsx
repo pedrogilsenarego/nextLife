@@ -3,8 +3,8 @@
 import InputForm from "@/components/UI/Wrappers/InputForm";
 import SelectForm from "@/components/UI/Wrappers/SelectForm";
 import TextAreaForm from "@/components/UI/Wrappers/TextAreaForm";
-import { Button } from "@/components/UI/button";
 import { Form } from "@/components/UI/form";
+import { Button } from "@/components/ui/button";
 import { defaultCategories } from "@/constants/defaultCategories";
 import useIncomeForm from "./useIncomeForm";
 type Props = {
@@ -28,7 +28,7 @@ const IncomeForm = ({ setOpen }: Props) => {
         <SelectForm
           label="Category"
           name="category"
-          description="Category of the expense"
+          description="Category of the income"
           control={form.control}
           options={defaultCategories}
         />
@@ -37,7 +37,7 @@ const IncomeForm = ({ setOpen }: Props) => {
           label={"Amount"}
           name="amount"
           control={form.control}
-          placeholder="Amount of the expense"
+          placeholder="Amount of the income"
         />
         <TextAreaForm
           label={"Note"}

@@ -10,12 +10,19 @@ import {
 
 export function CarouselCard() {
   return (
-    <Carousel className="w-full max-w-xs">
+    <Carousel
+      style={{
+        width: "600px",
+        boxShadow: "0 0 20px 2px rgba(0, 0, 0, 0.15)",
+        borderRadius: "6px",
+        padding: "8px",
+      }}
+    >
       <CarouselContent>
         {Array.from({ length: 5 }).map((_, index) => (
           <CarouselItem key={index}>
             <div className="p-1">
-              <Card>
+              <Card style={{ borderRadius: "4px" }}>
                 <CardContent className="flex aspect-square items-center justify-center p-6">
                   <span
                     style={{ fontSize: "200px", opacity: 0.2 }}

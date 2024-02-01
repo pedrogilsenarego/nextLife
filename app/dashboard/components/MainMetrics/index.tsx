@@ -1,13 +1,17 @@
 "use client";
 
+import {
+  default as Example,
+  default as TwoLevelChartPie,
+} from "@/components/ChartComponents/TwoLevelChartPie";
 import { CarouselCard } from "@/components/UI/Wrappers/CarouselCard";
+import { H3 } from "@/components/UI/h3";
 import { queryKeys } from "@/constants/queryKeys";
 import { getAllExpensesForCurrentMonth } from "@/server/expensesActions";
 import { getAllIncomesForCurrentMonth } from "@/server/incomeActions";
 import { ExpensesQuery } from "@/types/expensesTypes";
 import { IncomesQuery } from "@/types/incomesTypes";
 import { useQuery } from "@tanstack/react-query";
-import RoundShow from "../../../../components/ChartComponents/RoundShow";
 import AddExpense from "./AddExpense/AddExpense";
 import AddIncome from "./AddIncome";
 
@@ -22,24 +26,24 @@ const MainMetrics = () => {
   });
   if (!expensesMonth || !incomesMonth) return;
 
+  const totalIncome = incomesMonth.metaData.totalAmount;
+  const totalExpense = expensesMonth.metaData.totalAmount;
+
+  const ratio = totalExpense / totalIncome;
+
   return (
     <div className="flex gap-4 justify-between w-full">
       <div className="flex gap-4">
-        <RoundShow
-          value={
-            expensesMonth?.metaData?.totalAmount -
-            incomesMonth?.metaData?.totalAmount
-          }
-          currency="$"
-          percentage={
-            (incomesMonth?.metaData?.totalAmount /
-              expensesMonth?.metaData?.totalAmount) *
-            100
-          }
-        />
+        <TwoLevelChartPie percentageRatio={ratio} />
         <div className=" flex flex-col items-center justify-around">
-          <AddExpense />
-          <AddIncome />
+          <div className="flex items-center gap-2">
+            <AddExpense />
+            <H3>{`$${totalExpense.toString()}`}</H3>
+          </div>
+          <div className="flex items-center gap-2">
+            <AddIncome />
+            <H3>{`$${totalIncome.toString()}`}</H3>
+          </div>
         </div>
       </div>
       <CarouselCard />

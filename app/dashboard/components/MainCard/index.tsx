@@ -19,9 +19,9 @@ const MainCard = () => {
         className="w-full flex bg-white items-start p-4 rounded-md gap-4"
       >
         <AddBusiness />
-        <Tabs defaultValue="general" className="w-full flex flex-col gap-4">
+        <Tabs defaultValue="total" className="w-full flex flex-col gap-4">
           <TabsList className="block">
-            <TabsTrigger value="general">General</TabsTrigger>
+            <TabsTrigger value="total">Total</TabsTrigger>
             {businesses.map((business) => {
               return (
                 <TabsTrigger key={business.id} value={business.id}>
@@ -30,7 +30,7 @@ const MainCard = () => {
               );
             })}
           </TabsList>
-          <TabsContent value="general" className="flex flex-col gap-6">
+          <TabsContent value="total" className="flex flex-col gap-6">
             <div className="flex gap-2 flex-col">
               <H3>Expenses</H3>
               <General data={expensesMonth} />
