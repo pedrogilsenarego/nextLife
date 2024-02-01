@@ -2,7 +2,10 @@
 
 import { queryKeys } from "@/constants/queryKeys";
 import { getBusinesses } from "@/server/businessActions";
-import { addExpense } from "@/server/expensesActions";
+import {
+  addExpense,
+  getAllExpensesForCurrentMonth,
+} from "@/server/expensesActions";
 import { AddExpense, addExpenseSchema } from "@/zodSchema/addExpense";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQuery } from "@tanstack/react-query";
@@ -17,6 +20,10 @@ const useExpensesForm = ({ setOpen }: Props) => {
     queryKey: [queryKeys.businesses],
     queryFn: getBusinesses,
   });
+  const { refetch: refetchExpenses } = useQuery({
+    queryKey: [queryKeys.expenses],
+    queryFn: getAllExpensesForCurrentMonth,
+  });
   const form = useForm<z.infer<typeof addExpenseSchema>>({
     resolver: zodResolver(addExpenseSchema),
   });
@@ -25,7 +32,9 @@ const useExpensesForm = ({ setOpen }: Props) => {
     onError: (error: any) => {
       console.log("error", error);
     },
-    onSuccess: (data: any) => {},
+    onSuccess: (data: any) => {
+      refetchExpenses();
+    },
     onSettled: async () => {
       setOpen(false);
       form.reset();

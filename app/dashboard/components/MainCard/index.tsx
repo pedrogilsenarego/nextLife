@@ -14,13 +14,11 @@ const MainCard = () => {
 
   if (!businesses || !expensesMonth) return null;
 
-  console.log(expensesMonth);
-
   return (
     <>
       <Card className="w-full max-w-6xl flex bg-white items-center p-3 rounded-md gap-4">
         <AddBusiness />
-        <Tabs defaultValue="general" className="w-[400px]">
+        <Tabs defaultValue="general">
           <TabsList>
             <TabsTrigger value="general">General</TabsTrigger>
             {businesses.map((business) => {
