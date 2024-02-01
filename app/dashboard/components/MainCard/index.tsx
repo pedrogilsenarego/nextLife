@@ -7,7 +7,7 @@ import General from "./General";
 import useMainCard from "./useMainCard";
 
 const MainCard = () => {
-  const { businesses, expensesMonth } = useMainCard();
+  const { businesses, expensesMonth, incomesMonth } = useMainCard();
 
   if (!businesses || !expensesMonth) return null;
 
@@ -15,7 +15,7 @@ const MainCard = () => {
     <>
       <Card className="w-full max-w-6xl flex bg-white items-start p-3 rounded-md gap-4">
         <AddBusiness />
-        <Tabs defaultValue="general">
+        <Tabs defaultValue="general" className="w-full">
           <TabsList>
             <TabsTrigger value="general">General</TabsTrigger>
             {businesses.map((business) => {
@@ -27,7 +27,10 @@ const MainCard = () => {
             })}
           </TabsList>
           <TabsContent value="general">
+            Expenses
             <General data={expensesMonth} />
+            Incomes
+            <General data={incomesMonth} />
           </TabsContent>
           {businesses.map((business) => {
             return (

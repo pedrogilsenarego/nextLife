@@ -1,4 +1,4 @@
-import MainMetrics from "@/app/dashboard/components/MainMetrics/MainMetrics";
+import MainMetrics from "@/app/dashboard/components/MainMetrics";
 import AuthButton from "@/components/AuthButton";
 import { queryKeys } from "@/constants/queryKeys";
 import { getBusinesses } from "@/server/businessActions";

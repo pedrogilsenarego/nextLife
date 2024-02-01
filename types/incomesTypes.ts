@@ -1,12 +1,12 @@
-export type ExpensesQuery = {
-  data: Expense[];
+export type IncomesQuery = {
+  data: Income[];
   metaData: {
     totalEntries: number;
     totalAmount: number;
   };
 };
 
-export type Expense = {
+export type Income = {
   businessId: string;
   note: string;
   userId: string;

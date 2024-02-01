@@ -9,9 +9,9 @@ import {
   DialogTitle,
 } from "@/components/UI/dialog";
 import { useState } from "react";
-import BusinessForm from "./ExpensesForm/ExpenseForm";
+import IncomeForm from "./IncomeForm";
 
-export default function () {
+const AddIncome = () => {
   const [open, setOpen] = useState<boolean>(false);
   return (
     <>
@@ -21,13 +21,15 @@ export default function () {
       <Dialog open={open} setOpen={setOpen}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Add new Expense</DialogTitle>
+            <DialogTitle>Add new Income</DialogTitle>
           </DialogHeader>
           <DialogDescription>
-            <BusinessForm setOpen={setOpen} />
+            <IncomeForm setOpen={setOpen} />
           </DialogDescription>
         </DialogContent>
       </Dialog>
     </>
   );
-}
+};
+
+export default AddIncome;

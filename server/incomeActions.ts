@@ -2,18 +2,18 @@ import { createClient } from "@/utils/supabase/client";
 
 const supabase = createClient();
 
-type AddBusinessProps = {
+type AddIncomeProps = {
   businessId: string;
   category: string;
   note?: string;
   amount: number;
 };
 
-export const addExpense = async (
-  newExpenseData: AddBusinessProps
+export const addIncome = async (
+  newIncomeData: AddIncomeProps
 ): Promise<string> => {
   return new Promise(async (resolve, reject) => {
-    console.log("addExpense", newExpenseData.amount);
+    console.log("addIncome", newIncomeData.amount);
     try {
       const {
         data: { user },
@@ -23,9 +23,9 @@ export const addExpense = async (
         return reject(new Error("User not authenticated"));
       }
 
-      const { businessId, note, amount, category } = newExpenseData;
+      const { businessId, note, amount, category } = newIncomeData;
 
-      const { error: userError } = await supabase.from("expenses").upsert([
+      const { error: userError } = await supabase.from("incomes").upsert([
         {
           businessId,
           note,
@@ -48,9 +48,9 @@ export const addExpense = async (
   });
 };
 
-export const getAllExpensesForCurrentMonth = async (): Promise<any> => {
+export const getAllIncomesForCurrentMonth = async (): Promise<any> => {
   return new Promise(async (resolve, reject) => {
-    console.log("gettingMonthExpenses");
+    console.log("gettingMonthIncomes");
     try {
       const {
         data: { user },
@@ -73,7 +73,7 @@ export const getAllExpensesForCurrentMonth = async (): Promise<any> => {
       );
 
       const { data: expenses, error: expensesError } = await supabase
-        .from("expenses")
+        .from("incomes")
         .select("*")
         .eq("userId", user.id);
       // .gte("created_at", currentMonthStart.toISOString())

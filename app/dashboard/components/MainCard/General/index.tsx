@@ -3,12 +3,12 @@
 import { TableWrapper } from "@/components/UI/Wrappers/TableWrapper";
 import { queryKeys } from "@/constants/queryKeys";
 import { getBusinesses } from "@/server/businessActions";
-import { Expense } from "@/types/expensesTypes";
+import { Expense, ExpensesQuery } from "@/types/expensesTypes";
 import { useQuery } from "@tanstack/react-query";
 import { columns } from "./columns";
 
 type Props = {
-  data: Expense[];
+  data: ExpensesQuery;
 };
 
 const General = ({ data }: Props) => {
@@ -16,10 +16,11 @@ const General = ({ data }: Props) => {
     queryKey: [queryKeys.businesses],
     queryFn: getBusinesses,
   });
+
   if (!businesses) return;
   return (
     <>
-      <TableWrapper columns={columns(businesses)} data={data} />
+      <TableWrapper columns={columns(businesses)} data={data.data} />
     </>
   );
 };
