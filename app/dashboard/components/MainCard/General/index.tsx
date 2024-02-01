@@ -17,10 +17,10 @@ const General = ({ data }: Props) => {
     queryFn: getBusinesses,
   });
 
-  if (!businesses) return;
+  if (!businesses || !data) return;
   return (
     <>
-      <TableWrapper columns={columns(businesses)} data={data.data} />
+      <TableWrapper columns={columns(businesses)} data={data?.data} />
     </>
   );
 };

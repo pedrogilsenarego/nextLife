@@ -1,6 +1,6 @@
 "use client";
 
-import { Card } from "@/components/UI/Card";
+import { Card } from "@/components/UI/card";
 import { H3 } from "@/components/UI/h3";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/UI/tabs";
 import AddBusiness from "./AddBusiness/AddBusiness";
@@ -14,7 +14,10 @@ const MainCard = () => {
 
   return (
     <>
-      <Card className="w-full flex bg-white items-start p-4 rounded-md gap-4">
+      <Card
+        style={{ boxShadow: "0 0 20px 2px rgba(0, 0, 0, 0.15)" }}
+        className="w-full flex bg-white items-start p-4 rounded-md gap-4"
+      >
         <AddBusiness />
         <Tabs defaultValue="general" className="w-full flex flex-col gap-4">
           <TabsList className="block">
