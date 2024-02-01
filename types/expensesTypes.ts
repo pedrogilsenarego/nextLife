@@ -1,4 +1,4 @@
-export type Business = {
+export type Expense = {
   businessId: string;
   note: string;
   userId: string;

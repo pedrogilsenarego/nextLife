@@ -6,6 +6,7 @@ import { queryKeys } from "@/constants/queryKeys";
 import { getAllExpensesForCurrentMonth } from "@/server/expensesActions";
 import { useQuery } from "@tanstack/react-query";
 import AddBusiness from "./AddBusiness/AddBusiness";
+import General from "./General";
 import useMainCard from "./useMainCard";
 
 const MainCard = () => {
@@ -30,7 +31,9 @@ const MainCard = () => {
               );
             })}
           </TabsList>
-          <TabsContent value="general">General stuff</TabsContent>
+          <TabsContent value="general">
+            <General data={expensesMonth} />
+          </TabsContent>
           {businesses.map((business) => {
             return (
               <TabsContent key={business.id} value={business.id}>
