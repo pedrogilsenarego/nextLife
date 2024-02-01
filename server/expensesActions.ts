@@ -50,6 +50,7 @@ export const addExpense = async (
 
 export const getAllExpensesForCurrentMonth = async (): Promise<any[]> => {
   return new Promise(async (resolve, reject) => {
+    console.log("gettingMonthExpenses");
     try {
       const {
         data: { user },
