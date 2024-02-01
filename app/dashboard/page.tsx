@@ -40,7 +40,7 @@ export default async function () {
             {isSupabaseConnected && <AuthButton />}
           </div>
         </nav>
-        <div className="flex-1 w-full max-w-screen-2xl flex flex-col gap-4 items-center">
+        <div className="flex-1 w-full max-w-screen-2xl flex flex-col gap-3 items-center">
           <MainMetrics />
           <MainCard />
         </div>

@@ -42,7 +42,10 @@ const TwoLevelChartPie = ({ percentageRatio }: Props) => {
   return (
     <PieChart width={550} height={550}>
       <Pie
-        style={{ cursor: "pointer" }}
+        style={{
+          cursor: "pointer",
+          boxShadow: "0 0 20px 2px rgba(0, 0, 0, 0.15)",
+        }}
         onClick={() => setPrimarySelected(false)}
         data={data01}
         dataKey="value"
