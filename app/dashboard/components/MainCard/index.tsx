@@ -1,6 +1,7 @@
 "use client";
 
 import { Card } from "@/components/UI/Card";
+import { H3 } from "@/components/UI/h3";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/UI/tabs";
 import AddBusiness from "./AddBusiness/AddBusiness";
 import General from "./General";
@@ -13,10 +14,10 @@ const MainCard = () => {
 
   return (
     <>
-      <Card className="w-full max-w-6xl flex bg-white items-start p-3 rounded-md gap-4">
+      <Card className="w-full flex bg-white items-start p-4 rounded-md gap-4">
         <AddBusiness />
-        <Tabs defaultValue="general" className="w-full">
-          <TabsList>
+        <Tabs defaultValue="general" className="w-full flex flex-col gap-4">
+          <TabsList className="block">
             <TabsTrigger value="general">General</TabsTrigger>
             {businesses.map((business) => {
               return (
@@ -26,11 +27,15 @@ const MainCard = () => {
               );
             })}
           </TabsList>
-          <TabsContent value="general">
-            Expenses
-            <General data={expensesMonth} />
-            Incomes
-            <General data={incomesMonth} />
+          <TabsContent value="general" className="flex flex-col gap-6">
+            <div className="flex gap-2 flex-col">
+              <H3>Expenses</H3>
+              <General data={expensesMonth} />
+            </div>
+            <div className="flex gap-2 flex-col">
+              <H3>Incomes</H3>
+              <General data={incomesMonth} />
+            </div>
           </TabsContent>
           {businesses.map((business) => {
             return (

@@ -34,14 +34,16 @@ export default async function () {
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <div className="flex-1 w-full flex flex-col gap-20 items-center">
-        <nav className="w-full flex justify-center border-b border-b-foreground/10 h-16">
-          <div className="w-full max-w-6xl flex justify-end items-center p-3 text-sm">
+      <div className="flex-1 w-full  flex flex-col gap-20 items-center">
+        <nav className="w-full  flex justify-center border-b border-b-foreground/10 h-16">
+          <div className="w-full max-w-screen-2xl flex justify-end items-center p-3 text-sm">
             {isSupabaseConnected && <AuthButton />}
           </div>
         </nav>
-        <MainMetrics />
-        <MainCard />
+        <div className="flex-1 w-full max-w-screen-2xl flex flex-col gap-20 items-center">
+          <MainMetrics />
+          <MainCard />
+        </div>
 
         <footer className="w-full border-t border-t-foreground/10 p-8 flex justify-center text-center text-xs">
           <p>

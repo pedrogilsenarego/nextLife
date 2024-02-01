@@ -66,18 +66,13 @@ export const getAllExpensesForCurrentMonth = async (): Promise<any> => {
         currentDate.getMonth(),
         1
       );
-      const currentMonthEnd = new Date(
-        currentDate.getFullYear(),
-        currentDate.getMonth() + 1,
-        0
-      );
 
       const { data: expenses, error: expensesError } = await supabase
         .from("expenses")
         .select("*")
-        .eq("userId", user.id);
-      // .gte("created_at", currentMonthStart.toISOString())
-      // .lte("created_at", currentMonthEnd.toISOString());
+        .eq("userId", user.id)
+        .gt("created_at", currentMonthStart.toISOString())
+        .lt("created_at", currentDate.toISOString());
 
       if (expensesError) {
         console.error(expensesError);
