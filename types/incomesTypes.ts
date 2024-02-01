@@ -3,6 +3,7 @@ export type IncomesQuery = {
   metaData: {
     totalEntries: number;
     totalAmount: number;
+    byCategory: { name: string; value: number }[];
   };
 };
 

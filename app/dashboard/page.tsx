@@ -1,7 +1,5 @@
 import MainMetrics from "@/app/dashboard/components/MainMetrics";
 import AuthButton from "@/components/AuthButton";
-import { queryKeys } from "@/constants/queryKeys";
-import { getBusinesses } from "@/server/businessActions";
 
 import { createClient } from "@/utils/supabase/server";
 import {
@@ -10,6 +8,7 @@ import {
   dehydrate,
 } from "@tanstack/react-query";
 import { cookies } from "next/headers";
+import DashBoard from "./components";
 import MainCard from "./components/MainCard";
 
 export default async function () {
@@ -40,10 +39,7 @@ export default async function () {
             {isSupabaseConnected && <AuthButton />}
           </div>
         </nav>
-        <div className="flex-1 w-full max-w-screen-2xl flex flex-col gap-3 items-center">
-          <MainMetrics />
-          <MainCard />
-        </div>
+        <DashBoard />
 
         <footer className="w-full border-t border-t-foreground/10 p-8 flex justify-center text-center text-xs">
           <p>

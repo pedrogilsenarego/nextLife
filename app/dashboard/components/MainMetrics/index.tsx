@@ -20,6 +20,7 @@ const MainMetrics = () => {
     queryKey: [queryKeys.expenses],
     queryFn: getAllExpensesForCurrentMonth,
   });
+  console.log(expensesMonth);
   const { data: incomesMonth } = useQuery<IncomesQuery>({
     queryKey: [queryKeys.incomes],
     queryFn: getAllIncomesForCurrentMonth,
@@ -29,12 +30,19 @@ const MainMetrics = () => {
   const totalIncome = incomesMonth.metaData.totalAmount;
   const totalExpense = expensesMonth.metaData.totalAmount;
 
+  const incomeByCategory = incomesMonth.metaData.byCategory;
+  const expenseByCategory = expensesMonth.metaData.byCategory;
+
   const ratio = totalExpense / totalIncome;
 
   return (
     <div className="flex gap-4 justify-between w-full">
       <div className="flex gap-4">
-        <TwoLevelChartPie percentageRatio={ratio} />
+        <TwoLevelChartPie
+          percentageRatio={ratio}
+          data1={expenseByCategory}
+          data2={incomeByCategory}
+        />
         <div className=" flex flex-col items-center justify-around">
           <div className="flex items-center gap-2">
             <AddExpense />

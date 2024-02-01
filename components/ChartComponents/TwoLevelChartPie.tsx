@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Pie, PieChart } from "recharts";
+import { Cell, Pie, PieChart } from "recharts";
 import "./index.css";
 
 const data01 = [
@@ -27,9 +27,11 @@ const data02 = [
 
 type Props = {
   percentageRatio?: number;
+  data1: { name: string; value: number }[];
+  data2: { name: string; value: number }[];
 };
 
-const TwoLevelChartPie = ({ percentageRatio }: Props) => {
+const TwoLevelChartPie = ({ percentageRatio, data1, data2 }: Props) => {
   const [primarySelected, setPrimarySelected] = useState<boolean>(true);
   const refSize = 200;
   const smallRefSize = 170;
@@ -39,15 +41,32 @@ const TwoLevelChartPie = ({ percentageRatio }: Props) => {
       ? "#82ca9d"
       : "#82ca9d66";
 
+  const COLORS_RED = [
+    "#7c0a02",
+    "#be4f62",
+    "#a40000",
+    "#ff355e",
+    "#d9603b",
+    "#c80815",
+    "#d9004c",
+  ];
+
+  const COLORS_GREEN = [
+    "#5f9ea0",
+    "#40826d",
+    "#20b2aa",
+    "#009b7d",
+    "#004040",
+    "#aaf0d1",
+    "#88d8c0",
+    "#29ab87",
+  ];
+
   return (
     <PieChart width={550} height={550}>
       <Pie
-        style={{
-          cursor: "pointer",
-          boxShadow: "0 0 20px 2px rgba(0, 0, 0, 0.15)",
-        }}
         onClick={() => setPrimarySelected(false)}
-        data={data01}
+        data={data1}
         dataKey="value"
         cx="50%"
         cy="50%"
@@ -56,15 +75,33 @@ const TwoLevelChartPie = ({ percentageRatio }: Props) => {
         labelLine={!primarySelected ? true : false}
         label={
           !primarySelected
-            ? { fill: "black", fontSize: "24xp", fontWeight: "bolder" }
-            : { fill: "transparent", fontSize: "24xp", fontWeight: "bolder" }
+            ? {
+                fill: "black",
+                fontSize: "24xp",
+                fontWeight: "bolder",
+              }
+            : false
         }
-      />
+      >
+        {data1?.map((entry, index) => (
+          <Cell
+            key={`cell-${index}`}
+            fill={COLORS_RED[index % COLORS_RED.length]}
+            style={{
+              cursor: "pointer",
+              stroke: "#ffffff66",
+              filter: `drop-shadow(0px 0px 3px ${
+                COLORS_RED[index % COLORS_RED.length]
+              }`,
+            }}
+            stroke="0"
+          />
+        ))}
+      </Pie>
 
       <Pie
-        style={{ cursor: "pointer" }}
         onClick={() => setPrimarySelected(true)}
-        data={data02}
+        data={data2}
         dataKey="value"
         cx="50%"
         cy="50%"
@@ -75,9 +112,24 @@ const TwoLevelChartPie = ({ percentageRatio }: Props) => {
         label={
           primarySelected
             ? { fill: "black", fontSize: "24xp", fontWeight: "bolder" }
-            : { fill: "transparent", fontSize: "24xp", fontWeight: "bolder" }
+            : false
         }
-      />
+      >
+        {data2?.map((entry, index) => (
+          <Cell
+            key={`cell-${index}`}
+            fill={COLORS_GREEN[index % COLORS_GREEN.length]}
+            style={{
+              cursor: "pointer",
+              stroke: "#ffffff66",
+              filter: `drop-shadow(0px 0px 3px ${
+                COLORS_GREEN[index % COLORS_GREEN.length]
+              }`,
+            }}
+            stroke="0"
+          />
+        ))}
+      </Pie>
     </PieChart>
   );
 };

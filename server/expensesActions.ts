@@ -84,9 +84,25 @@ export const getAllExpensesForCurrentMonth = async (): Promise<any> => {
       const totalAmount =
         expenses?.reduce((sum, expense) => sum + expense.amount, 0) || 0;
 
+      const byCategory =
+        expenses?.reduce((acc, expense) => {
+          const existingCategory = acc.find(
+            (item: any) => item.name === expense.category
+          );
+
+          if (existingCategory) {
+            existingCategory.value += expense.amount;
+          } else {
+            acc.push({ name: expense.category, value: expense.amount });
+          }
+
+          return acc;
+        }, []) || [];
+
       const metaData = {
         totalEntries,
         totalAmount,
+        byCategory,
       };
 
       resolve({ data: expenses || [], metaData });
