@@ -38,7 +38,7 @@ const MainMetrics = () => {
 
   return (
     <div className="flex gap-3 justify-between w-full">
-      <div className="flex gap-1 bg-slate-50 w-full p-3 rounded-md">
+      <div className="flex gap-1  w-full p-3 ">
         <div className="flex gap-4 flex-col">
           <TwoLevelChartPie
             percentageRatio={ratio}
@@ -46,14 +46,14 @@ const MainMetrics = () => {
             data2={incomeByCategory}
           />
         </div>
-        <div className="w-full">
+        <div className="w-full flex flex-col gap-4">
           <ResumedTable />
           <div className=" flex items-center justify-around">
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 flex-col">
               <AddExpense />
               <H3>{`$${totalExpense.toString()}`}</H3>
             </div>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 flex-col">
               <AddIncome />
               <H3>{`$${totalIncome.toString()}`}</H3>
             </div>
