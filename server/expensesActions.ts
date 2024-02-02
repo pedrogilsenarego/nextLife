@@ -112,3 +112,33 @@ export const getAllExpensesForCurrentMonth = async (): Promise<any> => {
     }
   });
 };
+
+export const deleteExpenses = async (expenseIds: string[]): Promise<string> => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+
+      if (!user) {
+        return reject(new Error("User not authenticated"));
+      }
+
+      // Delete expenses based on the provided IDs
+      const { error: deleteError } = await supabase
+        .from("expenses")
+        .delete()
+        .in("id", expenseIds);
+
+      if (deleteError) {
+        console.error(deleteError);
+        return reject(deleteError);
+      }
+
+      resolve("Success");
+    } catch (error) {
+      console.error(error);
+      reject(error);
+    }
+  });
+};

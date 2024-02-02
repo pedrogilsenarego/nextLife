@@ -1,4 +1,4 @@
-import { Checkbox } from "@/components/UI/checkbox";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Business } from "@/types/businessTypes";
 import { Expense } from "@/types/expensesTypes";
 import { formattedDate } from "@/utils/dateFormat";
@@ -15,7 +15,9 @@ export const columns = (businesses: Business[]): ColumnDef<Expense>[] => {
             table.getIsAllPageRowsSelected() ||
             (table.getIsSomePageRowsSelected() && "indeterminate")
           }
-          onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+          onCheckedChange={(value) => {
+            table.toggleAllPageRowsSelected(!!value);
+          }}
           aria-label="Select all"
         />
       ),
