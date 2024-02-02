@@ -8,6 +8,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/UI/dialog";
+import { H3 } from "@/components/UI/h3";
 import { useState } from "react";
 import BusinessForm from "./ExpensesForm/ExpenseForm";
 
@@ -16,7 +17,7 @@ export default function () {
   return (
     <>
       <Button onClick={() => setOpen(!open)}>
-        <h1 className="text-3xl">-</h1>
+        <H3>Expense</H3>
       </Button>
       <Dialog open={open} setOpen={setOpen}>
         <DialogContent>

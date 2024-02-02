@@ -1,9 +1,14 @@
+export type ByCategory = {
+  name: string;
+  value: number;
+};
+
 export type ExpensesQuery = {
   data: Expense[];
   metaData: {
     totalEntries: number;
     totalAmount: number;
-    byCategory: { name: string; value: number }[];
+    byCategory: ByCategory[];
   };
 };
 

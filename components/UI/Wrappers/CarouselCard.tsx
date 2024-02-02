@@ -12,7 +12,7 @@ export function CarouselCard() {
   return (
     <Carousel
       style={{
-        width: "600px",
+        width: "500px",
         boxShadow: "0 0 20px 2px rgba(0, 0, 0, 0.15)",
         borderRadius: "6px",
         padding: "8px",

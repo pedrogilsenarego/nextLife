@@ -16,7 +16,7 @@ const MainCard = () => {
     <>
       <Card
         style={{ boxShadow: "0 0 20px 2px rgba(0, 0, 0, 0.15)" }}
-        className="w-full flex bg-white items-start p-4 rounded-md gap-4"
+        className="w-full flex bg-white items-start p-3 rounded-md gap-4"
       >
         <AddBusiness />
         <Tabs defaultValue="total" className="w-full flex flex-col gap-4">

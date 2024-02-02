@@ -14,6 +14,7 @@ import { IncomesQuery } from "@/types/incomesTypes";
 import { useQuery } from "@tanstack/react-query";
 import AddExpense from "./AddExpense/AddExpense";
 import AddIncome from "./AddIncome";
+import ResumedTable from "./ResumedTable";
 
 const MainMetrics = () => {
   const { data: expensesMonth } = useQuery<ExpensesQuery>({
@@ -36,25 +37,32 @@ const MainMetrics = () => {
   const ratio = totalExpense / totalIncome;
 
   return (
-    <div className="flex gap-4 justify-between w-full">
-      <div className="flex gap-4">
-        <TwoLevelChartPie
-          percentageRatio={ratio}
-          data1={expenseByCategory}
-          data2={incomeByCategory}
-        />
-        <div className=" flex flex-col items-center justify-around">
-          <div className="flex items-center gap-2">
-            <AddExpense />
-            <H3>{`$${totalExpense.toString()}`}</H3>
-          </div>
-          <div className="flex items-center gap-2">
-            <AddIncome />
-            <H3>{`$${totalIncome.toString()}`}</H3>
+    <div className="flex gap-3 justify-between w-full">
+      <div className="flex gap-1 bg-slate-50 w-full p-3 rounded-md">
+        <div className="flex gap-4 flex-col">
+          <TwoLevelChartPie
+            percentageRatio={ratio}
+            data1={expenseByCategory}
+            data2={incomeByCategory}
+          />
+        </div>
+        <div className="w-full">
+          <ResumedTable />
+          <div className=" flex items-center justify-around">
+            <div className="flex items-center gap-2">
+              <AddExpense />
+              <H3>{`$${totalExpense.toString()}`}</H3>
+            </div>
+            <div className="flex items-center gap-2">
+              <AddIncome />
+              <H3>{`$${totalIncome.toString()}`}</H3>
+            </div>
           </div>
         </div>
       </div>
-      <CarouselCard />
+      <div>
+        <CarouselCard />
+      </div>
     </div>
   );
 };
