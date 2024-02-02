@@ -1,9 +1,10 @@
 "use client";
-
 import { H1 } from "@/components/ui/h1";
 import { H2 } from "@/components/ui/h2";
 import useExpenses from "@/hooks/useExpenses";
 import useIncomes from "@/hooks/useIncomes";
+import SlotCounter from "react-slot-counter";
+import "./index.css";
 
 const MainValue = () => {
   const expensesQuery = useExpenses();
@@ -18,6 +19,10 @@ const MainValue = () => {
         <H2>{totalIncomes.toString()}</H2>
         <H2>{`-${totalExpenses.toString()}`}</H2>
         <H1>{`$${(totalIncomes - totalExpenses).toString()}`}</H1>
+        <SlotCounter
+          charClassName="slot"
+          value={totalIncomes - totalExpenses}
+        />
       </div>
     </div>
   );
