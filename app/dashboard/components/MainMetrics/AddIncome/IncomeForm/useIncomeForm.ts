@@ -34,7 +34,7 @@ const useIncomeForm = ({ setOpen }: Props) => {
       console.log("error", error);
     },
     onSuccess: (data: any) => {
-      setTimeout(() => refetchIncome(), 500);
+      setTimeout(() => refetchIncome(), 1000);
     },
     onSettled: async () => {
       setOpen(false);

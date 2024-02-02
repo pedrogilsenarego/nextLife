@@ -1,5 +1,4 @@
 "use client";
-import { H1 } from "@/components/ui/h1";
 import { H2 } from "@/components/ui/h2";
 import useExpenses from "@/hooks/useExpenses";
 import useIncomes from "@/hooks/useIncomes";
@@ -16,9 +15,10 @@ const MainValue = () => {
   return (
     <div className="bg-slate-200 p-3 rounded-md flex items-end justify-center h-full flex-col ">
       <div className="flex flex-col text-right mr-4">
-        <H2>{totalIncomes.toString()}</H2>
-        <H2>{`-${totalExpenses.toString()}`}</H2>
-        <H1>{`$${(totalIncomes - totalExpenses).toString()}`}</H1>
+        <H2 className="scroll-m-20 border-b text-emerald-600 pb-2 text-2xl font-semibold tracking-tight first:mt-0">
+          {totalIncomes.toString()}
+        </H2>
+        <H2 className="scroll-m-20 border-b text-red-600 pb-2 text-2xl font-semibold tracking-tight first:mt-0">{`-${totalExpenses.toString()}`}</H2>
         <SlotCounter
           charClassName="slot"
           value={totalIncomes - totalExpenses}

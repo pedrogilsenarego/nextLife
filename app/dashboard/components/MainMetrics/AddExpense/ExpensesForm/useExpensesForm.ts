@@ -33,7 +33,7 @@ const useExpensesForm = ({ setOpen }: Props) => {
       console.log("error", error);
     },
     onSuccess: (data: any) => {
-      setTimeout(() => refetchExpenses(), 500);
+      setTimeout(() => refetchExpenses(), 1000);
     },
     onSettled: async (data: any) => {
       setOpen(false);
