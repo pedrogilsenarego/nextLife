@@ -1,10 +1,10 @@
 "use client";
 
-import { TableWrapper } from "@/components/UI/Wrappers/TableWrapper";
+import { TableWrapper } from "@/components/ui/Wrappers/TableWrapper";
 import { queryKeys } from "@/constants/queryKeys";
 import { getBusinesses } from "@/server/businessActions";
 import { getAllExpensesForCurrentMonth } from "@/server/expensesActions";
-import { Expense, ExpensesQuery } from "@/types/expensesTypes";
+import { ExpensesQuery } from "@/types/expensesTypes";
 import { useQuery } from "@tanstack/react-query";
 import { columns } from "./columns";
 

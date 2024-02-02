@@ -1,10 +1,10 @@
 "use client";
 
-import InputForm from "@/components/UI/Wrappers/InputForm";
-import SelectForm from "@/components/UI/Wrappers/SelectForm";
-import TextAreaForm from "@/components/UI/Wrappers/TextAreaForm";
-import { Form } from "@/components/UI/form";
+import InputForm from "@/components/ui/Wrappers/InputForm";
+import SelectForm from "@/components/ui/Wrappers/SelectForm";
+import TextAreaForm from "@/components/ui/Wrappers/TextAreaForm";
 import { Button } from "@/components/ui/button";
+import { Form } from "@/components/ui/form";
 import { defaultCategories } from "@/constants/defaultCategories";
 import useIncomeForm from "./useIncomeForm";
 type Props = {

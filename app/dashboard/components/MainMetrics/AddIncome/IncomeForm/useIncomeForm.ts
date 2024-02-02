@@ -6,7 +6,7 @@ import {
   addIncome,
   getAllIncomesForCurrentMonth,
 } from "@/server/incomeActions";
-import { AddExpense, addExpenseSchema } from "@/zodSchema/addExpense";
+import { AddExpense } from "@/zodSchema/addExpense";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
@@ -34,7 +34,7 @@ const useIncomeForm = ({ setOpen }: Props) => {
       console.log("error", error);
     },
     onSuccess: (data: any) => {
-      refetchIncome();
+      setTimeout(() => refetchIncome(), 500);
     },
     onSettled: async () => {
       setOpen(false);

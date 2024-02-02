@@ -1,8 +1,7 @@
 "use client";
-import { Input } from "@/components/UI/Input";
-import InputForm from "@/components/UI/Wrappers/InputForm";
-import { Button } from "@/components/UI/button";
-import { Form } from "@/components/UI/form";
+import InputForm from "@/components/ui/Wrappers/InputForm";
+import { Button } from "@/components/ui/button";
+import { Form } from "@/components/ui/form";
 import { queryKeys } from "@/constants/queryKeys";
 import { addBusiness, getBusinesses } from "@/server/businessActions";
 import { AddBusiness, addBusinessSchema } from "@/zodSchema/addBusiness";

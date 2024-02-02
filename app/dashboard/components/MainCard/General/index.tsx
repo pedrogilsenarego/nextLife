@@ -1,6 +1,6 @@
 "use client";
 
-import { TableWrapper } from "@/components/UI/Wrappers/TableWrapper";
+import { TableWrapper } from "@/components/ui/Wrappers/TableWrapper";
 import { queryKeys } from "@/constants/queryKeys";
 import { getBusinesses } from "@/server/businessActions";
 import { Expense, ExpensesQuery } from "@/types/expensesTypes";

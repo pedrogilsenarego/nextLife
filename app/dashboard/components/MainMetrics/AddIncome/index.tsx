@@ -1,14 +1,14 @@
 "use client";
 
-import { Button } from "@/components/UI/button";
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
-} from "@/components/UI/dialog";
-import { H3 } from "@/components/UI/h3";
+} from "@/components/ui/dialog";
+import { H3 } from "@/components/ui/h3";
 import { useState } from "react";
 import IncomeForm from "./IncomeForm";
 
@@ -16,7 +16,7 @@ const AddIncome = () => {
   const [open, setOpen] = useState<boolean>(false);
   return (
     <>
-      <Button onClick={() => setOpen(!open)}>
+      <Button className="w-full" onClick={() => setOpen(!open)}>
         <H3>Income</H3>
       </Button>
       <Dialog open={open} setOpen={setOpen}>

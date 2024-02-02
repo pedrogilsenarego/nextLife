@@ -10,11 +10,13 @@ type Props = {
   data2: { name: string; value: number }[];
 };
 
-const TwoLevelChartPie = ({ percentageRatio, data1, data2 }: Props) => {
+const TwoLevelChartPie = ({ percentageRatio = 0.5, data1, data2 }: Props) => {
   const [primarySelected, setPrimarySelected] = useState<boolean>(true);
+  const adjustedPercentageRatio =
+    percentageRatio > 1.25 ? 1.25 : percentageRatio;
   const refSize = 160;
   const smallRefSize = 140;
-  const innerRadius = (percentageRatio || 0.5) * refSize;
+  const innerRadius = adjustedPercentageRatio * refSize;
   const colorOutside =
     innerRadius < smallRefSize || innerRadius > refSize + 10
       ? "#82ca9d"
@@ -42,7 +44,7 @@ const TwoLevelChartPie = ({ percentageRatio, data1, data2 }: Props) => {
   ];
 
   return (
-    <PieChart width={450} height={450}>
+    <PieChart width={600} height={450}>
       <Pie
         onClick={() => setPrimarySelected(false)}
         data={data1}

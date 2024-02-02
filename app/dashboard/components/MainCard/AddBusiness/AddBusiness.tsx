@@ -1,13 +1,13 @@
 "use client";
 
-import { Button } from "@/components/UI/button";
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
-} from "@/components/UI/dialog";
+} from "@/components/ui/dialog";
 import { useState } from "react";
 import BusinessForm from "./BusinessForm";
 

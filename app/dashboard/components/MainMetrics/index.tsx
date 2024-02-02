@@ -4,8 +4,7 @@ import {
   default as Example,
   default as TwoLevelChartPie,
 } from "@/components/ChartComponents/TwoLevelChartPie";
-import { CarouselCard } from "@/components/UI/Wrappers/CarouselCard";
-import { H3 } from "@/components/UI/h3";
+import { CarouselCard } from "@/components/ui/Wrappers/CarouselCard";
 import { queryKeys } from "@/constants/queryKeys";
 import { getAllExpensesForCurrentMonth } from "@/server/expensesActions";
 import { getAllIncomesForCurrentMonth } from "@/server/incomeActions";
@@ -14,6 +13,7 @@ import { IncomesQuery } from "@/types/incomesTypes";
 import { useQuery } from "@tanstack/react-query";
 import AddExpense from "./AddExpense/AddExpense";
 import AddIncome from "./AddIncome";
+import MainValue from "./MainValue";
 import ResumedTable from "./ResumedTable";
 
 const MainMetrics = () => {
@@ -21,7 +21,7 @@ const MainMetrics = () => {
     queryKey: [queryKeys.expenses],
     queryFn: getAllExpensesForCurrentMonth,
   });
-  console.log(expensesMonth);
+
   const { data: incomesMonth } = useQuery<IncomesQuery>({
     queryKey: [queryKeys.incomes],
     queryFn: getAllIncomesForCurrentMonth,
@@ -48,15 +48,10 @@ const MainMetrics = () => {
         </div>
         <div className="w-full flex flex-col gap-4">
           <ResumedTable />
-          <div className=" flex items-center justify-around">
-            <div className="flex items-center gap-2 flex-col">
-              <AddExpense />
-              <H3>{`$${totalExpense.toString()}`}</H3>
-            </div>
-            <div className="flex items-center gap-2 flex-col">
-              <AddIncome />
-              <H3>{`$${totalIncome.toString()}`}</H3>
-            </div>
+          <MainValue />
+          <div className=" flex items-center gap-1 ">
+            <AddExpense />
+            <AddIncome />
           </div>
         </div>
       </div>

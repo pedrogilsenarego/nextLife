@@ -1,4 +1,5 @@
 import * as React from "react";
+
 import { Card, CardContent } from "../card";
 import {
   Carousel,
@@ -22,7 +23,7 @@ export function CarouselCard() {
         {Array.from({ length: 5 }).map((_, index) => (
           <CarouselItem key={index}>
             <div className="p-1">
-              <Card style={{ borderRadius: "4px" }}>
+              <Card style={{ borderRadius: "4px", cursor: "grab" }}>
                 <CardContent className="flex aspect-square items-center justify-center p-6">
                   <span
                     style={{ fontSize: "200px", opacity: 0.2 }}
@@ -36,8 +37,8 @@ export function CarouselCard() {
           </CarouselItem>
         ))}
       </CarouselContent>
-      <CarouselPrevious />
-      <CarouselNext />
+      {/* <CarouselPrevious />
+      <CarouselNext /> */}
     </Carousel>
   );
 }

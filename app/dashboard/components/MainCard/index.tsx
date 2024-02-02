@@ -1,8 +1,8 @@
 "use client";
 
-import { Card } from "@/components/UI/card";
-import { H3 } from "@/components/UI/h3";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/UI/tabs";
+import { Card } from "@/components/ui/card";
+import { H3 } from "@/components/ui/h3";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import AddBusiness from "./AddBusiness/AddBusiness";
 import General from "./General";
 import useMainCard from "./useMainCard";
