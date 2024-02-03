@@ -22,6 +22,7 @@ const MainValue = () => {
         <div className="flex items-center">
           <H1>$</H1>
           <SlotCounter
+            separatorClassName="slot"
             charClassName="slot"
             value={totalIncomes - totalExpenses}
           />

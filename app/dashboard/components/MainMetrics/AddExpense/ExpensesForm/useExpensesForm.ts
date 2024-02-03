@@ -1,5 +1,6 @@
 "use client";
 
+import { TIMOUT_FOR_REFETCH } from "@/constants/network";
 import { queryKeys } from "@/constants/queryKeys";
 import useExpenses from "@/hooks/useExpenses";
 import { getBusinesses } from "@/server/businessActions";
@@ -31,7 +32,7 @@ const useExpensesForm = ({ setOpen }: Props) => {
       console.log("error", error);
     },
     onSuccess: (data: any) => {
-      setTimeout(() => queryExpenses.refetch(), 1000);
+      setTimeout(() => queryExpenses.refetch(), TIMOUT_FOR_REFETCH);
     },
     onSettled: async (data: any) => {
       setOpen(false);
@@ -40,7 +41,12 @@ const useExpensesForm = ({ setOpen }: Props) => {
   });
 
   function onSubmit(data: AddExpense) {
-    addExpenseMutation(data);
+    const transformedData: AddExpense = {
+      ...data,
+      amount: Number(data.amount.toFixed(2)),
+    };
+
+    addExpenseMutation(transformedData);
   }
   const businessIdOptions =
     data?.map(({ businessName, id }) => ({ label: businessName, value: id })) ||

@@ -15,6 +15,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { useEffect } from "react";
 import { Button } from "../button";
 
 interface DataTableProps<TData, TValue> {
@@ -35,9 +36,20 @@ export function TableWrapper<TData, TValue>({
     columns,
     getCoreRowModel: getCoreRowModel(),
   });
-  const selectedRows = table
-    .getSelectedRowModel()
-    .rows.map((item) => item.original);
+
+  const handleDeleteRows = () => {
+    if (onDelete) {
+      const selectedRows = table
+        .getSelectedRowModel()
+        .rows.map((item) => item.original);
+      onDelete(selectedRows);
+    }
+  };
+  useEffect(() => {
+    if (!isDeleting) {
+      table.resetRowSelection();
+    }
+  }, [isDeleting]);
 
   return (
     <>
@@ -94,7 +106,7 @@ export function TableWrapper<TData, TValue>({
       <div className="flex-1 text-sm text-muted-foreground ml-3 gap-2">
         {table.getSelectedRowModel().rows.length} row(s) selected.
         {table.getSelectedRowModel().rows.length > 0 && onDelete && (
-          <Button isLoading={isDeleting} onClick={() => onDelete(selectedRows)}>
+          <Button isLoading={isDeleting} onClick={handleDeleteRows}>
             Delete
           </Button>
         )}

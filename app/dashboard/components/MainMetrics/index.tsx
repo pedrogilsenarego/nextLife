@@ -8,6 +8,7 @@ import useIncomes from "@/hooks/useIncomes";
 
 import AddExpense from "./AddExpense/AddExpense";
 import AddIncome from "./AddIncome";
+import DateCarousel from "./DateCarousel";
 import MainValue from "./MainValue";
 import ResumedTable from "./ResumedTable";
 
@@ -45,7 +46,7 @@ const MainMetrics = () => {
         </div>
       </div>
       <div>
-        <CarouselCard />
+        <DateCarousel />
       </div>
     </div>
   );

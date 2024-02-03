@@ -1,5 +1,6 @@
 "use client";
 
+import { TIMOUT_FOR_REFETCH } from "@/constants/network";
 import { queryKeys } from "@/constants/queryKeys";
 import { getBusinesses } from "@/server/businessActions";
 import {
@@ -34,7 +35,7 @@ const useIncomeForm = ({ setOpen }: Props) => {
       console.log("error", error);
     },
     onSuccess: (data: any) => {
-      setTimeout(() => refetchIncome(), 1000);
+      setTimeout(() => refetchIncome(), TIMOUT_FOR_REFETCH);
     },
     onSettled: async () => {
       setOpen(false);

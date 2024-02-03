@@ -1,6 +1,7 @@
 "use client";
 
 import { TableWrapper } from "@/components/ui/Wrappers/TableWrapper";
+import { TIMOUT_FOR_REFETCH } from "@/constants/network";
 import { queryKeys } from "@/constants/queryKeys";
 import useExpenses from "@/hooks/useExpenses";
 import { getBusinesses } from "@/server/businessActions";
@@ -24,7 +25,7 @@ const FullExpensesTable = () => {
       console.log("error", error);
     },
     onSuccess: (data: any) => {
-      setTimeout(() => expensesquery.refetch(), 1000);
+      setTimeout(() => expensesquery.refetch(), TIMOUT_FOR_REFETCH);
     },
   });
 
