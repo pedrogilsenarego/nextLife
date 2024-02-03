@@ -114,6 +114,7 @@ export const getAllExpensesForCurrentMonth = async (): Promise<any> => {
 };
 
 export const deleteExpenses = async (expenseIds: string[]): Promise<string> => {
+  console.log("deleting Expenses");
   return new Promise(async (resolve, reject) => {
     try {
       const {

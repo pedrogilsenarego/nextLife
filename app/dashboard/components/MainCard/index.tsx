@@ -4,13 +4,17 @@ import { Card } from "@/components/ui/card";
 import { H3 } from "@/components/ui/h3";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import AddBusiness from "./AddBusiness/AddBusiness";
-import General from "./General";
+import {
+  default as FullExpensesTable,
+  default as General,
+} from "./FullExpensesTable";
+import FullIncomeTable from "./FullIncomeTable";
 import useMainCard from "./useMainCard";
 
 const MainCard = () => {
-  const { businesses, expensesMonth, incomesMonth } = useMainCard();
+  const { businesses } = useMainCard();
 
-  if (!businesses || !expensesMonth) return null;
+  if (!businesses) return null;
 
   return (
     <>
@@ -33,11 +37,11 @@ const MainCard = () => {
           <TabsContent value="total" className="flex flex-col gap-6">
             <div className="flex gap-2 flex-col">
               <H3>Expenses</H3>
-              <General data={expensesMonth} />
+              <FullExpensesTable />
             </div>
             <div className="flex gap-2 flex-col">
               <H3>Incomes</H3>
-              <General data={incomesMonth} />
+              <FullIncomeTable />
             </div>
           </TabsContent>
           {businesses.map((business) => {

@@ -1,6 +1,7 @@
 "use client";
 
 import { queryKeys } from "@/constants/queryKeys";
+import useExpenses from "@/hooks/useExpenses";
 import { getBusinesses } from "@/server/businessActions";
 import {
   addExpense,
@@ -20,10 +21,7 @@ const useExpensesForm = ({ setOpen }: Props) => {
     queryKey: [queryKeys.businesses],
     queryFn: getBusinesses,
   });
-  const { refetch: refetchExpenses } = useQuery({
-    queryKey: [queryKeys.expenses],
-    queryFn: getAllExpensesForCurrentMonth,
-  });
+  const queryExpenses = useExpenses();
   const form = useForm<z.infer<typeof addExpenseSchema>>({
     resolver: zodResolver(addExpenseSchema),
   });
@@ -33,7 +31,7 @@ const useExpensesForm = ({ setOpen }: Props) => {
       console.log("error", error);
     },
     onSuccess: (data: any) => {
-      setTimeout(() => refetchExpenses(), 1000);
+      setTimeout(() => queryExpenses.refetch(), 1000);
     },
     onSettled: async (data: any) => {
       setOpen(false);

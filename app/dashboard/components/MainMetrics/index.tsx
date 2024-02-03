@@ -1,40 +1,29 @@
 "use client";
 
-import {
-  default as Example,
-  default as TwoLevelChartPie,
-} from "@/components/ChartComponents/TwoLevelChartPie";
+import { default as TwoLevelChartPie } from "@/components/ChartComponents/TwoLevelChartPie";
 import { CarouselCard } from "@/components/ui/Wrappers/CarouselCard";
 import { queryKeys } from "@/constants/queryKeys";
-import { getAllExpensesForCurrentMonth } from "@/server/expensesActions";
-import { getAllIncomesForCurrentMonth } from "@/server/incomeActions";
-import { ExpensesQuery } from "@/types/expensesTypes";
-import { IncomesQuery } from "@/types/incomesTypes";
-import { useQuery } from "@tanstack/react-query";
+import useExpenses from "@/hooks/useExpenses";
+import useIncomes from "@/hooks/useIncomes";
+
 import AddExpense from "./AddExpense/AddExpense";
 import AddIncome from "./AddIncome";
 import MainValue from "./MainValue";
 import ResumedTable from "./ResumedTable";
 
 const MainMetrics = () => {
-  const { data: expensesMonth } = useQuery<ExpensesQuery>({
-    queryKey: [queryKeys.expenses],
-    queryFn: getAllExpensesForCurrentMonth,
-  });
+  const expensesQuery = useExpenses();
+  const incomesQuery = useIncomes();
 
-  const { data: incomesMonth } = useQuery<IncomesQuery>({
-    queryKey: [queryKeys.incomes],
-    queryFn: getAllIncomesForCurrentMonth,
-  });
-  if (!expensesMonth || !incomesMonth) return;
+  const totalIncome = incomesQuery?.data?.metaData.totalAmount;
+  const totalExpense = expensesQuery?.data?.metaData.totalAmount;
 
-  const totalIncome = incomesMonth.metaData.totalAmount;
-  const totalExpense = expensesMonth.metaData.totalAmount;
+  const incomeByCategory = incomesQuery.data?.metaData.byCategory;
+  const expenseByCategory = expensesQuery?.data?.metaData.byCategory;
 
-  const incomeByCategory = incomesMonth.metaData.byCategory;
-  const expenseByCategory = expensesMonth.metaData.byCategory;
+  const ratio = (totalExpense || 1) / (totalIncome || 1);
 
-  const ratio = totalExpense / totalIncome;
+  if (!expenseByCategory || !incomeByCategory) return;
 
   return (
     <div className="flex gap-3 justify-between w-full">

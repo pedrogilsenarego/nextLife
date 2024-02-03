@@ -2,14 +2,8 @@
 
 import {
   ColumnDef,
-  ColumnFiltersState,
-  SortingState,
-  VisibilityState,
   flexRender,
   getCoreRowModel,
-  getFilteredRowModel,
-  getPaginationRowModel,
-  getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
 
@@ -21,46 +15,29 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import React from "react";
 import { Button } from "../button";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
-  onDelete?: () => void;
+  onDelete?: (selectedRows: TData[]) => void;
+  isDeleting?: boolean;
 }
 
 export function TableWrapper<TData, TValue>({
   columns,
   data,
   onDelete,
+  isDeleting,
 }: DataTableProps<TData, TValue>) {
-  const [sorting, setSorting] = React.useState<SortingState>([]);
-  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
-    []
-  );
-  const [columnVisibility, setColumnVisibility] =
-    React.useState<VisibilityState>({});
-  const [rowSelection, setRowSelection] = React.useState({});
-
   const table = useReactTable({
     data,
     columns,
-    onSortingChange: setSorting,
-    onColumnFiltersChange: setColumnFilters,
     getCoreRowModel: getCoreRowModel(),
-    getPaginationRowModel: getPaginationRowModel(),
-    getSortedRowModel: getSortedRowModel(),
-    getFilteredRowModel: getFilteredRowModel(),
-    onColumnVisibilityChange: setColumnVisibility,
-    onRowSelectionChange: setRowSelection,
-    state: {
-      sorting,
-      columnFilters,
-      columnVisibility,
-      rowSelection,
-    },
   });
+  const selectedRows = table
+    .getSelectedRowModel()
+    .rows.map((item) => item.original);
 
   return (
     <>
@@ -117,7 +94,9 @@ export function TableWrapper<TData, TValue>({
       <div className="flex-1 text-sm text-muted-foreground ml-3 gap-2">
         {table.getSelectedRowModel().rows.length} row(s) selected.
         {table.getSelectedRowModel().rows.length > 0 && onDelete && (
-          <Button onClick={onDelete}>Delete</Button>
+          <Button isLoading={isDeleting} onClick={() => onDelete(selectedRows)}>
+            Delete
+          </Button>
         )}
       </div>
     </>

@@ -9,7 +9,6 @@ import "./index.css";
 const MainValue = () => {
   const expensesQuery = useExpenses();
   const incomesQuery = useIncomes();
-
   const totalExpenses = expensesQuery.data?.metaData.totalAmount || 0;
   const totalIncomes = incomesQuery.data?.metaData.totalAmount || 0;
 

@@ -2,9 +2,8 @@
 
 import { TableWrapper } from "@/components/ui/Wrappers/TableWrapper";
 import { queryKeys } from "@/constants/queryKeys";
+import useExpenses from "@/hooks/useExpenses";
 import { getBusinesses } from "@/server/businessActions";
-import { getAllExpensesForCurrentMonth } from "@/server/expensesActions";
-import { ExpensesQuery } from "@/types/expensesTypes";
 import { useQuery } from "@tanstack/react-query";
 import { columns } from "./columns";
 
@@ -14,10 +13,7 @@ const ResumedTable = () => {
     queryFn: getBusinesses,
   });
 
-  const expenses = useQuery<ExpensesQuery>({
-    queryKey: [queryKeys.expenses],
-    queryFn: getAllExpensesForCurrentMonth,
-  });
+  const expenses = useExpenses();
 
   if (!businesses.data || !expenses.data?.metaData.byCategory) return;
   return (
