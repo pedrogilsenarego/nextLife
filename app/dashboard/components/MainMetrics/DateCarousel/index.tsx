@@ -16,6 +16,9 @@ const DateCarousel = () => {
     {
       date: new Date(),
     },
+    {
+      date: new Date(),
+    },
   ];
   return (
     <Carousel
