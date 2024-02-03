@@ -24,7 +24,7 @@ const MainValue = () => {
           <SlotCounter
             separatorClassName="slot"
             charClassName="slot"
-            value={totalIncomes - totalExpenses}
+            value={(totalIncomes - totalExpenses).toFixed(2)}
           />
         </div>
       </div>
