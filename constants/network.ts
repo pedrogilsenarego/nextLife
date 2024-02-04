@@ -1,1 +1,1 @@
-export const TIMOUT_FOR_REFETCH = 500;
+export const TIMOUT_FOR_REFETCH = 1000;

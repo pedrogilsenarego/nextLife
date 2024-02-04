@@ -1,4 +1,4 @@
-import { Business } from "@/types/businessTypes";
+import { BusinessesQuery } from "@/types/businessTypes";
 import { createClient } from "@/utils/supabase/client";
 
 const supabase = createClient();
@@ -35,7 +35,7 @@ export const addBusiness = async (businessName: string): Promise<string> => {
   });
 };
 
-export const getBusinesses = async (): Promise<Business[]> => {
+export const getBusinesses = async (): Promise<BusinessesQuery> => {
   console.log("getingBusinesses");
   return new Promise(async (resolve, reject) => {
     try {
