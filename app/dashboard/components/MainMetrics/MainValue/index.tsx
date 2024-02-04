@@ -9,22 +9,24 @@ import "./index.css";
 const MainValue = () => {
   const { expenses: cumulativeExpenses } = useMonthExpenses();
   const { incomes: cumulativeIncomes } = useMonthIncomes();
-  const totalExpenses = cumulativeExpenses || 0;
-  const totalIncomes = cumulativeIncomes || 0;
+
+  if (!cumulativeExpenses || !cumulativeIncomes) return;
 
   return (
     <div className="bg-slate-200 p-3 rounded-md flex items-end justify-center h-full flex-col ">
       <div className="flex flex-col text-right mr-4">
         <H2 className="scroll-m-20 border-b text-emerald-600 pb-2 text-2xl font-semibold tracking-tight first:mt-0">
-          {totalIncomes.toString()}
+          {cumulativeIncomes.toString()}
         </H2>
-        <H2 className="scroll-m-20 border-b text-red-600 pb-2 text-2xl font-semibold tracking-tight first:mt-0">{`-${totalExpenses.toString()}`}</H2>
+        <H2 className="scroll-m-20 border-b text-red-600 pb-2 text-2xl font-semibold tracking-tight first:mt-0">{`-${cumulativeExpenses.toString()}`}</H2>
         <div className="flex items-center">
           <H1>$</H1>
           <SlotCounter
             separatorClassName="slot"
             charClassName="slot"
-            value={(totalIncomes - totalExpenses).toFixed(2)}
+            value={(
+              Number(cumulativeIncomes) - Number(cumulativeExpenses)
+            ).toFixed(2)}
           />
         </div>
       </div>

@@ -11,6 +11,28 @@ export const dateQueriesMap = (tabValue: string) => {
   let endDate: Date;
 
   switch (tabValue) {
+    case "1year":
+      // Calculate 1 year ago from the current date
+      const oneYearAgo = new Date(
+        currentDate.getFullYear() - 1,
+        currentDate.getMonth(),
+        currentDate.getDate()
+      );
+
+      startDate = oneYearAgo;
+      endDate = currentDate;
+      break;
+    case "3years":
+      // Calculate 3 years ago from the current date
+      const threeYearsAgo = new Date(
+        currentDate.getFullYear() - 3,
+        currentDate.getMonth(),
+        currentDate.getDate()
+      );
+
+      startDate = threeYearsAgo;
+      endDate = currentDate;
+      break;
     case "6Months":
       // Calculate 5 months ago from the current date
       const fiveMonthsAgo = new Date(
@@ -41,5 +63,6 @@ export const dateQueriesMap = (tabValue: string) => {
       );
       break;
   }
+
   return { startDate, endDate };
 };

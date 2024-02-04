@@ -1,5 +1,6 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { TIMOUT_FOR_REFETCH } from "@/constants/network";
@@ -10,12 +11,14 @@ import useIncomes from "@/hooks/useIncomes";
 import useMonthExpenses from "@/hooks/useMonthExpenses";
 import useMonthIncomes from "@/hooks/useMonthIncomes";
 import { setBusiness, setTimeRange } from "@/slicer/data";
+import { useState } from "react";
 import AddBusiness from "./AddBusiness/AddBusiness";
 import { default as FullExpensesTable } from "./FullTables/FullExpensesTable";
 import FullIncomeTable from "./FullTables/FullIncomeTable";
 
 const MainCard = () => {
   const dispatch = useAppDispatch();
+  const [fetchingDateRange, setFetchingDateRange] = useState(false);
   const businessesQuery = useBusinesses();
   const businessSelected = useAppSelector<string>(
     (state) => state.DataSlice.business
@@ -34,11 +37,13 @@ const MainCard = () => {
 
   const handleClickTabDate = (tabValue: string) => {
     dispatch(setTimeRange(tabValue));
+    setFetchingDateRange(true);
     setTimeout(() => {
       expensesQuery.refetch();
       incomesQuery.refetch();
       monthExpensesQuery.refetch();
       monthIncomesQuery.refetch();
+      setFetchingDateRange(false);
     }, TIMOUT_FOR_REFETCH);
   };
 
@@ -76,20 +81,36 @@ const MainCard = () => {
               </TabsList>
             </Tabs>
             <Tabs defaultValue={timeRange}>
-              <TabsList className=" flex justify-between">
-                <TabsTrigger
-                  value="6Months"
-                  onClick={() => handleClickTabDate("6Months")}
-                >
-                  Last 6 Months
-                </TabsTrigger>
-                <TabsTrigger
-                  value="currentMonth"
-                  onClick={() => handleClickTabDate("currentMonth")}
-                >
-                  Current Month
-                </TabsTrigger>
-              </TabsList>
+              {fetchingDateRange ? (
+                <Button isLoading />
+              ) : (
+                <TabsList className=" flex justify-between">
+                  <TabsTrigger
+                    value="3years"
+                    onClick={() => handleClickTabDate("3years")}
+                  >
+                    Last 3 Year
+                  </TabsTrigger>
+                  <TabsTrigger
+                    value="1year"
+                    onClick={() => handleClickTabDate("1year")}
+                  >
+                    Last Year
+                  </TabsTrigger>
+                  <TabsTrigger
+                    value="6Months"
+                    onClick={() => handleClickTabDate("6Months")}
+                  >
+                    Last 6 Months
+                  </TabsTrigger>
+                  <TabsTrigger
+                    value="currentMonth"
+                    onClick={() => handleClickTabDate("currentMonth")}
+                  >
+                    Current Month
+                  </TabsTrigger>
+                </TabsList>
+              )}
             </Tabs>
           </div>
           <div className="flex flex-col gap-6">
