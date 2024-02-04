@@ -29,6 +29,7 @@ const useIncomeForm = ({ setOpen }: Props) => {
     resolver: zodResolver(addIncomeSchema),
     defaultValues: {
       businessId,
+      created_at: new Date(),
     },
   });
   const { mutate: addIncomeMutation, isPending } = useMutation({
@@ -49,7 +50,11 @@ const useIncomeForm = ({ setOpen }: Props) => {
   });
 
   function onSubmit(data: AddExpense) {
-    addIncomeMutation(data);
+    const transformedData: AddExpense = {
+      ...data,
+      amount: Number(data.amount.toFixed(2)),
+    };
+    addIncomeMutation(transformedData);
   }
   const businessIdOptions =
     business.data?.map(({ businessName, id }) => ({

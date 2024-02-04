@@ -1,11 +1,12 @@
 "use client";
 
+import DatePickerForm from "@/components/ui/Wrappers/DatePickerForm";
 import InputForm from "@/components/ui/Wrappers/InputForm";
 import SelectForm from "@/components/ui/Wrappers/SelectForm";
 import TextAreaForm from "@/components/ui/Wrappers/TextAreaForm";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
-import { defaultCategories } from "@/constants/defaultCategories";
+import { defaultIncomesCategories } from "@/constants/defaultCategories";
 import useIncomeForm from "./useIncomeForm";
 type Props = {
   setOpen: (open: boolean) => void;
@@ -30,8 +31,9 @@ const IncomeForm = ({ setOpen }: Props) => {
           name="category"
           description="Category of the income"
           control={form.control}
-          options={defaultCategories}
+          options={defaultIncomesCategories}
         />
+        <DatePickerForm label="Date" name="created_at" control={form.control} />
         <InputForm
           type="number"
           label={"Amount"}

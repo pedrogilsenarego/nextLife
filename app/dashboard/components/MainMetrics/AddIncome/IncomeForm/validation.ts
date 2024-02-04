@@ -5,6 +5,7 @@ export const addIncomeSchema = z.object({
   note: z.string().optional(),
   category: z.string(),
   amount: z.coerce.number(),
+  created_at: z.date(),
 });
 
 export type AddIncome = z.infer<typeof addIncomeSchema>;

@@ -8,6 +8,7 @@ type AddBusinessProps = {
   category: string;
   note?: string;
   amount: number;
+  created_at: Date;
 };
 
 export const addExpense = async (
@@ -24,8 +25,14 @@ export const addExpense = async (
         return reject(new Error("User not authenticated"));
       }
 
-      const { businessId, note, amount, category } = newExpenseData;
+      const { businessId, note, amount, category, created_at } = newExpenseData;
       const userId = user.id;
+
+      // Parse the provided created_at string into a Date object
+      const createdDate = new Date(created_at);
+
+      // Extract the month from the created_at timestamp
+      const currentMonth = createdDate.getMonth() + 1;
 
       // Check if the corresponding record exists in monthExpenses
       const { data: monthExpenseData, error: monthExpenseError } =
@@ -41,10 +48,8 @@ export const addExpense = async (
         return reject(monthExpenseError);
       }
 
-      const currentMonth = new Date().getMonth() + 1;
-
       if (monthExpenseData && monthExpenseData.length > 0) {
-        // Extract the month from the created_at timestamp
+        // Extract the month from the existing record's created_at timestamp
         const existingMonth =
           new Date(monthExpenseData[0].created_at).getMonth() + 1;
 
@@ -74,6 +79,7 @@ export const addExpense = async (
               businessId,
               category,
               amount,
+              created_at: createdDate.toISOString(), // Use the original timestamp
             },
           ]);
         }
@@ -85,6 +91,7 @@ export const addExpense = async (
             businessId,
             category,
             amount,
+            created_at: createdDate.toISOString(), // Use the original timestamp
           },
         ]);
       }
@@ -97,6 +104,7 @@ export const addExpense = async (
           amount,
           category,
           userId,
+          created_at,
         },
       ]);
 

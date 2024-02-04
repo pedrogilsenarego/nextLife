@@ -55,13 +55,15 @@ const TwoLevelChartPie = ({ percentageRatio = 0.5, data1, data2 }: Props) => {
     const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
     const x = cx + radius * Math.cos(-midAngle * RADIAN);
     const y = cy + radius * Math.sin(-midAngle * RADIAN);
-    console.log(data1);
+
     return (
       <text
-        style={{ fill: "black", fontSize: "12px" }}
+        style={{
+          fill: percentageRatio > 1 ? "white" : "black",
+          fontSize: "12px",
+        }}
         x={x}
         y={y}
-        fill="white"
         textAnchor={x > cx ? "start" : "end"}
         dominantBaseline="central"
       >

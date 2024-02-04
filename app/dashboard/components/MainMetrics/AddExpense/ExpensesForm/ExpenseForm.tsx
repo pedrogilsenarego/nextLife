@@ -1,5 +1,6 @@
 "use client";
 
+import DatePickerForm from "@/components/ui/Wrappers/DatePickerForm";
 import InputForm from "@/components/ui/Wrappers/InputForm";
 import SelectForm from "@/components/ui/Wrappers/SelectForm";
 import TextAreaForm from "@/components/ui/Wrappers/TextAreaForm";
@@ -32,6 +33,7 @@ const BusinessForm = ({ setOpen }: Props) => {
           control={form.control}
           options={defaultCategories}
         />
+        <DatePickerForm label="Date" name="created_at" control={form.control} />
         <InputForm
           type="number"
           label={"Amount"}

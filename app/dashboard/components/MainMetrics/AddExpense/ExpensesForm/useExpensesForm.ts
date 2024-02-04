@@ -33,6 +33,7 @@ const useExpensesForm = ({ setOpen }: Props) => {
     resolver: zodResolver(addExpenseSchema),
     defaultValues: {
       businessId,
+      created_at: new Date(),
     },
   });
   const { mutate: addExpenseMutation, isPending } = useMutation({

@@ -8,13 +8,14 @@ type AddIncomeProps = {
   category: string;
   note?: string;
   amount: number;
+  created_at: Date;
 };
 
 export const addIncome = async (
-  newIncomeData: AddIncomeProps
+  newExpenseData: AddIncomeProps
 ): Promise<string> => {
   return new Promise(async (resolve, reject) => {
-    console.log("addIncome", newIncomeData.amount);
+    console.log("addIncome", newExpenseData.amount);
     try {
       const {
         data: { user },
@@ -24,40 +25,45 @@ export const addIncome = async (
         return reject(new Error("User not authenticated"));
       }
 
-      const { businessId, note, amount, category } = newIncomeData;
+      const { businessId, note, amount, category, created_at } = newExpenseData;
       const userId = user.id;
 
-      // Check if the corresponding record exists in monthIncomes
-      const { data: monthIncomeData, error: monthIncomeError } = await supabase
-        .from("monthIncomes")
-        .select("*")
-        .eq("userId", userId)
-        .eq("businessId", businessId)
-        .eq("category", category);
+      // Parse the provided created_at string into a Date object
+      const createdDate = new Date(created_at);
 
-      if (monthIncomeError) {
-        console.error(monthIncomeError);
-        return reject(monthIncomeError);
+      // Extract the month from the created_at timestamp
+      const currentMonth = createdDate.getMonth() + 1;
+
+      // Check if the corresponding record exists in monthExpenses
+      const { data: monthExpenseData, error: monthExpenseError } =
+        await supabase
+          .from("monthIncomes")
+          .select("*")
+          .eq("userId", userId)
+          .eq("businessId", businessId)
+          .eq("category", category);
+
+      if (monthExpenseError) {
+        console.error(monthExpenseError);
+        return reject(monthExpenseError);
       }
 
-      const currentMonth = new Date().getMonth() + 1;
-
-      if (monthIncomeData && monthIncomeData.length > 0) {
-        // Extract the month from the created_at timestamp
+      if (monthExpenseData && monthExpenseData.length > 0) {
+        // Extract the month from the existing record's created_at timestamp
         const existingMonth =
-          new Date(monthIncomeData[0].created_at).getMonth() + 1;
+          new Date(monthExpenseData[0].created_at).getMonth() + 1;
 
         if (existingMonth === currentMonth) {
-          // Update the existing record in monthIncomes
+          // Update the existing record in monthExpenses
           const { error: updatingError } = await supabase
             .from("monthIncomes")
             .upsert([
               {
-                id: monthIncomeData[0].id,
-                amount: monthIncomeData[0].amount + amount,
-                businessId: monthIncomeData[0].businessId,
-                userId: monthIncomeData[0].userId,
-                category: monthIncomeData[0].category,
+                id: monthExpenseData[0].id,
+                amount: monthExpenseData[0].amount + amount,
+                businessId: monthExpenseData[0].businessId,
+                userId: monthExpenseData[0].userId,
+                category: monthExpenseData[0].category,
               },
             ]);
 
@@ -66,29 +72,31 @@ export const addIncome = async (
             return reject(updatingError);
           }
         } else {
-          // Create a new record in monthIncomes
+          // Create a new record in monthExpenses
           await supabase.from("monthIncomes").upsert([
             {
               userId,
               businessId,
               category,
               amount,
+              created_at: createdDate.toISOString(), // Use the original timestamp
             },
           ]);
         }
       } else {
-        // Create a new record in monthIncomes
+        // Create a new record in monthExpenses
         await supabase.from("monthIncomes").upsert([
           {
             userId,
             businessId,
             category,
             amount,
+            created_at: createdDate.toISOString(), // Use the original timestamp
           },
         ]);
       }
 
-      // Create the Income record
+      // Create the expense record
       const { error: userError } = await supabase.from("incomes").upsert([
         {
           businessId,
@@ -96,6 +104,7 @@ export const addIncome = async (
           amount,
           category,
           userId,
+          created_at,
         },
       ]);
 
