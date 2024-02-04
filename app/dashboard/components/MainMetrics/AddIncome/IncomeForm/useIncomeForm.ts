@@ -2,6 +2,7 @@
 
 import { TIMOUT_FOR_REFETCH } from "@/constants/network";
 import { queryKeys } from "@/constants/queryKeys";
+import { useAppSelector } from "@/hooks/slicer.hooks";
 import { getBusinesses } from "@/server/businessActions";
 import {
   addIncome,
@@ -26,8 +27,14 @@ const useIncomeForm = ({ setOpen }: Props) => {
     queryKey: [queryKeys.incomes],
     queryFn: getAllIncomesForCurrentMonth,
   });
+  const businessId = useAppSelector<string>(
+    (state) => state.DataSlice.business
+  );
   const form = useForm<z.infer<typeof addIncomeSchema>>({
     resolver: zodResolver(addIncomeSchema),
+    defaultValues: {
+      businessId,
+    },
   });
   const { mutate: addIncomeMutation, isPending } = useMutation({
     mutationFn: addIncome,
