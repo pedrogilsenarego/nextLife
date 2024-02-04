@@ -3,18 +3,26 @@
 import { Card } from "@/components/ui/card";
 import { H3 } from "@/components/ui/h3";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useAppDispatch, useAppSelector } from "@/hooks/slicer.hooks";
+import useBusinesses from "@/hooks/useBusinesses";
+import { setBusiness } from "@/slicer/data";
 import AddBusiness from "./AddBusiness/AddBusiness";
-import {
-  default as FullExpensesTable,
-  default as General,
-} from "./FullExpensesTable";
-import FullIncomeTable from "./FullIncomeTable";
-import useMainCard from "./useMainCard";
+import { default as FullExpensesTable } from "./FullTables/FullExpensesTable";
+import FullIncomeTable from "./FullTables/FullIncomeTable";
 
 const MainCard = () => {
-  const { businesses } = useMainCard();
+  const dispatch = useAppDispatch();
+  const businessesQuery = useBusinesses();
+  const businessSelected = useAppSelector<string>(
+    (state) => state.DataSlice.business
+  );
 
-  if (!businesses) return null;
+  console.log(businessSelected);
+  if (!businessesQuery.data) return null;
+
+  const handleClickTab = (tabValue: string) => {
+    dispatch(setBusiness(tabValue));
+  };
 
   return (
     <>
@@ -23,12 +31,19 @@ const MainCard = () => {
         className="w-full flex bg-white items-start p-3 rounded-md gap-4"
       >
         <AddBusiness />
-        <Tabs defaultValue="total" className="w-full flex flex-col gap-4">
+        <Tabs
+          defaultValue={businessSelected}
+          className="w-full flex flex-col gap-4"
+        >
           <TabsList className="block">
             <TabsTrigger value="total">Total</TabsTrigger>
-            {businesses.map((business) => {
+            {businessesQuery.data.map((business) => {
               return (
-                <TabsTrigger key={business.id} value={business.id}>
+                <TabsTrigger
+                  key={business.id}
+                  value={business.id}
+                  onClick={() => handleClickTab(business.id)}
+                >
                   {business.businessName}
                 </TabsTrigger>
               );
@@ -44,7 +59,7 @@ const MainCard = () => {
               <FullIncomeTable />
             </div>
           </TabsContent>
-          {businesses.map((business) => {
+          {businessesQuery.data.map((business) => {
             return (
               <TabsContent key={business.id} value={business.id}>
                 {business.businessName}

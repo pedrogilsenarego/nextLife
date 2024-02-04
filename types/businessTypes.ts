@@ -4,3 +4,5 @@ export type Business = {
   created_at: Date;
   id: string;
 };
+
+export type BusinessesQuery = Business[];

@@ -6,7 +6,7 @@ import { queryKeys } from "@/constants/queryKeys";
 import useExpenses from "@/hooks/useExpenses";
 import { getBusinesses } from "@/server/businessActions";
 import { deleteExpenses } from "@/server/expensesActions";
-import { Expense, ExpensesQuery } from "@/types/expensesTypes";
+import { Expense } from "@/types/expensesTypes";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { columns } from "./columns";
 

@@ -2,17 +2,15 @@
 
 import { queryKeys } from "@/constants/queryKeys";
 import { getBusinesses } from "@/server/businessActions";
+import { BusinessesQuery } from "@/types/businessTypes";
 import { useQuery } from "@tanstack/react-query";
 
-const useMainCard = () => {
-  const { data: businesses } = useQuery({
+const useBusinesses = () => {
+  const expenses = useQuery<BusinessesQuery, Error>({
     queryKey: [queryKeys.businesses],
     queryFn: getBusinesses,
   });
-
-  return {
-    businesses,
-  };
+  return expenses;
 };
 
-export default useMainCard;
+export default useBusinesses;
