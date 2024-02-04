@@ -4,7 +4,7 @@ import { queryKeys } from "@/constants/queryKeys";
 import { getAllExpensesForCurrentMonth } from "@/server/expensesActions";
 import { ExpensesQuery } from "@/types/expensesTypes";
 import { useQuery } from "@tanstack/react-query";
-import { useEffect } from "react";
+
 import { useAppSelector } from "./slicer.hooks";
 
 const useExpenses = () => {
@@ -22,9 +22,6 @@ const useExpenses = () => {
   const selectedBusiness = useAppSelector<string>(
     (state) => state.DataSlice.business
   );
-  const timeRangeSelected = useAppSelector<{ startDate: Date; endDate: Date }>(
-    (state) => state.DataSlice.timeRange
-  );
 
   const expensesQuery = useQuery<ExpensesQuery, Error>({
     queryKey: [queryKeys.expenses],
@@ -33,10 +30,6 @@ const useExpenses = () => {
         timeRange: { startDate: firstDayOfMonth, endDate: lastDayOfMonth },
       }),
   });
-
-  // useEffect(() => {
-  //   expensesQuery.refetch();
-  // }, [timeRangeSelected]);
 
   const expenses =
     selectedBusiness === "total"

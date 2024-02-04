@@ -1,7 +1,6 @@
 "use client";
 
 import { Card } from "@/components/ui/card";
-import { H3 } from "@/components/ui/h3";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useAppDispatch, useAppSelector } from "@/hooks/slicer.hooks";
 import useBusinesses from "@/hooks/useBusinesses";
@@ -16,6 +15,7 @@ const MainCard = () => {
   const businessSelected = useAppSelector<string>(
     (state) => state.DataSlice.business
   );
+  const timeRange = useAppSelector((state) => state.DataSlice.timeRange);
 
   if (!businessesQuery.data) return null;
 
@@ -60,7 +60,7 @@ const MainCard = () => {
         break;
     }
 
-    dispatch(setTimeRange({ startDate, endDate }));
+    dispatch(setTimeRange({ id: tabValue, startDate, endDate }));
   };
 
   return (
@@ -70,51 +70,55 @@ const MainCard = () => {
         className="w-full flex bg-white items-start p-3 rounded-md gap-4"
       >
         <AddBusiness />
-        <Tabs
-          defaultValue={businessSelected}
-          className="w-full flex flex-col gap-4"
-        >
-          <TabsList className=" flex justify-between">
-            <div>
-              <TabsTrigger
-                value="total"
-                onClick={() => handleClickTab("total")}
-              >
-                Total
-              </TabsTrigger>
-              {businessesQuery.data.map((business) => {
-                return (
-                  <TabsTrigger
-                    key={business.id}
-                    value={business.id}
-                    onClick={() => handleClickTab(business.id)}
-                  >
-                    {business.businessName}
-                  </TabsTrigger>
-                );
-              })}
-            </div>
-            <div>
-              <TabsTrigger
-                value="6Months"
-                onClick={() => handleClickTabDate("6Months")}
-              >
-                Last 6 Months
-              </TabsTrigger>
-              <TabsTrigger
-                value="currentMonth"
-                onClick={() => handleClickTabDate("currentMonth")}
-              >
-                Current Month
-              </TabsTrigger>
-            </div>
-          </TabsList>
+        <div className="w-full ">
+          <div className="flex gap-2">
+            <Tabs
+              defaultValue={businessSelected}
+              className="w-full flex flex-col gap-4"
+            >
+              <TabsList className="flex justify-start">
+                <TabsTrigger
+                  value="total"
+                  onClick={() => handleClickTab("total")}
+                >
+                  Total
+                </TabsTrigger>
+                {businessesQuery.data.map((business) => {
+                  return (
+                    <TabsTrigger
+                      key={business.id}
+                      value={business.id}
+                      onClick={() => handleClickTab(business.id)}
+                    >
+                      {business.businessName}
+                    </TabsTrigger>
+                  );
+                })}
+              </TabsList>
+            </Tabs>
+            <Tabs defaultValue={timeRange.id}>
+              <TabsList className=" flex justify-between">
+                <TabsTrigger
+                  value="6Months"
+                  onClick={() => handleClickTabDate("6Months")}
+                >
+                  Last 6 Months
+                </TabsTrigger>
+                <TabsTrigger
+                  value="currentMonth"
+                  onClick={() => handleClickTabDate("currentMonth")}
+                >
+                  Current Month
+                </TabsTrigger>
+              </TabsList>
+            </Tabs>
+          </div>
           <div className="flex flex-col gap-6">
             <FullExpensesTable />
 
             <FullIncomeTable />
           </div>
-        </Tabs>
+        </div>
       </Card>
     </>
   );

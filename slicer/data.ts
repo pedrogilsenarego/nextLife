@@ -1,13 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-
-export interface DataState {
-  business: "total" | string;
-  timeRange: {
-    startDate: Date;
-    endDate: Date;
-  };
-}
-
 const currentDate = new Date();
 const firstDayOfMonth = new Date(
   currentDate.getFullYear(),
@@ -20,12 +11,18 @@ const lastDayOfMonth = new Date(
   0
 );
 
+export interface DataState {
+  business: "total" | string;
+  timeRange: { id: "currentMonth" | "6months"; startTime: Date; endDate: Date };
+}
+
 export const DataSlice = createSlice({
   name: "DataSlice",
   initialState: {
     business: "total",
     timeRange: {
-      startDate: firstDayOfMonth,
+      id: "currentMonth",
+      startTime: firstDayOfMonth,
       endDate: lastDayOfMonth,
     },
   } as DataState,

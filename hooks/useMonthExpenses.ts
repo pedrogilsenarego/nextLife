@@ -22,9 +22,6 @@ const useMonthExpenses = () => {
   const selectedBusiness = useAppSelector<string>(
     (state) => state.DataSlice.business
   );
-  const timeRangeSelected = useAppSelector<{ startDate: Date; endDate: Date }>(
-    (state) => state.DataSlice.timeRange
-  );
 
   const expensesQuery = useQuery<MonthExpensesQuery, Error>({
     queryKey: [queryKeys.monthExpenses],

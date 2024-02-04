@@ -22,9 +22,7 @@ const useMonthIncomes = () => {
   const selectedBusiness = useAppSelector<string>(
     (state) => state.DataSlice.business
   );
-  const timeRangeSelected = useAppSelector<{ startDate: Date; endDate: Date }>(
-    (state) => state.DataSlice.timeRange
-  );
+
   const incomesQuery = useQuery<MonthIncomesQuery, Error>({
     queryKey: [queryKeys.monthIncomes],
     queryFn: () =>
@@ -32,9 +30,6 @@ const useMonthIncomes = () => {
         timeRange: { startDate: firstDayOfMonth, endDate: lastDayOfMonth },
       }),
   });
-  // useEffect(() => {
-  //   incomesQuery.refetch();
-  // }, [timeRangeSelected]);
   const incomesFilteredByBusiness =
     selectedBusiness === "total"
       ? incomesQuery.data?.data
