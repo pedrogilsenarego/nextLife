@@ -2,6 +2,7 @@
 
 import { TIMOUT_FOR_REFETCH } from "@/constants/network";
 import { queryKeys } from "@/constants/queryKeys";
+import { useAppSelector } from "@/hooks/slicer.hooks";
 import useExpenses from "@/hooks/useExpenses";
 import { getBusinesses } from "@/server/businessActions";
 import {
@@ -23,8 +24,14 @@ const useExpensesForm = ({ setOpen }: Props) => {
     queryFn: getBusinesses,
   });
   const queryExpenses = useExpenses();
+  const businessId = useAppSelector<string>(
+    (state) => state.DataSlice.business
+  );
   const form = useForm<z.infer<typeof addExpenseSchema>>({
     resolver: zodResolver(addExpenseSchema),
+    defaultValues: {
+      businessId,
+    },
   });
   const { mutate: addExpenseMutation, isPending } = useMutation({
     mutationFn: addExpense,
