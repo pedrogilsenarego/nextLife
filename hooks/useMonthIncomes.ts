@@ -4,16 +4,37 @@ import { queryKeys } from "@/constants/queryKeys";
 import { getCumulativeIncomesForCurrentMonth } from "@/server/incomeActions";
 import { MonthIncomesQuery } from "@/types/incomesTypes";
 import { useQuery } from "@tanstack/react-query";
+import { useEffect } from "react";
 import { useAppSelector } from "./slicer.hooks";
 
 const useMonthIncomes = () => {
+  const currentDate = new Date();
+  const firstDayOfMonth = new Date(
+    currentDate.getFullYear(),
+    currentDate.getMonth(),
+    1
+  );
+  const lastDayOfMonth = new Date(
+    currentDate.getFullYear(),
+    currentDate.getMonth() + 1,
+    0
+  );
   const selectedBusiness = useAppSelector<string>(
     (state) => state.DataSlice.business
   );
+  const timeRangeSelected = useAppSelector<{ startDate: Date; endDate: Date }>(
+    (state) => state.DataSlice.timeRange
+  );
   const incomesQuery = useQuery<MonthIncomesQuery, Error>({
     queryKey: [queryKeys.monthIncomes],
-    queryFn: getCumulativeIncomesForCurrentMonth,
+    queryFn: () =>
+      getCumulativeIncomesForCurrentMonth({
+        timeRange: { startDate: firstDayOfMonth, endDate: lastDayOfMonth },
+      }),
   });
+  // useEffect(() => {
+  //   incomesQuery.refetch();
+  // }, [timeRangeSelected]);
   const incomesFilteredByBusiness =
     selectedBusiness === "total"
       ? incomesQuery.data?.data

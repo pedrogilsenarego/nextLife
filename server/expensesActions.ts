@@ -121,9 +121,16 @@ export const addExpense = async (
   });
 };
 
-export const getAllExpensesForCurrentMonth = async (): Promise<any> => {
+export const getAllExpensesForCurrentMonth = async ({
+  timeRange,
+}: {
+  timeRange?: { startDate: Date; endDate: Date };
+}): Promise<any> => {
   return new Promise(async (resolve, reject) => {
-    console.log("gettingMonthExpenses");
+    console.log(
+      `gettingExpenses: from: ${timeRange?.startDate.toLocaleDateString()} to: ${timeRange?.endDate.toLocaleDateString()}`
+    );
+
     try {
       const {
         data: { user },
@@ -133,12 +140,10 @@ export const getAllExpensesForCurrentMonth = async (): Promise<any> => {
         return reject(new Error("User not authenticated"));
       }
 
-      const currentDate = new Date();
-      const currentMonthStart = new Date(
-        currentDate.getFullYear(),
-        currentDate.getMonth(),
-        1
-      );
+      const currentDate = timeRange?.endDate || new Date();
+      const currentMonthStart =
+        timeRange?.startDate ||
+        new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
 
       const {
         data: expenses,
@@ -168,9 +173,15 @@ export const getAllExpensesForCurrentMonth = async (): Promise<any> => {
   });
 };
 
-export const getCumulativeExpensesForCurrentMonth = async (): Promise<any> => {
+export const getCumulativeExpensesForCurrentMonth = async ({
+  timeRange,
+}: {
+  timeRange?: { startDate: Date; endDate: Date };
+}): Promise<any> => {
   return new Promise(async (resolve, reject) => {
-    console.log("gettingCumulativeMonthExpenses");
+    console.log(
+      `gettingCumulativeExpenses: from: ${timeRange?.startDate?.toLocaleDateString()} to: ${timeRange?.endDate?.toLocaleDateString()}`
+    );
     try {
       const {
         data: { user },
@@ -180,12 +191,10 @@ export const getCumulativeExpensesForCurrentMonth = async (): Promise<any> => {
         return reject(new Error("User not authenticated"));
       }
 
-      const currentDate = new Date();
-      const currentMonthStart = new Date(
-        currentDate.getFullYear(),
-        currentDate.getMonth(),
-        1
-      );
+      const currentDate = timeRange?.endDate || new Date();
+      const currentMonthStart =
+        timeRange?.startDate ||
+        new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
 
       const {
         data: expenses,

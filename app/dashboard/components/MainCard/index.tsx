@@ -24,7 +24,43 @@ const MainCard = () => {
   };
 
   const handleClickTabDate = (tabValue: string) => {
-    dispatch(setTimeRange(tabValue));
+    const currentDate = new Date();
+    let startDate: Date;
+    let endDate: Date;
+
+    switch (tabValue) {
+      case "6Months":
+        // Calculate 5 months ago from the current date
+        const fiveMonthsAgo = new Date(
+          currentDate.getFullYear(),
+          currentDate.getMonth() - 5,
+          1
+        );
+
+        startDate = fiveMonthsAgo;
+        endDate = new Date(
+          currentDate.getFullYear(),
+          currentDate.getMonth() + 1,
+          0
+        );
+        break;
+      case "currentMonth":
+      default:
+        // Default to the 1st day of the current month
+        startDate = new Date(
+          currentDate.getFullYear(),
+          currentDate.getMonth(),
+          1
+        );
+        endDate = new Date(
+          currentDate.getFullYear(),
+          currentDate.getMonth() + 1,
+          0
+        );
+        break;
+    }
+
+    dispatch(setTimeRange({ startDate, endDate }));
   };
 
   return (
@@ -60,10 +96,10 @@ const MainCard = () => {
             </div>
             <div>
               <TabsTrigger
-                value="3Months"
-                onClick={() => handleClickTabDate("3Months")}
+                value="6Months"
+                onClick={() => handleClickTabDate("6Months")}
               >
-                Last 3 Months
+                Last 6 Months
               </TabsTrigger>
               <TabsTrigger
                 value="currentMonth"
