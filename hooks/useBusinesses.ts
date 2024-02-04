@@ -6,11 +6,11 @@ import { BusinessesQuery } from "@/types/businessTypes";
 import { useQuery } from "@tanstack/react-query";
 
 const useBusinesses = () => {
-  const expenses = useQuery<BusinessesQuery, Error>({
+  const businesses = useQuery<BusinessesQuery, Error>({
     queryKey: [queryKeys.businesses],
     queryFn: getBusinesses,
   });
-  return expenses;
+  return businesses;
 };
 
 export default useBusinesses;

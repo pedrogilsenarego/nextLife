@@ -17,7 +17,6 @@ const MainCard = () => {
     (state) => state.DataSlice.business
   );
 
-  console.log("bss", businessSelected);
   if (!businessesQuery.data) return null;
 
   const handleClickTab = (tabValue: string) => {
@@ -36,7 +35,9 @@ const MainCard = () => {
           className="w-full flex flex-col gap-4"
         >
           <TabsList className="block">
-            <TabsTrigger value="total">Total</TabsTrigger>
+            <TabsTrigger value="total" onClick={() => handleClickTab("total")}>
+              Total
+            </TabsTrigger>
             {businessesQuery.data.map((business) => {
               return (
                 <TabsTrigger
@@ -49,23 +50,11 @@ const MainCard = () => {
               );
             })}
           </TabsList>
-          <TabsContent value="total" className="flex flex-col gap-6">
-            <div className="flex gap-2 flex-col">
-              <H3>Expenses</H3>
-              <FullExpensesTable />
-            </div>
-            <div className="flex gap-2 flex-col">
-              <H3>Incomes</H3>
-              <FullIncomeTable />
-            </div>
-          </TabsContent>
-          {businessesQuery.data.map((business) => {
-            return (
-              <TabsContent key={business.id} value={business.id}>
-                {business.businessName}
-              </TabsContent>
-            );
-          })}
+          <div className="flex flex-col gap-6">
+            <FullExpensesTable />
+
+            <FullIncomeTable />
+          </div>
         </Tabs>
       </Card>
     </>

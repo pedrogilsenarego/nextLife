@@ -2,22 +2,20 @@
 
 import { TableWrapper } from "@/components/ui/Wrappers/TableWrapper";
 import { TIMOUT_FOR_REFETCH } from "@/constants/network";
-import { queryKeys } from "@/constants/queryKeys";
+import { useAppSelector } from "@/hooks/slicer.hooks";
+import useBusinesses from "@/hooks/useBusinesses";
 import useExpenses from "@/hooks/useExpenses";
-import { getBusinesses } from "@/server/businessActions";
+import useMonthExpenses from "@/hooks/useMonthExpenses";
 import { deleteExpenses } from "@/server/expensesActions";
 import { Expense } from "@/types/expensesTypes";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import { columns } from "./columns";
 
 const FullExpensesTable = () => {
-  const { data: businesses } = useQuery({
-    queryKey: [queryKeys.businesses],
-    queryFn: getBusinesses,
-  });
-  const expensesquery = useExpenses();
-
-  const expenses = expensesquery.data?.data;
+  const businessesQuery = useBusinesses();
+  const { expensesQuery, expenses } = useExpenses();
+  const { expensesQuery: monthExpensesQuery } = useMonthExpenses();
+  const businesses = businessesQuery.data;
 
   const { mutate: deleteExpensesMutation, isPending } = useMutation({
     mutationFn: deleteExpenses,
@@ -25,19 +23,22 @@ const FullExpensesTable = () => {
       console.log("error", error);
     },
     onSuccess: (data: any) => {
-      setTimeout(() => expensesquery.refetch(), TIMOUT_FOR_REFETCH);
+      setTimeout(() => {
+        expensesQuery.refetch();
+        monthExpensesQuery.refetch();
+      }, TIMOUT_FOR_REFETCH);
     },
   });
 
   const handleDeleteExpenses = (data: Expense[]) => {
-    const idsToDelete = data.map((expense) => expense.id);
-    deleteExpensesMutation(idsToDelete);
+    deleteExpensesMutation(data);
   };
 
   if (!businesses || !expenses) return;
   return (
     <>
       <TableWrapper
+        title={"Expenses"}
         columns={columns(businesses)}
         data={expenses}
         isDeleting={isPending}

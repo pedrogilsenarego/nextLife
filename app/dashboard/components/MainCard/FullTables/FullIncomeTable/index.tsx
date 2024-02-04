@@ -2,42 +2,46 @@
 
 import { TableWrapper } from "@/components/ui/Wrappers/TableWrapper";
 import { TIMOUT_FOR_REFETCH } from "@/constants/network";
-import { queryKeys } from "@/constants/queryKeys";
+import { useAppSelector } from "@/hooks/slicer.hooks";
+import useBusinesses from "@/hooks/useBusinesses";
 import useIncomes from "@/hooks/useIncomes";
-import { getBusinesses } from "@/server/businessActions";
+import useMonthIncomes from "@/hooks/useMonthIncomes";
 import { deleteIncomes } from "@/server/incomeActions";
 import { Income } from "@/types/incomesTypes";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import { columns } from "./columns";
 
 const FullIncomeTable = () => {
-  const { data: businesses } = useQuery({
-    queryKey: [queryKeys.businesses],
-    queryFn: getBusinesses,
-  });
+  const businessesQuery = useBusinesses();
+  const { incomes, incomesQuery } = useIncomes();
+  const { incomesQuery: monthIncomesQuery } = useMonthIncomes();
+  const businesses = businessesQuery.data;
 
-  const incomes = useIncomes();
   const { mutate: deleteIncomeMutation, isPending } = useMutation({
     mutationFn: deleteIncomes,
     onError: (error: any) => {
       console.log("error", error);
     },
     onSuccess: (data: any) => {
-      setTimeout(() => incomes.refetch(), TIMOUT_FOR_REFETCH);
+      setTimeout(() => {
+        incomesQuery.refetch();
+        monthIncomesQuery.refetch();
+      }, TIMOUT_FOR_REFETCH);
     },
   });
 
   const handleDeleteIncomes = (data: Income[]) => {
-    const idsToDelete = data.map((income) => income.id);
-    deleteIncomeMutation(idsToDelete);
+    deleteIncomeMutation(data);
   };
 
-  if (!businesses || !incomes.data?.data) return;
+  if (!businesses || !incomes) return;
+
   return (
     <>
       <TableWrapper
+        title={"Incomes"}
         columns={columns(businesses)}
-        data={incomes.data.data}
+        data={incomes}
         isDeleting={isPending}
         onDelete={(data) => handleDeleteIncomes(data)}
       />

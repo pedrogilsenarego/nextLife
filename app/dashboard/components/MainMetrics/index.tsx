@@ -6,6 +6,8 @@ import { queryKeys } from "@/constants/queryKeys";
 import useExpenses from "@/hooks/useExpenses";
 import useIncomes from "@/hooks/useIncomes";
 
+import useMonthExpenses from "@/hooks/useMonthExpenses";
+import useMonthIncomes from "@/hooks/useMonthIncomes";
 import AddExpense from "./AddExpense/AddExpense";
 import AddIncome from "./AddIncome";
 import DateCarousel from "./DateCarousel";
@@ -13,18 +15,18 @@ import MainValue from "./MainValue";
 import ResumedTable from "./ResumedTable";
 
 const MainMetrics = () => {
-  const expensesQuery = useExpenses();
-  const incomesQuery = useIncomes();
+  const { expenses, expensesByCategory } = useMonthExpenses();
+  const { incomes, incomesByCategory } = useMonthIncomes();
 
-  const totalIncome = incomesQuery?.data?.metaData.totalAmount;
-  const totalExpense = expensesQuery?.data?.metaData.totalAmount;
-
-  const incomeByCategory = incomesQuery.data?.metaData.byCategory;
-  const expenseByCategory = expensesQuery?.data?.metaData.byCategory;
-
-  const ratio = (totalExpense || 1) / (totalIncome || 1);
-
-  if (!expenseByCategory || !incomeByCategory) return;
+  const ratio = (expenses || 1) / (incomes || 1);
+  const mappedExpensesByCategory =
+    expensesByCategory?.map((expenses) => {
+      return { value: expenses.amount, name: expenses.category };
+    }) || [];
+  const mappedIncomesByCategory =
+    incomesByCategory?.map((expenses) => {
+      return { value: expenses.amount, name: expenses.category };
+    }) || [];
 
   return (
     <div className="flex gap-3 justify-between w-full">
@@ -32,8 +34,8 @@ const MainMetrics = () => {
         <div className="flex gap-4 flex-col">
           <TwoLevelChartPie
             percentageRatio={ratio}
-            data1={expenseByCategory}
-            data2={incomeByCategory}
+            data1={mappedExpensesByCategory}
+            data2={mappedIncomesByCategory}
           />
         </div>
         <div className="w-full flex flex-col gap-4">

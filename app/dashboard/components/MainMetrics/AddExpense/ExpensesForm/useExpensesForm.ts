@@ -4,6 +4,7 @@ import { TIMOUT_FOR_REFETCH } from "@/constants/network";
 import { queryKeys } from "@/constants/queryKeys";
 import { useAppSelector } from "@/hooks/slicer.hooks";
 import useExpenses from "@/hooks/useExpenses";
+import useMonthExpenses from "@/hooks/useMonthExpenses";
 import { getBusinesses } from "@/server/businessActions";
 import {
   addExpense,
@@ -23,7 +24,8 @@ const useExpensesForm = ({ setOpen }: Props) => {
     queryKey: [queryKeys.businesses],
     queryFn: getBusinesses,
   });
-  const queryExpenses = useExpenses();
+  const { expensesQuery } = useExpenses();
+  const { expensesQuery: monthExpensesQuery } = useMonthExpenses();
   const businessId = useAppSelector<string>(
     (state) => state.DataSlice.business
   );
@@ -39,7 +41,10 @@ const useExpensesForm = ({ setOpen }: Props) => {
       console.log("error", error);
     },
     onSuccess: (data: any) => {
-      setTimeout(() => queryExpenses.refetch(), TIMOUT_FOR_REFETCH);
+      setTimeout(() => {
+        expensesQuery.refetch();
+        monthExpensesQuery.refetch();
+      }, TIMOUT_FOR_REFETCH);
     },
     onSettled: async (data: any) => {
       setOpen(false);
