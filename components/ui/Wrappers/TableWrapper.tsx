@@ -119,9 +119,11 @@ export function TableWrapper<TData, TValue>({
             </TableBody>
           </Table>
         </div>
-        <div className="flex-1 text-sm text-muted-foreground ml-3 gap-2">
-          {table.getSelectedRowModel().rows.length} row(s) selected.
-        </div>
+        {onDelete && (
+          <div className="flex-1 text-sm text-muted-foreground ml-3 gap-2">
+            {table.getSelectedRowModel().rows.length} row(s) selected.
+          </div>
+        )}
       </div>
     </>
   );

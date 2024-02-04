@@ -8,10 +8,14 @@ import { columns } from "./columns";
 const ResumedTable = () => {
   const businesses = useBusinesses();
   const { expensesByCategory } = useMonthExpenses();
+
   const mappedExpensesByCategory =
     expensesByCategory?.map((expenses) => {
       return { value: expenses.amount, name: expenses.category };
     }) || [];
+
+  mappedExpensesByCategory.sort((a, b) => b.value - a.value);
+
   if (!businesses.data || !expensesByCategory) return;
   return (
     <div className="w-full min-w-8">
