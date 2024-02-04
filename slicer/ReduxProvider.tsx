@@ -9,7 +9,9 @@ const ReduxProvider = ({ children }: any) => {
   let persistor = persistStore(store);
   return (
     <Provider store={store}>
-      <PersistGate persistor={persistor}>{children}</PersistGate>
+      <PersistGate loading={null} persistor={persistor}>
+        {children}
+      </PersistGate>
     </Provider>
   );
 };

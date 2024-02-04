@@ -17,7 +17,7 @@ const MainCard = () => {
     (state) => state.DataSlice.business
   );
 
-  console.log(businessSelected);
+  console.log("bss", businessSelected);
   if (!businessesQuery.data) return null;
 
   const handleClickTab = (tabValue: string) => {
