@@ -5,7 +5,7 @@ import { H3 } from "@/components/ui/h3";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useAppDispatch, useAppSelector } from "@/hooks/slicer.hooks";
 import useBusinesses from "@/hooks/useBusinesses";
-import { setBusiness } from "@/slicer/data";
+import { setBusiness, setTimeRange } from "@/slicer/data";
 import AddBusiness from "./AddBusiness/AddBusiness";
 import { default as FullExpensesTable } from "./FullTables/FullExpensesTable";
 import FullIncomeTable from "./FullTables/FullIncomeTable";
@@ -23,6 +23,10 @@ const MainCard = () => {
     dispatch(setBusiness(tabValue));
   };
 
+  const handleClickTabDate = (tabValue: string) => {
+    dispatch(setTimeRange(tabValue));
+  };
+
   return (
     <>
       <Card
@@ -34,21 +38,40 @@ const MainCard = () => {
           defaultValue={businessSelected}
           className="w-full flex flex-col gap-4"
         >
-          <TabsList className="block">
-            <TabsTrigger value="total" onClick={() => handleClickTab("total")}>
-              Total
-            </TabsTrigger>
-            {businessesQuery.data.map((business) => {
-              return (
-                <TabsTrigger
-                  key={business.id}
-                  value={business.id}
-                  onClick={() => handleClickTab(business.id)}
-                >
-                  {business.businessName}
-                </TabsTrigger>
-              );
-            })}
+          <TabsList className=" flex justify-between">
+            <div>
+              <TabsTrigger
+                value="total"
+                onClick={() => handleClickTab("total")}
+              >
+                Total
+              </TabsTrigger>
+              {businessesQuery.data.map((business) => {
+                return (
+                  <TabsTrigger
+                    key={business.id}
+                    value={business.id}
+                    onClick={() => handleClickTab(business.id)}
+                  >
+                    {business.businessName}
+                  </TabsTrigger>
+                );
+              })}
+            </div>
+            <div>
+              <TabsTrigger
+                value="3Months"
+                onClick={() => handleClickTabDate("3Months")}
+              >
+                Last 3 Months
+              </TabsTrigger>
+              <TabsTrigger
+                value="currentMonth"
+                onClick={() => handleClickTabDate("currentMonth")}
+              >
+                Current Month
+              </TabsTrigger>
+            </div>
           </TabsList>
           <div className="flex flex-col gap-6">
             <FullExpensesTable />
