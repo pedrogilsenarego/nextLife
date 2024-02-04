@@ -3,22 +3,14 @@
 import { queryKeys } from "@/constants/queryKeys";
 import { getCumulativeExpensesForCurrentMonth } from "@/server/expensesActions";
 import { MonthExpensesQuery } from "@/types/expensesTypes";
+import { dateQueriesMap } from "@/utils/dateFormat";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect } from "react";
 import { useAppSelector } from "./slicer.hooks";
 
 const useMonthExpenses = () => {
-  const currentDate = new Date();
-  const firstDayOfMonth = new Date(
-    currentDate.getFullYear(),
-    currentDate.getMonth(),
-    1
-  );
-  const lastDayOfMonth = new Date(
-    currentDate.getFullYear(),
-    currentDate.getMonth() + 1,
-    0
-  );
+  const timeRange = useAppSelector((state) => state.DataSlice.timeRange);
+  const datesToQuery = dateQueriesMap(timeRange);
   const selectedBusiness = useAppSelector<string>(
     (state) => state.DataSlice.business
   );
@@ -27,13 +19,13 @@ const useMonthExpenses = () => {
     queryKey: [queryKeys.monthExpenses],
     queryFn: () =>
       getCumulativeExpensesForCurrentMonth({
-        timeRange: { startDate: firstDayOfMonth, endDate: lastDayOfMonth },
+        timeRange: {
+          startDate: datesToQuery.startDate,
+          endDate: datesToQuery.endDate,
+        },
       }),
   });
 
-  // useEffect(() => {
-  //   expensesQuery.refetch();
-  // }, [timeRangeSelected]);
   const expensesFilteredByBusiness =
     selectedBusiness === "total"
       ? expensesQuery.data?.data
@@ -41,10 +33,9 @@ const useMonthExpenses = () => {
           (expense) => expense.businessId === selectedBusiness
         );
 
-  const expenses = expensesFilteredByBusiness?.reduce(
-    (sum, expense) => sum + (expense.amount || 0),
-    0
-  );
+  const expenses = expensesFilteredByBusiness
+    ?.reduce((sum, expense) => sum + (expense.amount || 0), 0)
+    .toFixed(2);
 
   const expensesMetadata = expensesQuery.data?.metaData;
 

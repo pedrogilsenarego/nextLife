@@ -1,30 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit";
-const currentDate = new Date();
-const firstDayOfMonth = new Date(
-  currentDate.getFullYear(),
-  currentDate.getMonth(),
-  1
-);
-const lastDayOfMonth = new Date(
-  currentDate.getFullYear(),
-  currentDate.getMonth() + 1,
-  0
-);
 
 export interface DataState {
   business: "total" | string;
-  timeRange: { id: "currentMonth" | "6months"; startTime: Date; endDate: Date };
+  timeRange: "currentMonth" | "6months";
 }
 
 export const DataSlice = createSlice({
   name: "DataSlice",
   initialState: {
     business: "total",
-    timeRange: {
-      id: "currentMonth",
-      startTime: firstDayOfMonth,
-      endDate: lastDayOfMonth,
-    },
+    timeRange: "currentMonth",
   } as DataState,
   reducers: {
     setBusiness: (state, action) => {

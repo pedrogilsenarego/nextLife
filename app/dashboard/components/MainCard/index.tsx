@@ -1,9 +1,14 @@
 "use client";
 
 import { Card } from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { TIMOUT_FOR_REFETCH } from "@/constants/network";
 import { useAppDispatch, useAppSelector } from "@/hooks/slicer.hooks";
 import useBusinesses from "@/hooks/useBusinesses";
+import useExpenses from "@/hooks/useExpenses";
+import useIncomes from "@/hooks/useIncomes";
+import useMonthExpenses from "@/hooks/useMonthExpenses";
+import useMonthIncomes from "@/hooks/useMonthIncomes";
 import { setBusiness, setTimeRange } from "@/slicer/data";
 import AddBusiness from "./AddBusiness/AddBusiness";
 import { default as FullExpensesTable } from "./FullTables/FullExpensesTable";
@@ -15,6 +20,10 @@ const MainCard = () => {
   const businessSelected = useAppSelector<string>(
     (state) => state.DataSlice.business
   );
+  const { expensesQuery } = useExpenses();
+  const { incomesQuery } = useIncomes();
+  const { expensesQuery: monthExpensesQuery } = useMonthExpenses();
+  const { incomesQuery: monthIncomesQuery } = useMonthIncomes();
   const timeRange = useAppSelector((state) => state.DataSlice.timeRange);
 
   if (!businessesQuery.data) return null;
@@ -24,43 +33,13 @@ const MainCard = () => {
   };
 
   const handleClickTabDate = (tabValue: string) => {
-    const currentDate = new Date();
-    let startDate: Date;
-    let endDate: Date;
-
-    switch (tabValue) {
-      case "6Months":
-        // Calculate 5 months ago from the current date
-        const fiveMonthsAgo = new Date(
-          currentDate.getFullYear(),
-          currentDate.getMonth() - 5,
-          1
-        );
-
-        startDate = fiveMonthsAgo;
-        endDate = new Date(
-          currentDate.getFullYear(),
-          currentDate.getMonth() + 1,
-          0
-        );
-        break;
-      case "currentMonth":
-      default:
-        // Default to the 1st day of the current month
-        startDate = new Date(
-          currentDate.getFullYear(),
-          currentDate.getMonth(),
-          1
-        );
-        endDate = new Date(
-          currentDate.getFullYear(),
-          currentDate.getMonth() + 1,
-          0
-        );
-        break;
-    }
-
-    dispatch(setTimeRange({ id: tabValue, startDate, endDate }));
+    dispatch(setTimeRange(tabValue));
+    setTimeout(() => {
+      expensesQuery.refetch();
+      incomesQuery.refetch();
+      monthExpensesQuery.refetch();
+      monthIncomesQuery.refetch();
+    }, TIMOUT_FOR_REFETCH);
   };
 
   return (
@@ -96,7 +75,7 @@ const MainCard = () => {
                 })}
               </TabsList>
             </Tabs>
-            <Tabs defaultValue={timeRange.id}>
+            <Tabs defaultValue={timeRange}>
               <TabsList className=" flex justify-between">
                 <TabsTrigger
                   value="6Months"
