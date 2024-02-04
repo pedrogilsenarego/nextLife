@@ -1,10 +1,11 @@
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
+//import AsyncStorage from "@react-native-async-storage/async-storage";
 import { DataSlice } from "./data";
 
 const persistConfig = {
-  key: "root",
+  key: "rootsasas",
   storage,
 };
 
