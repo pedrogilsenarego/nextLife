@@ -42,6 +42,33 @@ const TwoLevelChartPie = ({ percentageRatio = 0.5, data1, data2 }: Props) => {
     "#88d8c0",
     "#29ab87",
   ];
+  const RADIAN = Math.PI / 180;
+  const renderCustomizedLabel = ({
+    cx,
+    cy,
+    midAngle,
+    innerRadius,
+    outerRadius,
+    percent,
+    index,
+  }: any) => {
+    const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
+    const x = cx + radius * Math.cos(-midAngle * RADIAN);
+    const y = cy + radius * Math.sin(-midAngle * RADIAN);
+    console.log(data1);
+    return (
+      <text
+        style={{ fill: "black", fontSize: "12px" }}
+        x={x}
+        y={y}
+        fill="white"
+        textAnchor={x > cx ? "start" : "end"}
+        dominantBaseline="central"
+      >
+        {`${data1[index]?.name}: ${(percent * 100).toFixed(0)}%`}
+      </text>
+    );
+  };
 
   return (
     <PieChart width={600} height={450}>
@@ -53,16 +80,17 @@ const TwoLevelChartPie = ({ percentageRatio = 0.5, data1, data2 }: Props) => {
         cy="50%"
         outerRadius={innerRadius}
         fill="#a40000"
-        labelLine={!primarySelected ? true : false}
-        label={
-          !primarySelected
-            ? {
-                fill: "black",
-                fontSize: "24xp",
-                fontWeight: "bolder",
-              }
-            : false
-        }
+        labelLine={false} //!primarySelected ? true : false}
+        label={renderCustomizedLabel}
+        // label={
+        //   !primarySelected
+        //     ? {
+        //         fill: "black",
+        //         fontSize: "24xp",
+        //         fontWeight: "bolder",
+        //       }
+        //     : false
+        //}
       >
         {data1?.map((entry, index) => (
           <Cell
