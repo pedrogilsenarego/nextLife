@@ -113,7 +113,7 @@ const MainCard = () => {
               )}
             </Tabs>
           </div>
-          <div className="flex flex-col gap-6">
+          <div className="flex flex-col gap-4 py-6">
             <FullExpensesTable />
 
             <FullIncomeTable />

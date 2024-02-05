@@ -38,6 +38,7 @@ const FullExpensesTable = () => {
   return (
     <>
       <TableWrapper
+        pagination
         title={"Expenses"}
         columns={columns(businesses)}
         data={expenses}

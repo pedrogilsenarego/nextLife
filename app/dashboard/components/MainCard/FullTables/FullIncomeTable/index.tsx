@@ -40,6 +40,7 @@ const FullIncomeTable = () => {
     <>
       <TableWrapper
         title={"Incomes"}
+        pagination
         columns={columns(businesses)}
         data={incomes}
         isDeleting={isPending}

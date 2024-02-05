@@ -144,11 +144,7 @@ export const getAllIncomesForCurrentMonth = async ({
         timeRange?.startDate ||
         new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
 
-      const {
-        data: Incomes,
-        error: IncomesError,
-        count,
-      } = await supabase
+      const { data: Incomes, error: IncomesError } = await supabase
         .from("incomes")
         .select("*")
         .eq("userId", user.id)
@@ -164,7 +160,7 @@ export const getAllIncomesForCurrentMonth = async ({
       // Calculate totalEntries and totalAmount
 
       const metaData = {
-        totalEntries: count,
+        totalEntries: Incomes.length,
       };
 
       resolve({ data: Incomes || [], metaData });
@@ -198,11 +194,7 @@ export const getCumulativeIncomesForCurrentMonth = async ({
         timeRange?.startDate ||
         new Date(currentDate.getFullYear(), currentDate.getMonth(), 1);
 
-      const {
-        data: Incomes,
-        error: IncomesError,
-        count,
-      } = await supabase
+      const { data: Incomes, error: IncomesError } = await supabase
         .from("monthIncomes")
         .select("*")
         .eq("userId", user.id)
@@ -217,7 +209,7 @@ export const getCumulativeIncomesForCurrentMonth = async ({
       // Calculate totalEntries and totalAmount
 
       const metaData = {
-        totalEntries: count,
+        totalEntries: Incomes.length,
       };
 
       resolve({ data: Incomes || [], metaData });
