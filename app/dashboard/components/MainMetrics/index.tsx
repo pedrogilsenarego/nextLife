@@ -18,7 +18,7 @@ const MainMetrics = () => {
   const { expenses, expensesByCategory } = useMonthExpenses();
   const { incomes, incomesByCategory } = useMonthIncomes();
 
-  const ratio = (expenses || 1) / (incomes || 1);
+  const ratio = (Number(expenses) || 1) / (Number(incomes) || 1);
   const mappedExpensesByCategory =
     expensesByCategory?.map((expenses) => {
       return { value: expenses.amount, name: expenses.category };
