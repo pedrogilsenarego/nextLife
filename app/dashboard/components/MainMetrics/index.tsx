@@ -1,11 +1,6 @@
 "use client";
 
 import { default as TwoLevelChartPie } from "@/components/ChartComponents/TwoLevelChartPie";
-import { CarouselCard } from "@/components/ui/Wrappers/CarouselCard";
-import { queryKeys } from "@/constants/queryKeys";
-import useExpenses from "@/hooks/useExpenses";
-import useIncomes from "@/hooks/useIncomes";
-
 import useMonthExpenses from "@/hooks/useMonthExpenses";
 import useMonthIncomes from "@/hooks/useMonthIncomes";
 import AddExpense from "./AddExpense/AddExpense";

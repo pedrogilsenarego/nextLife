@@ -6,7 +6,7 @@ import {
 } from "@/components/ui/carousel";
 
 const DateCarousel = () => {
-  const schedulle = [
+  const schedule = [
     {
       date: new Date(),
     },
@@ -23,6 +23,7 @@ const DateCarousel = () => {
       date: new Date(),
     },
   ];
+
   return (
     <Carousel
       style={{
@@ -33,17 +34,26 @@ const DateCarousel = () => {
       }}
     >
       <CarouselContent>
-        {schedulle.map((day, index) => (
+        {schedule.map((day, index) => (
           <CarouselItem key={index}>
             <div className="p-1">
               <Card style={{ borderRadius: "4px", cursor: "grab" }}>
                 <CardContent className="flex aspect-square items-center justify-center p-6">
-                  <span
-                    style={{ fontSize: "200px", opacity: 0.2 }}
-                    className="text-4xl font-semibold"
-                  >
-                    {day.date.getDate() + index}
-                  </span>
+                  <div style={{ textAlign: "center" }}>
+                    <span
+                      style={{ fontSize: "2rem", fontWeight: "bold" }}
+                      className="mb-2"
+                    >
+                      {day.date.getDate() + index}
+                    </span>
+                    <span className="text-sm">
+                      {day.date.toLocaleDateString("en-US", {
+                        weekday: "long",
+                        month: "long",
+                        year: "numeric",
+                      })}
+                    </span>
+                  </div>
                 </CardContent>
               </Card>
             </div>

@@ -79,7 +79,12 @@ export const addIncome = async (
               businessId,
               category,
               amount,
-              created_at: createdDate.toISOString(), // Use the original timestamp
+              created_at: new Date(
+                createdDate.getFullYear(),
+                createdDate.getMonth(),
+                1,
+                1
+              ).toISOString(),
             },
           ]);
         }
@@ -91,7 +96,12 @@ export const addIncome = async (
             businessId,
             category,
             amount,
-            created_at: createdDate.toISOString(), // Use the original timestamp
+            created_at: new Date(
+              createdDate.getFullYear(),
+              createdDate.getMonth(),
+              1,
+              1
+            ).toISOString(),
           },
         ]);
       }
