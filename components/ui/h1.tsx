@@ -1,5 +1,5 @@
 type Props = {
-  children: string;
+  children: string | number;
 };
 
 export function H1({ children }: Props) {
