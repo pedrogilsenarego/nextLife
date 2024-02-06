@@ -2,7 +2,11 @@
 
 import { queryKeys } from "@/constants/queryKeys";
 import { getCumulativeExpensesForCurrentMonth } from "@/server/expensesActions";
-import { MonthExpensesQuery } from "@/types/expensesTypes";
+import {
+  Expense,
+  MonthExpense,
+  MonthExpensesQuery,
+} from "@/types/expensesTypes";
 import { dateQueriesMap } from "@/utils/dateFormat";
 import { useQuery } from "@tanstack/react-query";
 import { useAppSelector } from "./slicer.hooks";

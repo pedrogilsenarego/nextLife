@@ -1,15 +1,21 @@
 import { Expense } from "@/types/expensesTypes";
 import { Income } from "@/types/incomesTypes";
 
-export const buildData = (expenses: Expense[], incomes: Income[]) => {
+interface DataPoint {
+  date: string; // Date string (year and month)
+  amount: number; // Income or Expense amount
+  isIncome: boolean; // Indicates whether the amount is income or expense
+}
+
+export const buildData = (expenses: any[], incomes: any[]) => {
   // Convert expenses and incomes to arrays with { date, amount } format
   const expensesData = expenses.map((expense) => ({
-    date: new Date(expense.created_at).toISOString(),
+    date: new Date(expense.date).toISOString(),
     amount: expense.amount,
   }));
 
   const incomesData = incomes.map((income) => ({
-    date: new Date(income.created_at).toISOString(),
+    date: new Date(income.date).toISOString(),
     amount: income.amount,
   }));
 
