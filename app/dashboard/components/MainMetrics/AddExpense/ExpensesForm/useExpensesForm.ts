@@ -1,10 +1,12 @@
 "use client";
 
+import { defaultCategories } from "@/constants/defaultCategories";
 import { TIMOUT_FOR_REFETCH } from "@/constants/network";
 import { queryKeys } from "@/constants/queryKeys";
 import { useAppSelector } from "@/hooks/slicer.hooks";
 import useExpenses from "@/hooks/useExpenses";
 import useMonthExpenses from "@/hooks/useMonthExpenses";
+import useUser from "@/hooks/useUser";
 import { getBusinesses } from "@/server/businessActions";
 import {
   addExpense,
@@ -24,6 +26,8 @@ const useExpensesForm = ({ setOpen }: Props) => {
     queryKey: [queryKeys.businesses],
     queryFn: getBusinesses,
   });
+  const user = useUser();
+
   const { expensesQuery } = useExpenses();
   const { expensesQuery: monthExpensesQuery } = useMonthExpenses();
   const businessId = useAppSelector<string>(
@@ -52,6 +56,13 @@ const useExpensesForm = ({ setOpen }: Props) => {
       form.reset();
     },
   });
+  const userCategories =
+    user.user?.expensesCategories?.map((category) => ({
+      value: category,
+      label: category.charAt(0).toUpperCase() + category.slice(1),
+    })) || [];
+
+  const categoriesOptions = [...userCategories, ...defaultCategories];
 
   function onSubmit(data: AddExpense) {
     const transformedData: AddExpense = {
@@ -65,7 +76,7 @@ const useExpensesForm = ({ setOpen }: Props) => {
     data?.map(({ businessName, id }) => ({ label: businessName, value: id })) ||
     [];
 
-  return { businessIdOptions, form, onSubmit, isPending };
+  return { businessIdOptions, form, onSubmit, isPending, categoriesOptions };
 };
 
 export default useExpensesForm;

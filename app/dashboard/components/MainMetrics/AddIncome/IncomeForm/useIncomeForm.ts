@@ -1,11 +1,13 @@
 "use client";
 
+import { defaultIncomesCategories } from "@/constants/defaultCategories";
 import { TIMOUT_FOR_REFETCH } from "@/constants/network";
 import { queryKeys } from "@/constants/queryKeys";
 import { useAppSelector } from "@/hooks/slicer.hooks";
 import useBusinesses from "@/hooks/useBusinesses";
 import useIncomes from "@/hooks/useIncomes";
 import useMonthIncomes from "@/hooks/useMonthIncomes";
+import useUser from "@/hooks/useUser";
 import { getBusinesses } from "@/server/businessActions";
 import { addIncome } from "@/server/incomeActions";
 import { AddExpense } from "@/zodSchema/addExpense";
@@ -25,6 +27,7 @@ const useIncomeForm = ({ setOpen }: Props) => {
   const businessId = useAppSelector<string>(
     (state) => state.DataSlice.business
   );
+  const user = useUser();
   const form = useForm<z.infer<typeof addIncomeSchema>>({
     resolver: zodResolver(addIncomeSchema),
     defaultValues: {
@@ -49,6 +52,14 @@ const useIncomeForm = ({ setOpen }: Props) => {
     },
   });
 
+  const userCategories =
+    user.user?.incomesCategories?.map((category) => ({
+      value: category,
+      label: category.charAt(0).toUpperCase() + category.slice(1),
+    })) || [];
+
+  const categoriesOptions = [...userCategories, ...defaultIncomesCategories];
+
   function onSubmit(data: AddExpense) {
     const transformedData: AddExpense = {
       ...data,
@@ -62,7 +73,7 @@ const useIncomeForm = ({ setOpen }: Props) => {
       value: id,
     })) || [];
 
-  return { businessIdOptions, form, onSubmit, isPending };
+  return { businessIdOptions, form, onSubmit, isPending, categoriesOptions };
 };
 
 export default useIncomeForm;

@@ -6,16 +6,16 @@ import SelectForm from "@/components/ui/Wrappers/SelectForm";
 import TextAreaForm from "@/components/ui/Wrappers/TextAreaForm";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
-import { defaultIncomesCategories } from "@/constants/defaultCategories";
 import AddCategory from "../../AddCategory";
 import useIncomeForm from "./useIncomeForm";
 type Props = {
   setOpen: (open: boolean) => void;
 };
 const IncomeForm = ({ setOpen }: Props) => {
-  const { businessIdOptions, form, onSubmit, isPending } = useIncomeForm({
-    setOpen,
-  });
+  const { businessIdOptions, form, onSubmit, isPending, categoriesOptions } =
+    useIncomeForm({
+      setOpen,
+    });
 
   return (
     <Form {...form}>
@@ -33,7 +33,7 @@ const IncomeForm = ({ setOpen }: Props) => {
             name="category"
             description="Category of the income"
             control={form.control}
-            options={defaultIncomesCategories}
+            options={categoriesOptions}
           />
           <div style={{ marginTop: "30px" }}>
             <AddCategory configuration="income" />

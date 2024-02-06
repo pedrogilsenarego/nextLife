@@ -6,16 +6,16 @@ import SelectForm from "@/components/ui/Wrappers/SelectForm";
 import TextAreaForm from "@/components/ui/Wrappers/TextAreaForm";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
-import { defaultCategories } from "@/constants/defaultCategories";
 import AddCategory from "../../AddCategory";
 import useExpensesForm from "./useExpensesForm";
 type Props = {
   setOpen: (open: boolean) => void;
 };
 const BusinessForm = ({ setOpen }: Props) => {
-  const { businessIdOptions, form, onSubmit, isPending } = useExpensesForm({
-    setOpen,
-  });
+  const { businessIdOptions, form, onSubmit, isPending, categoriesOptions } =
+    useExpensesForm({
+      setOpen,
+    });
 
   return (
     <Form {...form}>
@@ -33,7 +33,7 @@ const BusinessForm = ({ setOpen }: Props) => {
             name="category"
             description="Category of the expense"
             control={form.control}
-            options={defaultCategories}
+            options={categoriesOptions}
           />
           <div style={{ marginTop: "30px" }}>
             <AddCategory configuration="expense" />

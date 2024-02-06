@@ -5,7 +5,6 @@ import { getCumulativeExpensesForCurrentMonth } from "@/server/expensesActions";
 import { MonthExpensesQuery } from "@/types/expensesTypes";
 import { dateQueriesMap } from "@/utils/dateFormat";
 import { useQuery } from "@tanstack/react-query";
-import { useEffect } from "react";
 import { useAppSelector } from "./slicer.hooks";
 
 const useMonthExpenses = () => {

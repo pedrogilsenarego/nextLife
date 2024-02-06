@@ -1,3 +1,4 @@
+import { UserQuery } from "@/types/userTypes";
 import { createClient } from "@/utils/supabase/client";
 
 const supabase = createClient();
@@ -66,6 +67,37 @@ export const addCategory = async ({
       resolve("Success");
     } catch (error) {
       console.error(error);
+      reject(error);
+    }
+  });
+};
+
+export const getUserData = async (): Promise<UserQuery> => {
+  console.log("getingUser");
+  return new Promise(async (resolve, reject) => {
+    try {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+
+      if (!user) {
+        return reject(new Error("User not authenticated"));
+      }
+
+      const { data: userData, error: userDataError } = await supabase
+        .from("users")
+        .select()
+        .eq("id", user.id)
+        .single();
+
+      if (userDataError) {
+        console.error("error", userDataError);
+        return reject(userDataError);
+      }
+
+      resolve(userData);
+    } catch (error) {
+      console.error("error", error);
       reject(error);
     }
   });
