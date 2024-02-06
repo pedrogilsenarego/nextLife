@@ -11,7 +11,7 @@ import {
 } from "recharts";
 
 const dateFormatter = (date: string) => {
-  return moment(date).format("DD/MM/YY HH:mm");
+  return moment(date).format("MMM YY");
 };
 
 type Props = {

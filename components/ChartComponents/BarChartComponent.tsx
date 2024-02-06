@@ -59,7 +59,7 @@ const dataMok = [
 ];
 
 const dateFormatter = (date: string) => {
-  return moment(date).format("DD/MM/YY HH:mm");
+  return moment(date).format("DD/MM/YY");
 };
 
 type Props = {
@@ -88,7 +88,7 @@ const BarChartComponent = ({ data = [] }: Props) => {
         <XAxis
           dataKey="xAxis"
           //domain={[data[0]?.xAxis, data[data.length - 1]?.xAxis]}
-          //scale="time"
+          scale="time"
           //type="number"
           tickFormatter={dateFormatter}
         />

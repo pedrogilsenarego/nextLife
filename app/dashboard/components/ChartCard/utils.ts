@@ -13,7 +13,7 @@ export const buildData = (expenses: any[], incomes: any[]) => {
   // Create a map to store merged data
   const mergedDataMap = new Map<
     string,
-    { date: string; uv: number; pv: number }
+    { xAxis: string; uv: number; pv: number }
   >();
 
   // Process expenses
@@ -23,7 +23,7 @@ export const buildData = (expenses: any[], incomes: any[]) => {
       existingDataPoint.uv += expense.amount;
     } else {
       mergedDataMap.set(expense.date, {
-        date: expense.date,
+        xAxis: expense.date,
         uv: expense.amount,
         pv: 0,
       });
@@ -37,7 +37,7 @@ export const buildData = (expenses: any[], incomes: any[]) => {
       existingDataPoint.pv += income.amount;
     } else {
       mergedDataMap.set(income.date, {
-        date: income.date,
+        xAxis: income.date,
         uv: 0,
         pv: income.amount,
       });
@@ -48,7 +48,7 @@ export const buildData = (expenses: any[], incomes: any[]) => {
   const mergedData = Array.from(mergedDataMap.values());
 
   // Sort the merged array based on the 'date' property
-  mergedData.sort((a, b) => a.date.localeCompare(b.date));
+  mergedData.sort((a, b) => a.xAxis.localeCompare(b.xAxis));
 
   return mergedData;
 };
