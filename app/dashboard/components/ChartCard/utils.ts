@@ -1,12 +1,3 @@
-import { Expense } from "@/types/expensesTypes";
-import { Income } from "@/types/incomesTypes";
-
-interface DataPoint {
-  date: string; // Date string (year and month)
-  amount: number; // Income or Expense amount
-  isIncome: boolean; // Indicates whether the amount is income or expense
-}
-
 export const buildData = (expenses: any[], incomes: any[]) => {
   // Convert expenses and incomes to arrays with { date, amount } format
   const expensesData = expenses.map((expense) => ({
@@ -19,36 +10,45 @@ export const buildData = (expenses: any[], incomes: any[]) => {
     amount: income.amount,
   }));
 
-  // Merge expenses and incomes based on date
-  const mergedData = expensesData
-    .map((expense) => ({
-      xAxis: expense.date,
-      uv: expense.amount,
-      pv: 0, // Set income amount to 0 initially
-    }))
-    .concat(
-      incomesData.map((income) => ({
-        xAxis: income.date,
-        uv: 0, // Set expense amount to 0 initially
+  // Create a map to store merged data
+  const mergedDataMap = new Map<
+    string,
+    { date: string; uv: number; pv: number }
+  >();
+
+  // Process expenses
+  for (const expense of expensesData) {
+    const existingDataPoint = mergedDataMap.get(expense.date);
+    if (existingDataPoint) {
+      existingDataPoint.uv += expense.amount;
+    } else {
+      mergedDataMap.set(expense.date, {
+        date: expense.date,
+        uv: expense.amount,
+        pv: 0,
+      });
+    }
+  }
+
+  // Process incomes
+  for (const income of incomesData) {
+    const existingDataPoint = mergedDataMap.get(income.date);
+    if (existingDataPoint) {
+      existingDataPoint.pv += income.amount;
+    } else {
+      mergedDataMap.set(income.date, {
+        date: income.date,
+        uv: 0,
         pv: income.amount,
-      }))
-    );
+      });
+    }
+  }
 
-  // Add a point for the first day of the month
-  const firstDayOfMonth =
-    mergedData.length > 0 ? new Date(mergedData[0]?.xAxis) : new Date();
+  // Convert the Map to an array of merged data points
+  const mergedData = Array.from(mergedDataMap.values());
 
-  firstDayOfMonth.setDate(1);
-  mergedData.unshift({
-    xAxis: firstDayOfMonth?.toISOString(),
-    uv: 0,
-    pv: 0,
-  });
-
-  // Sort the merged array based on the 'xAxis' property
-  mergedData.sort(
-    (a, b) => new Date(a.xAxis).getTime() - new Date(b.xAxis).getTime()
-  );
+  // Sort the merged array based on the 'date' property
+  mergedData.sort((a, b) => a.date.localeCompare(b.date));
 
   return mergedData;
 };
