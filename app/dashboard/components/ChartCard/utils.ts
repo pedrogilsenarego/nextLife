@@ -29,10 +29,12 @@ export const buildData = (expenses: Expense[], incomes: Income[]) => {
     );
 
   // Add a point for the first day of the month
-  const firstDayOfMonth = new Date(mergedData[0].xAxis);
+  const firstDayOfMonth =
+    mergedData.length > 0 ? new Date(mergedData[0]?.xAxis) : new Date();
+
   firstDayOfMonth.setDate(1);
   mergedData.unshift({
-    xAxis: firstDayOfMonth.toISOString(),
+    xAxis: firstDayOfMonth?.toISOString(),
     uv: 0,
     pv: 0,
   });

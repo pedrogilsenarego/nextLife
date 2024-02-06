@@ -7,6 +7,7 @@ import TextAreaForm from "@/components/ui/Wrappers/TextAreaForm";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import { defaultCategories } from "@/constants/defaultCategories";
+import AddCategory from "../../AddCategory";
 import useExpensesForm from "./useExpensesForm";
 type Props = {
   setOpen: (open: boolean) => void;
@@ -26,13 +27,18 @@ const BusinessForm = ({ setOpen }: Props) => {
           control={form.control}
           options={businessIdOptions}
         />
-        <SelectForm
-          label="Category"
-          name="category"
-          description="Category of the expense"
-          control={form.control}
-          options={defaultCategories}
-        />
+        <div className="flex gap-2">
+          <SelectForm
+            label="Category"
+            name="category"
+            description="Category of the expense"
+            control={form.control}
+            options={defaultCategories}
+          />
+          <div style={{ marginTop: "28px" }}>
+            <AddCategory configuration="expense" />
+          </div>
+        </div>
         <DatePickerForm label="Date" name="created_at" control={form.control} />
         <InputForm
           type="number"

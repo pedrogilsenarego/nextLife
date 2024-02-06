@@ -4,24 +4,11 @@ import {
   Area,
   AreaChart,
   CartesianGrid,
-  Legend,
-  Line,
-  LineChart,
   ResponsiveContainer,
   Tooltip,
   XAxis,
   YAxis,
 } from "recharts";
-
-// const data = [
-//   { xAxis: "2019-10-20T04:00:00Z", uv: 12, pv: 45 },
-//   { xAxis: "2019-10-20T05:00:00Z", uv: 345, pv: 34 },
-//   { xAxis: "2019-10-20T06:00:00Z", uv: 45, pv: 500 },
-//   { xAxis: "2019-10-20T07:00:00Z", uv: 67, pv: 23 },
-//   { xAxis: "2019-10-21T10:00:00Z", uv: 33, pv: 434 },
-//   { xAxis: "2019-10-21T23:00:00Z", uv: 54, pv: 2 },
-//   { xAxis: "2019-10-22T00:00:00Z", uv: 3, pv: 45 },
-// ];
 
 const dateFormatter = (date: string) => {
   return moment(date).format("DD/MM/YY HH:mm");
@@ -32,7 +19,6 @@ type Props = {
 };
 
 const LineChartComponent = ({ data = [] }: Props) => {
-  console.log(data);
   data?.forEach((d: any) => {
     d.xAxis = moment(d.xAxis).valueOf(); // date -> epoch
   });
