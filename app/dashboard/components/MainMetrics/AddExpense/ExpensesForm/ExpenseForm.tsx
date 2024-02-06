@@ -35,7 +35,7 @@ const BusinessForm = ({ setOpen }: Props) => {
             control={form.control}
             options={defaultCategories}
           />
-          <div style={{ marginTop: "28px" }}>
+          <div style={{ marginTop: "30px" }}>
             <AddCategory configuration="expense" />
           </div>
         </div>

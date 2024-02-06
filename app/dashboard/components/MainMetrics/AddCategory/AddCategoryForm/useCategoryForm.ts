@@ -28,7 +28,7 @@ const useCategoryForm = ({ setOpen, configuration }: Props) => {
   });
 
   function onSubmit(data: AddCategory) {
-    //addCategoryMutation({ categoryName: data.category, type: configuration });
+    addCategoryMutation({ categoryName: data.category, type: configuration });
   }
 
   return { form, onSubmit, isPending };
