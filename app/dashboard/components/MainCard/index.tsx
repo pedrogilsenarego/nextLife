@@ -13,6 +13,7 @@ import useMonthIncomes from "@/hooks/useMonthIncomes";
 import { setBusiness, setTimeRange } from "@/slicer/data";
 import { useState } from "react";
 import AddBusiness from "./AddBusiness/AddBusiness";
+import Chart from "./Chart";
 import { default as FullExpensesTable } from "./FullTables/FullExpensesTable";
 import FullIncomeTable from "./FullTables/FullIncomeTable";
 
@@ -114,6 +115,7 @@ const MainCard = () => {
             </Tabs>
           </div>
           <div className="flex flex-col gap-4 py-6">
+            <Chart />
             <FullExpensesTable />
 
             <FullIncomeTable />

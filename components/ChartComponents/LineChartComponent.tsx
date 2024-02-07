@@ -38,6 +38,7 @@ const LineChartComponent = ({ data = [] }: Props) => {
 
     return null;
   };
+
   return (
     <ResponsiveContainer width="100%" height={300}>
       <AreaChart
@@ -52,18 +53,41 @@ const LineChartComponent = ({ data = [] }: Props) => {
           bottom: 0,
         }}
       >
+        <defs>
+          <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="5%" stopColor="#c8081566" stopOpacity={0.8} />
+            <stop offset="95%" stopColor="#c8081566" stopOpacity={0} />
+          </linearGradient>
+          <linearGradient id="colorPv" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="5%" stopColor="#82ca9d66" stopOpacity={0.8} />
+            <stop offset="95%" stopColor="#82ca9d66" stopOpacity={0} />
+          </linearGradient>
+        </defs>
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis
+          tick={{ fill: "black", fontSize: 12, dy: 8 }}
           dataKey="xAxis"
           domain={[data[0]?.xAxis, data[data.length - 1]?.xAxis]}
           scale="time"
           type="number"
           tickFormatter={dateFormatter}
         />
-        <YAxis />
+        <YAxis tick={{ fill: "black", fontSize: 12, dx: -3 }} />
         <Tooltip content={<CustomTooltip />} cursor={false} />
-        <Area type="monotone" dataKey="pv" stroke="#82ca9d" fill="#82ca9d33" />
-        <Area type="monotone" dataKey="uv" stroke="#c80815" fill="#c8081533" />
+        <Area
+          type="monotone"
+          dataKey="pv"
+          stroke="#82ca9d"
+          fillOpacity={1}
+          fill="url(#colorPv)"
+        />
+        <Area
+          type="monotone"
+          dataKey="uv"
+          stroke="#c80815"
+          fillOpacity={1}
+          fill="url(#colorUv)"
+        />
       </AreaChart>
     </ResponsiveContainer>
   );
