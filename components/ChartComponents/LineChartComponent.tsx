@@ -22,6 +22,22 @@ const LineChartComponent = ({ data = [] }: Props) => {
   data?.forEach((d: any) => {
     d.xAxis = moment(d.xAxis).valueOf(); // date -> epoch
   });
+  const CustomTooltip = ({ active, payload, label }: any) => {
+    if (active && payload && payload.length) {
+      return (
+        <div>
+          <p style={{ color: "#82ca9d" }}>{` $${payload[0]?.payload?.pv.toFixed(
+            1
+          )}`}</p>
+          <p style={{ color: "#c80815" }}>{`$${payload[0].payload?.uv.toFixed(
+            1
+          )}`}</p>
+        </div>
+      );
+    }
+
+    return null;
+  };
   return (
     <ResponsiveContainer width="100%" height={300}>
       <AreaChart
@@ -45,14 +61,9 @@ const LineChartComponent = ({ data = [] }: Props) => {
           tickFormatter={dateFormatter}
         />
         <YAxis />
-        <Tooltip />
-        <Area type="monotone" dataKey="pv" stroke="#82ca9d" fill="#82ca9d" />
-        <Area
-          type="monotone"
-          dataKey="uv"
-          stroke="#c80815E6"
-          fill="#c80815E6"
-        />
+        <Tooltip content={<CustomTooltip />} cursor={false} />
+        <Area type="monotone" dataKey="pv" stroke="#82ca9d" fill="#82ca9d33" />
+        <Area type="monotone" dataKey="uv" stroke="#c80815" fill="#c8081533" />
       </AreaChart>
     </ResponsiveContainer>
   );
