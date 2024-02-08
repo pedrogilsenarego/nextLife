@@ -10,27 +10,25 @@ import {
 } from "@/components/ui/dialog";
 import { H3 } from "@/components/ui/h3";
 import { useState } from "react";
-import IncomeForm from "./IncomeForm";
+import BusinessForm from "./ExpensesForm/ExpenseForm";
 
-const AddIncome = () => {
+export default function () {
   const [open, setOpen] = useState<boolean>(false);
   return (
     <>
-      <Button className="w-full" onClick={() => setOpen(!open)}>
-        <H3>Income</H3>
+      <Button className="w-full h-full" onClick={() => setOpen(!open)}>
+        <H3>Expense</H3>
       </Button>
       <Dialog open={open} setOpen={setOpen}>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Add new Income</DialogTitle>
+            <DialogTitle>Add new Expense</DialogTitle>
           </DialogHeader>
           <DialogDescription>
-            <IncomeForm setOpen={setOpen} />
+            <BusinessForm setOpen={setOpen} />
           </DialogDescription>
         </DialogContent>
       </Dialog>
     </>
   );
-};
-
-export default AddIncome;
+}

@@ -6,6 +6,9 @@ import useMonthIncomes from "@/hooks/useMonthIncomes";
 import SlotCounter from "react-slot-counter";
 import "./index.css";
 
+import AddExpense from "./AddExpense/AddExpense";
+import AddIncome from "./AddIncome";
+
 const MainValue = () => {
   const { expenses: cumulativeExpenses } = useMonthExpenses();
   const { incomes: cumulativeIncomes } = useMonthIncomes();
@@ -13,12 +16,12 @@ const MainValue = () => {
   if (!cumulativeExpenses || !cumulativeIncomes) return;
 
   return (
-    <div className="bg-slate-200 p-3 rounded-md flex items-end justify-center h-full flex-col ">
-      <div className="flex flex-col text-right mr-4">
-        <H2 className="scroll-m-20 border-b text-emerald-600 pb-2 text-2xl font-semibold tracking-tight first:mt-0">
+    <div className="flex justify-around items-center gap-2">
+      <div className="bg-slate-200 px-4 rounded-md flex justify-center items-center gap-2">
+        <H2 className=" border-b text-emerald-600  text-2xl font-semibold ">
           {cumulativeIncomes.toString()}
         </H2>
-        <H2 className="scroll-m-20 border-b text-red-600 pb-2 text-2xl font-semibold tracking-tight first:mt-0">{`-${cumulativeExpenses.toString()}`}</H2>
+        <H2 className=" border-b text-red-600  text-2xl font-semibold ">{`-${cumulativeExpenses.toString()}`}</H2>
         <div className="flex items-center">
           <H1>$</H1>
           <SlotCounter
@@ -30,6 +33,8 @@ const MainValue = () => {
           />
         </div>
       </div>
+      <AddExpense />
+      <AddIncome />
     </div>
   );
 };

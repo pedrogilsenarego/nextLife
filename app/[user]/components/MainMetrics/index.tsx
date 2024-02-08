@@ -3,10 +3,9 @@
 import { default as TwoLevelChartPie } from "@/components/ChartComponents/TwoLevelChartPie";
 import useMonthExpenses from "@/hooks/useMonthExpenses";
 import useMonthIncomes from "@/hooks/useMonthIncomes";
-import AddExpense from "./AddExpense/AddExpense";
-import AddIncome from "./AddIncome";
+
 import DateCarousel from "./DateCarousel";
-import MainValue from "./MainValue";
+
 import ResumedTable from "./ResumedTable";
 
 const MainMetrics = () => {
@@ -35,11 +34,6 @@ const MainMetrics = () => {
         </div>
         <div className="w-full flex flex-col gap-4">
           <ResumedTable />
-          <MainValue />
-          <div className=" flex items-center gap-1 ">
-            <AddExpense />
-            <AddIncome />
-          </div>
         </div>
       </div>
       <div>
