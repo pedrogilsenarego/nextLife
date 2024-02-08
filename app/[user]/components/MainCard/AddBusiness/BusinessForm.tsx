@@ -2,16 +2,22 @@
 import InputForm from "@/components/ui/Wrappers/InputForm";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
+import { P } from "@/components/ui/p";
 import { queryKeys } from "@/constants/queryKeys";
 import { addBusiness, getBusinesses } from "@/server/businessActions";
 import { AddBusiness, addBusinessSchema } from "@/zodSchema/addBusiness";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQuery } from "@tanstack/react-query";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 type Props = {
   setOpen: (open: boolean) => void;
 };
 const BusinessForm = ({ setOpen }: Props) => {
+  const [hasSpacesOrUpperCase, setHasSpacesOrUpperCase] = useState({
+    status: false,
+    formatedName: "",
+  });
   const form = useForm<AddBusiness>({
     resolver: zodResolver(addBusinessSchema),
   });
@@ -35,7 +41,24 @@ const BusinessForm = ({ setOpen }: Props) => {
   });
 
   function onSubmit(data: AddBusiness) {
-    addBusinessMutation(data.businessName);
+    const hasSpaces = data.businessName.includes(" ");
+    const hasUpperCase = /[A-Z]/.test(data.businessName);
+
+    // Modify business name to lowercase and replace spaces with dashes
+    const formattedBusinessName = data.businessName
+      .toLowerCase()
+      .replace(/\s+/g, "-");
+
+    // Update state based on conditions
+    if (hasSpaces || hasUpperCase) {
+      setHasSpacesOrUpperCase({
+        status: true,
+        formatedName: formattedBusinessName,
+      });
+    } else {
+      setHasSpacesOrUpperCase({ status: false, formatedName: "" });
+    }
+    addBusinessMutation(formattedBusinessName);
   }
 
   return (
@@ -49,7 +72,12 @@ const BusinessForm = ({ setOpen }: Props) => {
           name="businessName"
           control={form.control}
         />
-
+        {hasSpacesOrUpperCase.status !== false && (
+          <P className="text-green-600">
+            Your business name will be turned into{" "}
+            {hasSpacesOrUpperCase.formatedName}
+          </P>
+        )}
         <Button isLoading={isPending} type="submit">
           Submit
         </Button>

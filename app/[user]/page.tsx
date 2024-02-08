@@ -1,4 +1,3 @@
-import MainMetrics from "@/app/dashboard/components/MainMetrics";
 import AuthButton from "@/components/AuthButton";
 
 import { createClient } from "@/utils/supabase/server";
@@ -9,7 +8,6 @@ import {
 } from "@tanstack/react-query";
 import { cookies } from "next/headers";
 import DashBoard from "./components";
-import MainCard from "./components/MainCard";
 
 export default async function () {
   const cookieStore = cookies();

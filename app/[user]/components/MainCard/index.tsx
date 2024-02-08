@@ -2,7 +2,6 @@
 
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { H1 } from "@/components/ui/h1";
 import { H2 } from "@/components/ui/h2";
 import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -13,7 +12,9 @@ import useExpenses from "@/hooks/useExpenses";
 import useIncomes from "@/hooks/useIncomes";
 import useMonthExpenses from "@/hooks/useMonthExpenses";
 import useMonthIncomes from "@/hooks/useMonthIncomes";
+import useUser from "@/hooks/useUser";
 import { setBusiness, setTimeRange } from "@/slicer/data";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import AddBusiness from "./AddBusiness/AddBusiness";
 import Chart from "./Chart";
@@ -27,6 +28,8 @@ const MainCard = () => {
   const businessSelected = useAppSelector<string>(
     (state) => state.DataSlice.business
   );
+  const user = useUser();
+  const router = useRouter();
   const { expensesQuery } = useExpenses();
   const { incomesQuery } = useIncomes();
   const { expensesQuery: monthExpensesQuery } = useMonthExpenses();
@@ -49,6 +52,15 @@ const MainCard = () => {
       monthIncomesQuery.refetch();
       setFetchingDateRange(false);
     }, TIMOUT_FOR_REFETCH);
+  };
+
+  const businessName =
+    businessesQuery.data.find((business) => business.id === businessSelected)
+      ?.businessName || "";
+
+  const handleClickSettings = () => {
+    console.log(`/${user?.userQuery?.data?.username}/${businessName}`);
+    router.push(`/${user?.userQuery?.data?.username}/${businessName}`);
   };
 
   return (
@@ -120,13 +132,11 @@ const MainCard = () => {
           <Separator className="my-2" />
           <div className="flex flex-col gap-2 py-2 w-full">
             <div className="flex gap-2">
-              <H2 className="capitalize">
-                {businessesQuery.data.find(
-                  (business) => business.id === businessSelected
-                )?.businessName || ""}
-              </H2>
+              <H2 className="capitalize">{businessName}</H2>
               <Separator orientation="vertical" />
-              <Button variant="ghost">Settings</Button>
+              <Button variant="ghost" onClick={handleClickSettings}>
+                Settings
+              </Button>
             </div>
             <div className="flex flex-col gap-6">
               <Card className="py-2">

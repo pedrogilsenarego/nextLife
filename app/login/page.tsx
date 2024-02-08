@@ -13,6 +13,7 @@ export default function Login({
 
     const email = formData.get("email") as string;
     const password = formData.get("password") as string;
+
     const cookieStore = cookies();
     const supabase = createClient(cookieStore);
 
@@ -25,7 +26,32 @@ export default function Login({
       return redirect("/login?message=Could not authenticate user");
     }
 
-    return redirect("/dashboard");
+    if (email) {
+      // Fetch user data from Supabase table
+      const { data: userData, error: userError } = await supabase
+        .from("users")
+        .select("username")
+        .eq("email", email)
+        .single();
+
+      if (userError) {
+        console.error("Error fetching user data:", userError.message);
+        return redirect("/login?message=Could not fetch user data");
+      }
+
+      if (userData) {
+        const username = userData.username;
+
+        // Redirect to the user's specific page based on their username
+        return redirect(`/${username}`);
+      } else {
+        console.error("User data not found.");
+        return redirect("/login?message=User data not found");
+      }
+    } else {
+      console.error("User not found.");
+      return redirect("/login?message=User not found");
+    }
   };
 
   const signUp = async (formData: FormData) => {
@@ -34,6 +60,7 @@ export default function Login({
     const origin = headers().get("origin");
     const email = formData.get("email") as string;
     const password = formData.get("password") as string;
+    const username = formData.get("username") as string;
     const cookieStore = cookies();
     const supabase = createClient(cookieStore);
 
@@ -56,6 +83,7 @@ export default function Login({
       {
         id: userId,
         email,
+        username,
       },
     ]);
 
@@ -112,6 +140,14 @@ export default function Login({
           name="password"
           placeholder="••••••••"
           required
+        />
+        <label className="text-md" htmlFor="user">
+          Username
+        </label>
+        <input
+          className="rounded-md px-4 py-2 bg-inherit border mb-6"
+          name="username"
+          placeholder="if new user needed to add username"
         />
         <button className="bg-green-700 rounded-md px-4 py-2 text-foreground mb-2">
           Sign In
