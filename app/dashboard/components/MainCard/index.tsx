@@ -2,6 +2,9 @@
 
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { H1 } from "@/components/ui/h1";
+import { H2 } from "@/components/ui/h2";
+import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { TIMOUT_FOR_REFETCH } from "@/constants/network";
 import { useAppDispatch, useAppSelector } from "@/hooks/slicer.hooks";
@@ -114,11 +117,25 @@ const MainCard = () => {
               )}
             </Tabs>
           </div>
-          <div className="flex flex-col gap-4 py-6">
-            <Chart />
-            <FullExpensesTable />
+          <Separator className="my-2" />
+          <div className="flex flex-col gap-2 py-2 w-full">
+            <div className="flex gap-2">
+              <H2 className="capitalize">
+                {businessesQuery.data.find(
+                  (business) => business.id === businessSelected
+                )?.businessName || ""}
+              </H2>
+              <Separator orientation="vertical" />
+              <Button variant="ghost">Settings</Button>
+            </div>
+            <div className="flex flex-col gap-6">
+              <Card className="py-2">
+                <Chart />
+              </Card>
 
-            <FullIncomeTable />
+              <FullExpensesTable />
+              <FullIncomeTable />
+            </div>
           </div>
         </div>
       </Card>

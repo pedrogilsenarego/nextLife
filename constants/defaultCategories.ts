@@ -3,6 +3,7 @@ export const defaultCategories = [
   { value: "car", label: "Car" },
   { value: "electricity", label: "Electricity" },
   { value: "etf's", label: "Etf's" },
+  { value: "health", label: "Health" },
   { value: "house", label: "House" },
   { value: "restaurants", label: "Restaurants" },
   { value: "transports", label: "Transports" },
