@@ -9,7 +9,7 @@ type Props = {
 };
 
 const TwoLevelChartPie = ({ data1 }: Props) => {
-  const [activeIndex, setActiveIndex] = useState<number[]>();
+  const [activeIndex, setActiveIndex] = useState<number[]>([]);
   useEffect(() => {
     setActiveIndex(Array.from({ length: data1.length }, (_, index) => index));
   }, [data1]);
