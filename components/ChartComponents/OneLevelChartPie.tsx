@@ -9,8 +9,9 @@ type Props = {
 };
 
 const TwoLevelChartPie = ({ data1 }: Props) => {
-  console.log(data1);
-  const [activeIndex, setActiveIndex] = useState<number>(0);
+  const [activeIndex, setActiveIndex] = useState<number[]>(
+    Array.from({ length: data1.length }, (_, index) => index)
+  );
   const COLORS_RED = [
     "#7c0a02",
     "#be4f62",
@@ -90,17 +91,37 @@ const TwoLevelChartPie = ({ data1 }: Props) => {
           textAnchor={textAnchor}
           fill="#333"
         >{`${payload.name}`}</text>
-        <text
-          fontSize={12}
-          x={ex + (cos >= 0 ? 1 : -1) * 12}
-          y={ey}
-          dy={18}
-          textAnchor={textAnchor}
-          fill="#999"
-        >
-          {`(${(percent * 100).toFixed(2)}%)`}
-        </text>
       </g>
+    );
+  };
+
+  const RADIAN = Math.PI / 180;
+  const renderCustomizedLabel = ({
+    cx,
+    cy,
+    midAngle,
+    innerRadius,
+    outerRadius,
+    percent,
+    index,
+  }: any) => {
+    const radius = innerRadius + (outerRadius - innerRadius) * 0.7;
+    const x = cx + radius * Math.cos(-midAngle * RADIAN);
+    const y = cy + radius * Math.sin(-midAngle * RADIAN);
+
+    return (
+      <text
+        style={{
+          fill: "white",
+          fontSize: "12px",
+        }}
+        x={x}
+        y={y}
+        textAnchor={x > cx ? "start" : "end"}
+        dominantBaseline="central"
+      >
+        {`${(percent * 100).toFixed(0)}%`}
+      </text>
     );
   };
 
@@ -113,10 +134,24 @@ const TwoLevelChartPie = ({ data1 }: Props) => {
         cy="50%"
         activeIndex={activeIndex}
         activeShape={renderActiveShape}
+        label={renderCustomizedLabel}
         outerRadius={160}
         fill="#a40000"
         labelLine={false} //!primarySelected ? true : false}
-        onMouseEnter={(_, index) => setActiveIndex(index)}
+        onClick={(event, index) => {
+          setActiveIndex((prev) => {
+            // Check if the index exists in the state array
+            const indexExists = prev.includes(index);
+
+            if (indexExists) {
+              // If the index exists, filter it out
+              return prev.filter((item) => item !== index);
+            } else {
+              // If the index doesn't exist, add it
+              return [...prev, index];
+            }
+          });
+        }}
       >
         {data1?.map((entry, index) => (
           <Cell
