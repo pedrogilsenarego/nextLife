@@ -8,7 +8,7 @@ export type IncomesQuery = {
 export type Income = {
   businessId: string;
   note: string;
-  userId: string;
+  user_id: string;
   created_at: Date;
   id: string;
   category: string;
@@ -24,7 +24,7 @@ export type MonthIncomesQuery = {
 
 export type MonthIncome = {
   businessId: string;
-  userId: string;
+  user_id: string;
   created_at: Date;
   id: string;
   category: string;

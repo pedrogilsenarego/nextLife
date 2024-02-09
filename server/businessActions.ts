@@ -18,7 +18,7 @@ export const addBusiness = async (businessName: string): Promise<string> => {
       const { error: userError } = await supabase.from("business").upsert([
         {
           businessName,
-          userId: user.id,
+          user_id: user.id,
         },
       ]);
 
@@ -50,7 +50,7 @@ export const getBusinesses = async (): Promise<BusinessesQuery> => {
       const { data: businesses, error: businessesError } = await supabase
         .from("business")
         .select("*")
-        .eq("userId", user.id);
+        .eq("user_id", user.id);
 
       if (businessesError) {
         console.error("error", businessesError);

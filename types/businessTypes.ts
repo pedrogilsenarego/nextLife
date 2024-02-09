@@ -1,6 +1,6 @@
 export type Business = {
   businessName: string;
-  userId: string;
+  user_id: string;
   created_at: Date;
   id: string;
 };

@@ -13,7 +13,7 @@ export type ExpensesQuery = {
 export type Expense = {
   businessId: string;
   note: string;
-  userId: string;
+  user_id: string;
   created_at: Date;
   id: string;
   category: string;
@@ -29,7 +29,7 @@ export type MonthExpensesQuery = {
 
 export type MonthExpense = {
   businessId: string;
-  userId: string;
+  user_id: string;
   created_at: Date;
   id: string;
   category: string;

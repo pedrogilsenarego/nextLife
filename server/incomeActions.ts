@@ -26,7 +26,7 @@ export const addIncome = async (
       }
 
       const { businessId, note, amount, category, created_at } = newExpenseData;
-      const userId = user.id;
+      const user_id = user.id;
 
       // Parse the provided created_at string into a Date object
       const createdDate = new Date(created_at);
@@ -39,7 +39,7 @@ export const addIncome = async (
         await supabase
           .from("monthIncomes")
           .select("*")
-          .eq("userId", userId)
+          .eq("user_id", user_id)
           .eq("businessId", businessId)
           .eq("category", category);
 
@@ -62,7 +62,7 @@ export const addIncome = async (
                 id: monthExpenseData[0].id,
                 amount: monthExpenseData[0].amount + amount,
                 businessId: monthExpenseData[0].businessId,
-                userId: monthExpenseData[0].userId,
+                user_id: monthExpenseData[0].user_id,
                 category: monthExpenseData[0].category,
               },
             ]);
@@ -75,7 +75,7 @@ export const addIncome = async (
           // Create a new record in monthExpenses
           await supabase.from("monthIncomes").upsert([
             {
-              userId,
+              user_id,
               businessId,
               category,
               amount,
@@ -92,7 +92,7 @@ export const addIncome = async (
         // Create a new record in monthExpenses
         await supabase.from("monthIncomes").upsert([
           {
-            userId,
+            user_id,
             businessId,
             category,
             amount,
@@ -113,7 +113,7 @@ export const addIncome = async (
           note,
           amount,
           category,
-          userId,
+          user_id,
           created_at,
         },
       ]);
@@ -157,7 +157,7 @@ export const getAllIncomesForCurrentMonth = async ({
       const { data: Incomes, error: IncomesError } = await supabase
         .from("incomes")
         .select("*")
-        .eq("userId", user.id)
+        .eq("user_id", user.id)
         .gt("created_at", currentMonthStart.toISOString())
         .lt("created_at", currentDate.toISOString())
         .order("created_at", { ascending: true });
@@ -207,7 +207,7 @@ export const getCumulativeIncomesForCurrentMonth = async ({
       const { data: Incomes, error: IncomesError } = await supabase
         .from("monthIncomes")
         .select("*")
-        .eq("userId", user.id)
+        .eq("user_id", user.id)
         .gt("created_at", currentMonthStart.toISOString())
         .lt("created_at", currentDate.toISOString());
 
@@ -256,7 +256,7 @@ export const deleteIncomes = async (
           await supabase
             .from("monthIncomes")
             .select("*")
-            .eq("userId", user.id)
+            .eq("user_id", user.id)
             .eq("businessId", businessId)
             .eq("category", category)
             .gte(
