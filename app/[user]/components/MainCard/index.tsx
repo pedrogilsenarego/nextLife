@@ -6,44 +6,44 @@ import { H2 } from "@/components/ui/h2";
 import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { TIMOUT_FOR_REFETCH } from "@/constants/network";
-import { useAppDispatch, useAppSelector } from "@/hooks/slicer.hooks";
+
 import useBusinesses from "@/hooks/useBusinesses";
 import useExpenses from "@/hooks/useExpenses";
 import useIncomes from "@/hooks/useIncomes";
 import useMonthExpenses from "@/hooks/useMonthExpenses";
 import useMonthIncomes from "@/hooks/useMonthIncomes";
 import useUser from "@/hooks/useUser";
-import { setBusiness, setTimeRange } from "@/slicer/data";
+
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { useData } from "../dashboard.provider";
 import AddBusiness from "./AddBusiness/AddBusiness";
 import Chart from "./Chart";
 import { default as FullExpensesTable } from "./FullTables/FullExpensesTable";
 import FullIncomeTable from "./FullTables/FullIncomeTable";
 
 const MainCard = () => {
-  const dispatch = useAppDispatch();
   const [fetchingDateRange, setFetchingDateRange] = useState(false);
   const businessesQuery = useBusinesses();
-  const businessSelected = useAppSelector<string>(
-    (state) => state.DataSlice.business
-  );
+  const dataContext = useData();
+  const businessSelected = dataContext.state.currentBusiness;
   const user = useUser();
   const router = useRouter();
   const { expensesQuery } = useExpenses();
   const { incomesQuery } = useIncomes();
   const { expensesQuery: monthExpensesQuery } = useMonthExpenses();
   const { incomesQuery: monthIncomesQuery } = useMonthIncomes();
-  const timeRange = useAppSelector((state) => state.DataSlice.timeRange);
+  const timeRange = dataContext.state.timeRange;
 
   if (!businessesQuery.data) return null;
 
   const handleClickTab = (tabValue: string) => {
-    dispatch(setBusiness(tabValue));
+    dataContext.setCurrentBusiness(tabValue);
   };
 
   const handleClickTabDate = (tabValue: string) => {
-    dispatch(setTimeRange(tabValue));
+    dataContext.setTimeRange(tabValue);
+
     setFetchingDateRange(true);
     setTimeout(() => {
       expensesQuery.refetch();

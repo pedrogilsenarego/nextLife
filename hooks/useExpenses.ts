@@ -5,17 +5,15 @@ import { getAllExpensesForCurrentMonth } from "@/server/expensesActions";
 import { ExpensesQuery } from "@/types/expensesTypes";
 import { useQuery } from "@tanstack/react-query";
 
+import { useData } from "@/app/[user]/components/dashboard.provider";
 import { dateQueriesMap } from "@/utils/dateFormat";
-import { useAppSelector } from "./slicer.hooks";
 
 const useExpenses = () => {
-  const timeRange = useAppSelector((state) => state.DataSlice.timeRange);
+  const dataContext = useData();
+  const timeRange = dataContext.state.timeRange;
   const datesToQuery = dateQueriesMap(timeRange);
 
-  const selectedBusiness = useAppSelector<string>(
-    (state) => state.DataSlice.business
-  );
-
+  const selectedBusiness = dataContext.state.currentBusiness;
   const expensesQuery = useQuery<ExpensesQuery, Error>({
     queryKey: [queryKeys.expenses],
     queryFn: () =>

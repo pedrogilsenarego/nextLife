@@ -3,7 +3,6 @@
 import { defaultCategories } from "@/constants/defaultCategories";
 import { TIMOUT_FOR_REFETCH } from "@/constants/network";
 import { queryKeys } from "@/constants/queryKeys";
-import { useAppSelector } from "@/hooks/slicer.hooks";
 import useExpenses from "@/hooks/useExpenses";
 import useMonthExpenses from "@/hooks/useMonthExpenses";
 import useUser from "@/hooks/useUser";
@@ -17,6 +16,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { useData } from "../../../dashboard.provider";
 type Props = {
   setOpen: (open: boolean) => void;
 };
@@ -27,12 +27,10 @@ const useExpensesForm = ({ setOpen }: Props) => {
     queryFn: getBusinesses,
   });
   const user = useUser();
-
+  const dataContext = useData();
   const { expensesQuery } = useExpenses();
   const { expensesQuery: monthExpensesQuery } = useMonthExpenses();
-  const businessId = useAppSelector<string>(
-    (state) => state.DataSlice.business
-  );
+  const businessId = dataContext.state.currentBusiness;
   const form = useForm<z.infer<typeof addExpenseSchema>>({
     resolver: zodResolver(addExpenseSchema),
     defaultValues: {

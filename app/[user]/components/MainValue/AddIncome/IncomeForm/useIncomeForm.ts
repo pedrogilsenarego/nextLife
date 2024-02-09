@@ -2,8 +2,7 @@
 
 import { defaultIncomesCategories } from "@/constants/defaultCategories";
 import { TIMOUT_FOR_REFETCH } from "@/constants/network";
-import { queryKeys } from "@/constants/queryKeys";
-import { useAppSelector } from "@/hooks/slicer.hooks";
+
 import useBusinesses from "@/hooks/useBusinesses";
 import useIncomes from "@/hooks/useIncomes";
 import useMonthIncomes from "@/hooks/useMonthIncomes";
@@ -15,6 +14,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { useData } from "../../../dashboard.provider";
 import { addIncomeSchema } from "./validation";
 type Props = {
   setOpen: (open: boolean) => void;
@@ -23,10 +23,9 @@ type Props = {
 const useIncomeForm = ({ setOpen }: Props) => {
   const business = useBusinesses();
   const { incomesQuery } = useIncomes();
+  const dataContext = useData();
   const { incomesQuery: incomeMonthQuery } = useMonthIncomes();
-  const businessId = useAppSelector<string>(
-    (state) => state.DataSlice.business
-  );
+  const businessId = dataContext.state.currentBusiness;
   const user = useUser();
   const form = useForm<z.infer<typeof addIncomeSchema>>({
     resolver: zodResolver(addIncomeSchema),

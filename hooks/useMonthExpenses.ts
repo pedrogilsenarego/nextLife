@@ -1,5 +1,6 @@
 "use client";
 
+import { useData } from "@/app/[user]/components/dashboard.provider";
 import { queryKeys } from "@/constants/queryKeys";
 import { getCumulativeExpensesForCurrentMonth } from "@/server/expensesActions";
 import {
@@ -9,14 +10,12 @@ import {
 } from "@/types/expensesTypes";
 import { dateQueriesMap } from "@/utils/dateFormat";
 import { useQuery } from "@tanstack/react-query";
-import { useAppSelector } from "./slicer.hooks";
 
 const useMonthExpenses = () => {
-  const timeRange = useAppSelector((state) => state.DataSlice.timeRange);
+  const dataContex = useData();
+  const selectedBusiness = dataContex.state.currentBusiness;
+  const timeRange = dataContex.state.timeRange;
   const datesToQuery = dateQueriesMap(timeRange);
-  const selectedBusiness = useAppSelector<string>(
-    (state) => state.DataSlice.business
-  );
 
   const expensesQuery = useQuery<MonthExpensesQuery, Error>({
     queryKey: [queryKeys.monthExpenses],
