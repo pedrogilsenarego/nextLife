@@ -12,6 +12,43 @@ const initialDataState: DataState = {
   timeRange: "currentMonth",
 };
 
+function getInitialState() {
+  let currentBusiness = initialDataState.currentBusiness;
+  let timeRange = initialDataState.timeRange;
+
+  // Check if localStorage is defined (available in the browser environment)
+  if (typeof window !== "undefined") {
+    const storedCurrentBusiness = localStorage.getItem("currentBusiness");
+    const storedTimeRange = localStorage.getItem("timeRange");
+
+    // Check if storedCurrentBusiness is a valid JSON string
+    if (storedCurrentBusiness !== null) {
+      try {
+        currentBusiness = JSON.parse(storedCurrentBusiness);
+      } catch (error) {
+        console.error(
+          "Error parsing currentBusiness from localStorage:",
+          error
+        );
+      }
+    }
+
+    // Check if storedTimeRange is a valid JSON string
+    if (storedTimeRange !== null) {
+      try {
+        timeRange = JSON.parse(storedTimeRange);
+      } catch (error) {
+        console.error("Error parsing timeRange from localStorage:", error);
+      }
+    }
+  }
+
+  return {
+    currentBusiness: currentBusiness || initialDataState.currentBusiness,
+    timeRange: timeRange || initialDataState.timeRange,
+  };
+}
+
 interface DataContextValue {
   state: DataState;
   setCurrentBusiness: React.Dispatch<
@@ -23,42 +60,6 @@ interface DataContextValue {
 const DataContext = createContext<DataContextValue | undefined>(undefined);
 
 export const DataProvider = ({ children }: { children: React.ReactNode }) => {
-  function getInitialState() {
-    let currentBusiness = initialDataState.currentBusiness;
-    let timeRange = initialDataState.timeRange;
-
-    // Check if localStorage is defined (available in the browser environment)
-    if (typeof window !== "undefined") {
-      const storedCurrentBusiness = localStorage.getItem("currentBusiness");
-      const storedTimeRange = localStorage.getItem("timeRange");
-
-      // Check if storedCurrentBusiness is a valid JSON string
-      if (storedCurrentBusiness !== null) {
-        try {
-          currentBusiness = JSON.parse(storedCurrentBusiness);
-        } catch (error) {
-          console.error(
-            "Error parsing currentBusiness from localStorage:",
-            error
-          );
-        }
-      }
-
-      // Check if storedTimeRange is a valid JSON string
-      if (storedTimeRange !== null) {
-        try {
-          timeRange = JSON.parse(storedTimeRange);
-        } catch (error) {
-          console.error("Error parsing timeRange from localStorage:", error);
-        }
-      }
-    }
-
-    return {
-      currentBusiness: currentBusiness || initialDataState.currentBusiness,
-      timeRange: timeRange || initialDataState.timeRange,
-    };
-  }
   const initialState = getInitialState();
   const [currentBusiness, setCurrentBusiness] = useState<
     DataState["currentBusiness"]

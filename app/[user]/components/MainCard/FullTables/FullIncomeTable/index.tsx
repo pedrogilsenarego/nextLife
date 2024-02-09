@@ -2,7 +2,6 @@
 
 import { TableWrapper } from "@/components/ui/Wrappers/TableWrapper";
 import { TIMOUT_FOR_REFETCH } from "@/constants/network";
-import { useAppSelector } from "@/hooks/slicer.hooks";
 import useBusinesses from "@/hooks/useBusinesses";
 import useIncomes from "@/hooks/useIncomes";
 import useMonthIncomes from "@/hooks/useMonthIncomes";
