@@ -32,7 +32,7 @@ export default async function () {
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
       <div className="flex-1 w-full  flex flex-col gap-20 items-center">
-        <nav className="w-full  flex justify-center border-b border-b-foreground/10 h-16">
+        <nav className="w-full  flex justify-center border-b border-b-foreground/10 h-16 z-20">
           <div className="w-full max-w-screen-2xl flex justify-end items-center p-3 text-sm ">
             {isSupabaseConnected && <AuthButton />}
           </div>

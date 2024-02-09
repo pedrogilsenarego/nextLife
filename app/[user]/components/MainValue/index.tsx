@@ -6,6 +6,7 @@ import useMonthIncomes from "@/hooks/useMonthIncomes";
 import SlotCounter from "react-slot-counter";
 import "./index.css";
 
+import { H3 } from "@/components/ui/h3";
 import AddExpense from "./AddExpense/AddExpense";
 import AddIncome from "./AddIncome";
 
@@ -17,13 +18,13 @@ const MainValue = () => {
 
   return (
     <div className="flex justify-around items-center gap-2">
-      <div className="bg-slate-200 px-4 rounded-md flex justify-center items-center gap-2">
-        <H2 className=" border-b text-emerald-600  text-2xl font-semibold ">
+      <div className="bg-slate-200 px-4 py-2 rounded-md flex justify-center items-center gap-2">
+        <H3 className="  text-emerald-600  text-2xl font-semibold ">
           {cumulativeIncomes.toString()}
-        </H2>
-        <H2 className=" border-b text-red-600  text-2xl font-semibold ">{`-${cumulativeExpenses.toString()}`}</H2>
+        </H3>
+        <H3 className="  text-red-600  text-2xl font-semibold ">{`-${cumulativeExpenses.toString()}`}</H3>
         <div className="flex items-center">
-          <H1>$</H1>
+          <H3 className="text-color-black text-2xl font-semibold">$</H3>
           <SlotCounter
             separatorClassName="slot"
             charClassName="slot"
