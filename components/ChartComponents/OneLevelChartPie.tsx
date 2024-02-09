@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Cell, Pie, PieChart, Sector } from "recharts";
 import "./index.css";
 
@@ -9,9 +9,10 @@ type Props = {
 };
 
 const TwoLevelChartPie = ({ data1 }: Props) => {
-  const [activeIndex, setActiveIndex] = useState<number[]>(
-    Array.from({ length: data1.length }, (_, index) => index)
-  );
+  const [activeIndex, setActiveIndex] = useState<number[]>();
+  useEffect(() => {
+    setActiveIndex(Array.from({ length: data1.length }, (_, index) => index));
+  }, [data1]);
   const COLORS_RED = [
     "#7c0a02",
     "#be4f62",
