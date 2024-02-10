@@ -18,7 +18,7 @@ const ResumedTable = () => {
 
   if (!businesses.data || !expensesByCategory) return;
   return (
-    <div className="w-full min-w-8">
+    <div className="w-full min-w-6">
       <TableWrapper
         columns={columns(businesses.data)}
         data={mappedExpensesByCategory}

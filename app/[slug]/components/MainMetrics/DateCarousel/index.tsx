@@ -28,7 +28,7 @@ const DateCarousel = () => {
   return (
     <Carousel
       style={{
-        width: "500px",
+        width: "420px",
         boxShadow: "0 0 20px 2px rgba(0, 0, 0, 0.15)",
         borderRadius: "6px",
         padding: "8px",

@@ -129,7 +129,7 @@ const TwoLevelChartPie = ({ data1 }: Props) => {
   };
 
   return (
-    <PieChart width={600} height={450}>
+    <PieChart width={600} height={420}>
       <Pie
         data={data1}
         dataKey="value"

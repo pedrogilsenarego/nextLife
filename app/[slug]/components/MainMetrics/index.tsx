@@ -25,25 +25,21 @@ const MainMetrics = () => {
 
   return (
     <div className="flex gap-3 justify-between w-full">
-      <div className="flex gap-1  w-full p-3 ">
-        <div className="flex gap-4 flex-col">
-          {!expensesQuery.isLoading && (
-            <OneLevelChartPie data1={mappedExpensesByCategory} />
-          )}
-          <H2
-            className="absolute"
-            style={{ opacity: expensesQuery.isLoading ? 1 : 0 }}
-          >
-            Loading...
-          </H2>
-        </div>
-        <div className="w-full flex flex-col gap-4">
-          <ResumedTable />
-        </div>
-      </div>
       <div>
-        <DateCarousel />
+        {!expensesQuery.isLoading && (
+          <OneLevelChartPie data1={mappedExpensesByCategory} />
+        )}
+        <H2
+          className="absolute"
+          style={{ opacity: expensesQuery.isLoading ? 1 : 0 }}
+        >
+          Loading...
+        </H2>
       </div>
+
+      <ResumedTable />
+
+      <DateCarousel />
     </div>
   );
 };
