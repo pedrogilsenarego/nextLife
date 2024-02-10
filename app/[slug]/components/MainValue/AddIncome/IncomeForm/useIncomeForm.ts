@@ -3,12 +3,12 @@
 import { defaultIncomesCategories } from "@/constants/defaultCategories";
 import { TIMOUT_FOR_REFETCH } from "@/constants/network";
 
+import { getBusinesses } from "@/clientActions/businessActions";
+import { addIncome } from "@/clientActions/incomeActions";
 import useBusinesses from "@/hooks/useBusinesses";
 import useIncomes from "@/hooks/useIncomes";
 import useMonthIncomes from "@/hooks/useMonthIncomes";
 import useUser from "@/hooks/useUser";
-import { getBusinesses } from "@/server/businessActions";
-import { addIncome } from "@/server/incomeActions";
 import { AddExpense } from "@/zodSchema/addExpense";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQuery } from "@tanstack/react-query";

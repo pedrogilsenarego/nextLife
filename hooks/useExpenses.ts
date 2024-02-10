@@ -1,11 +1,11 @@
 "use client";
 
+import { getAllExpensesForCurrentMonth } from "@/clientActions/expensesActions";
 import { queryKeys } from "@/constants/queryKeys";
-import { getAllExpensesForCurrentMonth } from "@/server/expensesActions";
 import { ExpensesQuery } from "@/types/expensesTypes";
 import { useQuery } from "@tanstack/react-query";
 
-import { useData } from "@/app/[user]/components/dashboard.provider";
+import { useData } from "@/app/[slug]/components/dashboard.provider";
 import { dateQueriesMap } from "@/utils/dateFormat";
 
 const useExpenses = () => {

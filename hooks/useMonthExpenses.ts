@@ -1,8 +1,8 @@
 "use client";
 
-import { useData } from "@/app/[user]/components/dashboard.provider";
+import { useData } from "@/app/[slug]/components/dashboard.provider";
+import { getCumulativeExpensesForCurrentMonth } from "@/clientActions/expensesActions";
 import { queryKeys } from "@/constants/queryKeys";
-import { getCumulativeExpensesForCurrentMonth } from "@/server/expensesActions";
 import {
   Expense,
   MonthExpense,

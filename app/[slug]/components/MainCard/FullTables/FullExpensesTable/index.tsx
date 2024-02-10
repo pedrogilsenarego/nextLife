@@ -1,11 +1,11 @@
 "use client";
 
+import { deleteExpenses } from "@/clientActions/expensesActions";
 import { TableWrapper } from "@/components/ui/Wrappers/TableWrapper";
 import { TIMOUT_FOR_REFETCH } from "@/constants/network";
 import useBusinesses from "@/hooks/useBusinesses";
 import useExpenses from "@/hooks/useExpenses";
 import useMonthExpenses from "@/hooks/useMonthExpenses";
-import { deleteExpenses } from "@/server/expensesActions";
 import { Expense } from "@/types/expensesTypes";
 import { useMutation } from "@tanstack/react-query";
 import { columns } from "./columns";

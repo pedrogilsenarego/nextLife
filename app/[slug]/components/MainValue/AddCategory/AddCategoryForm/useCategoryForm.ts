@@ -1,9 +1,9 @@
 "use client";
 
+import { addExpense } from "@/clientActions/expensesActions";
+import { addCategory } from "@/clientActions/userAction";
 import { TIMOUT_FOR_REFETCH } from "@/constants/network";
 import useUser from "@/hooks/useUser";
-import { addExpense } from "@/server/expensesActions";
-import { addCategory } from "@/server/userAction";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";

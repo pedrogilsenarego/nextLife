@@ -1,11 +1,11 @@
 "use client";
 
+import { deleteIncomes } from "@/clientActions/incomeActions";
 import { TableWrapper } from "@/components/ui/Wrappers/TableWrapper";
 import { TIMOUT_FOR_REFETCH } from "@/constants/network";
 import useBusinesses from "@/hooks/useBusinesses";
 import useIncomes from "@/hooks/useIncomes";
 import useMonthIncomes from "@/hooks/useMonthIncomes";
-import { deleteIncomes } from "@/server/incomeActions";
 import { Income } from "@/types/incomesTypes";
 import { useMutation } from "@tanstack/react-query";
 import { columns } from "./columns";

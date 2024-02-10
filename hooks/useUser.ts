@@ -1,7 +1,7 @@
 "use client";
 
+import { getUserData } from "@/clientActions/userAction";
 import { queryKeys } from "@/constants/queryKeys";
-import { getUserData } from "@/server/userAction";
 import { UserQuery } from "@/types/userTypes";
 import { useQuery } from "@tanstack/react-query";
 

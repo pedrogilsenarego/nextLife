@@ -1,10 +1,10 @@
 "use client";
+import { addBusiness, getBusinesses } from "@/clientActions/businessActions";
 import InputForm from "@/components/ui/Wrappers/InputForm";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import { P } from "@/components/ui/p";
 import { queryKeys } from "@/constants/queryKeys";
-import { addBusiness, getBusinesses } from "@/server/businessActions";
 import { AddBusiness, addBusinessSchema } from "@/zodSchema/addBusiness";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQuery } from "@tanstack/react-query";

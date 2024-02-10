@@ -1,7 +1,7 @@
 "use client";
 
+import { getBusinesses } from "@/clientActions/businessActions";
 import { queryKeys } from "@/constants/queryKeys";
-import { getBusinesses } from "@/server/businessActions";
 import { BusinessesQuery } from "@/types/businessTypes";
 import { useQuery } from "@tanstack/react-query";
 

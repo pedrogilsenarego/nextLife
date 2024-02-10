@@ -1,8 +1,8 @@
 "use client";
 
-import { useData } from "@/app/[user]/components/dashboard.provider";
+import { useData } from "@/app/[slug]/components/dashboard.provider";
+import { getCumulativeIncomesForCurrentMonth } from "@/clientActions/incomeActions";
 import { queryKeys } from "@/constants/queryKeys";
-import { getCumulativeIncomesForCurrentMonth } from "@/server/incomeActions";
 import { MonthIncomesQuery } from "@/types/incomesTypes";
 import { dateQueriesMap } from "@/utils/dateFormat";
 import { useQuery } from "@tanstack/react-query";

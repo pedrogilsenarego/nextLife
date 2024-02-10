@@ -1,16 +1,16 @@
 "use client";
 
+import { getBusinesses } from "@/clientActions/businessActions";
+import {
+  addExpense,
+  getAllExpensesForCurrentMonth,
+} from "@/clientActions/expensesActions";
 import { defaultCategories } from "@/constants/defaultCategories";
 import { TIMOUT_FOR_REFETCH } from "@/constants/network";
 import { queryKeys } from "@/constants/queryKeys";
 import useExpenses from "@/hooks/useExpenses";
 import useMonthExpenses from "@/hooks/useMonthExpenses";
 import useUser from "@/hooks/useUser";
-import { getBusinesses } from "@/server/businessActions";
-import {
-  addExpense,
-  getAllExpensesForCurrentMonth,
-} from "@/server/expensesActions";
 import { AddExpense, addExpenseSchema } from "@/zodSchema/addExpense";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQuery } from "@tanstack/react-query";
