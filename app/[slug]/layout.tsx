@@ -1,5 +1,6 @@
 "use server";
 import AuthButton from "@/components/AuthButton";
+import Footer from "@/components/LayoutComponents/Footer";
 
 export default async function Layout({
   children,
@@ -14,19 +15,7 @@ export default async function Layout({
         </div>
       </nav>
       {children}
-      <footer className="w-full border-t border-t-foreground/10 p-8 flex justify-center text-center text-xs">
-        <p>
-          Powered by{" "}
-          <a
-            href=""
-            target="_blank"
-            className="font-bold hover:underline"
-            rel="noreferrer"
-          >
-            SenaRego
-          </a>
-        </p>
-      </footer>
+      <Footer />
     </div>
   );
 }

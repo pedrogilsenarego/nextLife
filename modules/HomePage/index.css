@@ -1,0 +1,38 @@
+:root {
+  --cut-width: 50%; /* Initial cut width, can be changed dynamically */
+}
+
+.container {
+  position: relative;
+  width: 100%;
+  height: 80vh;
+  overflow: hidden;
+}
+
+.container::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: var(--cut-width);
+  height: 100%;
+  background-color: white; /* Background color of the "cut" portion */
+  z-index: 1; /* Place the cut portion on top of the container */
+}
+
+.first-box {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+
+  justify-content: center;
+
+  z-index: 2;
+  clip-path: polygon(
+    0 0,
+    calc(var(--cut-width)) 0,
+    calc(var(--cut-width)) 100%,
+    0 100%
+  );
+}
