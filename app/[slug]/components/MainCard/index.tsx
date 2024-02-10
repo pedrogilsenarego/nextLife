@@ -59,7 +59,6 @@ const MainCard = () => {
       ?.businessName || "";
 
   const handleClickSettings = () => {
-    console.log(`/${user?.userQuery?.data?.username}/${businessName}`);
     router.push(`/${user?.userQuery?.data?.username}/${businessName}`);
   };
 

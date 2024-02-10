@@ -1,37 +1,32 @@
 "use server";
+import AuthButton from "@/components/AuthButton";
 
-import { UserQuery } from "@/types/userTypes";
-import { createClient } from "@/utils/supabase/server";
-import { PostgrestSingleResponse } from "@supabase/supabase-js";
-import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
-
-type LayoutProps = {
-  params: {
-    slug: string;
-  };
+export default async function Layout({
+  children,
+}: {
   children: React.ReactNode;
-};
-
-export default async function Layout({ children, params }: LayoutProps) {
-  const cookieStore = cookies();
-  const supabase = createClient(cookieStore);
-
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  if (!user) redirect("/login");
-
-  const response: PostgrestSingleResponse<UserQuery> = await supabase
-    .from("users")
-    .select()
-    .eq("id", user.id)
-    .single();
-
-  if (response?.data?.username !== params.slug) {
-    redirect("/login?message=You have no access to that user");
-  }
-
-  return <>{children}</>;
+}) {
+  return (
+    <div className="flex-1 w-full  flex flex-col gap-20 items-center">
+      <nav className="w-full  flex justify-center border-b border-b-foreground/10 h-16 ">
+        <div className="w-full max-w-screen-2xl flex justify-end items-center p-3 text-sm">
+          <AuthButton />
+        </div>
+      </nav>
+      {children}
+      <footer className="w-full border-t border-t-foreground/10 p-8 flex justify-center text-center text-xs">
+        <p>
+          Powered by{" "}
+          <a
+            href=""
+            target="_blank"
+            className="font-bold hover:underline"
+            rel="noreferrer"
+          >
+            SenaRego
+          </a>
+        </p>
+      </footer>
+    </div>
+  );
 }
