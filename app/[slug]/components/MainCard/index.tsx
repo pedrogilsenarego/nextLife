@@ -96,36 +96,32 @@ const MainCard = () => {
               </TabsList>
             </Tabs>
             <Tabs defaultValue={timeRange}>
-              {fetchingDateRange ? (
-                <Button isLoading />
-              ) : (
-                <TabsList className=" flex justify-between">
-                  <TabsTrigger
-                    value="3years"
-                    onClick={() => handleClickTabDate("3years")}
-                  >
-                    Last 3 Year
-                  </TabsTrigger>
-                  <TabsTrigger
-                    value="1year"
-                    onClick={() => handleClickTabDate("1year")}
-                  >
-                    Last Year
-                  </TabsTrigger>
-                  <TabsTrigger
-                    value="6Months"
-                    onClick={() => handleClickTabDate("6Months")}
-                  >
-                    Last 6 Months
-                  </TabsTrigger>
-                  <TabsTrigger
-                    value="currentMonth"
-                    onClick={() => handleClickTabDate("currentMonth")}
-                  >
-                    Current Month
-                  </TabsTrigger>
-                </TabsList>
-              )}
+              <TabsList className=" flex justify-between">
+                <TabsTrigger
+                  value="3years"
+                  onClick={() => handleClickTabDate("3years")}
+                >
+                  Last 3 Year
+                </TabsTrigger>
+                <TabsTrigger
+                  value="1year"
+                  onClick={() => handleClickTabDate("1year")}
+                >
+                  Last Year
+                </TabsTrigger>
+                <TabsTrigger
+                  value="6Months"
+                  onClick={() => handleClickTabDate("6Months")}
+                >
+                  Last 6 Months
+                </TabsTrigger>
+                <TabsTrigger
+                  value="currentMonth"
+                  onClick={() => handleClickTabDate("currentMonth")}
+                >
+                  Current Month
+                </TabsTrigger>
+              </TabsList>
             </Tabs>
           </div>
           <Separator className="my-2" />

@@ -6,6 +6,7 @@ import { H1 } from "@/components/ui/h1";
 import { H3 } from "@/components/ui/h3";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import Carousel from "./components/Carousel";
 import "./index.css";
 
 const About = () => {
@@ -49,87 +50,107 @@ const About = () => {
           flex: 1,
           alignItems: "top",
           position: "relative",
-
-          boxShadow: "2px 2px 6px #00000066",
         }}
       >
         <div className="first-box">
-          <div className="flex flex-col w-full items-center justify-between">
-            <Card
-              className="flex items-center p-8 justify-center flex-col "
-              style={{ marginTop: "200px" }}
-            >
-              <H1 style={{ marginTop: "20px" }}>Control your money flow</H1>
-              <H3 style={{ marginTop: "5px", color: "#71717A" }}>{maintext}</H3>
-              <H1
-                style={{
-                  marginTop: "40px",
-                  color: "#71717A",
-                  textTransform: "uppercase",
-                  fontWeight: 600,
-                  letterSpacing: "2px",
-                }}
+          <div
+            style={{ rowGap: "100px" }}
+            className="flex flex-col w-full items-center justify-between"
+          >
+            <div>
+              <div
+                className="flex items-center p-8 justify-center flex-col "
+                style={{ marginTop: "50px" }}
               >
-                Incomes
-              </H1>
-              <Button
-                onClick={handleClickSettings}
-                style={{ marginTop: "40px" }}
-              >
-                Get Started
-              </Button>
-            </Card>
+                <Card className="flex items-center p-8 justify-center flex-col bg">
+                  <H1 style={{ marginTop: "20px" }}>Control your money flow</H1>
+                  <H3 style={{ marginTop: "5px", color: "#71717A" }}>
+                    {maintext}
+                  </H3>
+                  <H1
+                    style={{
+                      marginTop: "40px",
+                      color: "#71717A",
+                      textTransform: "uppercase",
+                      fontWeight: 600,
+                      letterSpacing: "2px",
+                    }}
+                  >
+                    Incomes
+                  </H1>
+                  <Button
+                    onClick={handleClickSettings}
+                    style={{ marginTop: "40px" }}
+                  >
+                    Get Started
+                  </Button>
+                </Card>
+              </div>
+
+              <Carousel />
+            </div>
             <Footer />
           </div>
         </div>
         <div
           className="container"
           style={{
-            position: "absolute",
             background: `#09090B`,
-            height: "100%",
-            display: "flex",
-            justifyContent: "center",
-
-            overflow: "hidden",
           }}
         >
-          <div className="flex flex-col w-full items-center justify-between">
-            <Card
-              className="flex items-center p-8 justify-center flex-col bg"
-              style={{
-                backgroundColor: "#09090B",
-                borderColor: "#ffffff1A",
-                marginTop: "200px",
-              }}
+          <div
+            style={{ rowGap: "100px" }}
+            className="flex flex-col w-full items-center justify-between"
+          >
+            <div
+              style={{ rowGap: "100px" }}
+              className="flex flex-col w-full items-center justify-between"
             >
-              <H1 style={{ color: "#FAFAFA", marginTop: "20px" }}>
-                Control your money flow
-              </H1>
-              <H3 style={{ color: "#A1A1AA", marginTop: "5px" }}>{maintext}</H3>
-              <H1
-                style={{
-                  color: "#ffffffCC",
-                  marginTop: "40px",
-                  textTransform: "uppercase",
-                  fontWeight: 600,
-                  letterSpacing: "2px",
-                }}
-              >
-                Expenses
-              </H1>
-              <Button
-                onClick={handleClickSettings}
-                style={{
-                  marginTop: "40px",
-                  fontWeight: 800,
-                  color: "black",
-                  backgroundColor: "#E4E4E7",
-                }}
-              >
-                Get Started
-              </Button>
-            </Card>
+              <div>
+                <div
+                  className="flex items-center p-8 justify-center flex-col "
+                  style={{ marginTop: "50px" }}
+                >
+                  <Card
+                    className="flex items-center p-8 justify-center flex-col bg"
+                    style={{
+                      backgroundColor: "#09090B",
+                      borderColor: "#ffffff1A",
+                    }}
+                  >
+                    <H1 style={{ color: "#FAFAFA", marginTop: "20px" }}>
+                      Control your money flow
+                    </H1>
+                    <H3 style={{ color: "#A1A1AA", marginTop: "5px" }}>
+                      {maintext}
+                    </H3>
+                    <H1
+                      style={{
+                        color: "#ffffffCC",
+                        marginTop: "40px",
+                        textTransform: "uppercase",
+                        fontWeight: 600,
+                        letterSpacing: "2px",
+                      }}
+                    >
+                      Expenses
+                    </H1>
+                    <Button
+                      onClick={handleClickSettings}
+                      style={{
+                        marginTop: "40px",
+                        fontWeight: 800,
+                        color: "black",
+                        backgroundColor: "#E4E4E7",
+                      }}
+                    >
+                      Get Started
+                    </Button>
+                  </Card>
+                </div>
+                <Carousel darkMode />
+              </div>
+            </div>
             <Footer lightMode />
           </div>
         </div>
