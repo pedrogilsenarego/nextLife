@@ -7,6 +7,7 @@ import { H3 } from "@/components/ui/h3";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import Carousel from "./components/Carousel";
+import DarkContent1 from "./components/Carousel/components/DarkContent1";
 import "./index.css";
 
 const About = () => {
@@ -87,7 +88,7 @@ const About = () => {
                 </Card>
               </div>
 
-              <Carousel />
+              <Carousel content={[<p>teste</p>]} />
             </div>
             <Footer />
           </div>
@@ -148,7 +149,7 @@ const About = () => {
                     </Button>
                   </Card>
                 </div>
-                <Carousel darkMode />
+                <Carousel darkMode content={[<DarkContent1 />]} />
               </div>
             </div>
             <Footer lightMode />

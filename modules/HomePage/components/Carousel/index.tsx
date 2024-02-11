@@ -3,9 +3,10 @@ import { useEffect, useRef } from "react";
 
 type Props = {
   darkMode?: boolean;
+  content?: React.ReactNode[];
 };
 
-const Carousel = ({ darkMode }: Props) => {
+const Carousel = ({ darkMode, content }: Props) => {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -54,6 +55,25 @@ const Carousel = ({ darkMode }: Props) => {
           transition: "transform 0.02s linear",
         }}
       >
+        {content?.map((content, index) => {
+          return (
+            <div style={{ padding: "0px 10px" }}>
+              <Card
+                key={index}
+                style={{
+                  overflow: "hidden",
+                  width: "400px",
+                  height: "400px",
+
+                  backgroundColor: darkMode ? "#09090B" : undefined,
+                  borderColor: darkMode ? "#ffffff1A" : undefined,
+                }}
+              >
+                {content}
+              </Card>
+            </div>
+          );
+        })}
         <div style={{ padding: "0px 10px" }}>
           <Card
             style={{
@@ -136,18 +156,6 @@ const Carousel = ({ darkMode }: Props) => {
             }}
           >
             7
-          </Card>
-        </div>
-        <div style={{ padding: "0px 10px" }}>
-          <Card
-            style={{
-              width: "400px",
-              height: "400px",
-              backgroundColor: darkMode ? "#09090B" : undefined,
-              borderColor: darkMode ? "#ffffff1A" : undefined,
-            }}
-          >
-            8
           </Card>
         </div>
       </div>
