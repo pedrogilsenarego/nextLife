@@ -1,5 +1,5 @@
 import { Card } from "@/components/ui/card";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 type Props = {
   darkMode?: boolean;
@@ -8,35 +8,44 @@ type Props = {
 
 const Carousel = ({ darkMode, content }: Props) => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const containerRef2 = useRef<HTMLDivElement>(null);
+  const [tilesArray, setTilesArray] = useState<React.ReactNode[]>([
+    ...(content || []),
+    ...(content || []),
+  ]);
 
   useEffect(() => {
     const container = containerRef.current;
-    if (!container) return;
+    const container2 = containerRef2.current;
+    if (!container || !container2) return;
 
-    const unitWidth = container.children[0].clientWidth;
+    const unitWidth = (420 * tilesArray.length) / 2;
+
     let currentPosition = 0;
-    let currentIndex = 0;
+
+    //let currentIndex = 0;
 
     const moveCarousel = () => {
-      currentPosition -= 0.8; // Adjust the movement speed as needed
+      currentPosition -= 1;
       container.style.transition = "none";
       container.style.transform = `translateX(${currentPosition}px)`;
 
       if (currentPosition <= -unitWidth) {
-        // Remove the first child and append it to the end
-        const firstChild = container.children[0];
-        container.appendChild(firstChild.cloneNode(true));
-        container.removeChild(firstChild);
+        console.log("here");
+        let firstElements = tilesArray.slice(0, tilesArray.length / 2);
+        setTilesArray((prev) => [
+          ...prev.slice(tilesArray.length / 2),
+          ...firstElements,
+        ]);
 
-        currentPosition += unitWidth;
-        currentIndex = (currentIndex + 1) % container.children.length;
+        currentPosition += unitWidth; // Adjusted to the width of the container
       }
     };
 
-    const interval = setInterval(moveCarousel, 10); // Adjust the interval timing as needed
+    const interval = setInterval(moveCarousel, 10);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [tilesArray]);
 
   return (
     <div
@@ -55,7 +64,7 @@ const Carousel = ({ darkMode, content }: Props) => {
           transition: "transform 0.02s linear",
         }}
       >
-        {content?.map((content, index) => {
+        {tilesArray?.map((content, index) => {
           return (
             <div style={{ padding: "0px 10px" }}>
               <Card
@@ -74,90 +83,34 @@ const Carousel = ({ darkMode, content }: Props) => {
             </div>
           );
         })}
-        <div style={{ padding: "0px 10px" }}>
-          <Card
-            style={{
-              width: "400px",
-              height: "400px",
-              backgroundColor: darkMode ? "#09090B" : undefined,
-              borderColor: darkMode ? "#ffffff1A" : undefined,
-            }}
-          >
-            1
-          </Card>
-        </div>
-        <div style={{ padding: "0px 10px" }}>
-          <Card
-            style={{
-              width: "400px",
-              height: "400px",
-              backgroundColor: darkMode ? "#09090B" : undefined,
-              borderColor: darkMode ? "#ffffff1A" : undefined,
-            }}
-          >
-            2
-          </Card>
-        </div>
-        <div style={{ padding: "0px 10px" }}>
-          <Card
-            style={{
-              width: "400px",
-              height: "400px",
-              backgroundColor: darkMode ? "#09090B" : undefined,
-              borderColor: darkMode ? "#ffffff1A" : undefined,
-            }}
-          >
-            3
-          </Card>
-        </div>
-        <div style={{ padding: "0px 10px" }}>
-          <Card
-            style={{
-              width: "400px",
-              height: "400px",
-              backgroundColor: darkMode ? "#09090B" : undefined,
-              borderColor: darkMode ? "#ffffff1A" : undefined,
-            }}
-          >
-            4
-          </Card>
-        </div>
-        <div style={{ padding: "0px 10px" }}>
-          <Card
-            style={{
-              width: "400px",
-              height: "400px",
-              backgroundColor: darkMode ? "#09090B" : undefined,
-              borderColor: darkMode ? "#ffffff1A" : undefined,
-            }}
-          >
-            5
-          </Card>
-        </div>
-        <div style={{ padding: "0px 10px" }}>
-          <Card
-            style={{
-              width: "400px",
-              height: "400px",
-              backgroundColor: darkMode ? "#09090B" : undefined,
-              borderColor: darkMode ? "#ffffff1A" : undefined,
-            }}
-          >
-            6
-          </Card>
-        </div>
-        <div style={{ padding: "0px 10px" }}>
-          <Card
-            style={{
-              width: "400px",
-              height: "400px",
-              backgroundColor: darkMode ? "#09090B" : undefined,
-              borderColor: darkMode ? "#ffffff1A" : undefined,
-            }}
-          >
-            7
-          </Card>
-        </div>
+      </div>
+      <div
+        ref={containerRef2}
+        style={{
+          display: "flex",
+          width: "100vw",
+          transition: "transform 0.02s linear",
+        }}
+      >
+        {tilesArray?.map((content, index) => {
+          return (
+            <div style={{ padding: "0px 10px" }}>
+              <Card
+                key={index}
+                style={{
+                  overflow: "hidden",
+                  width: "400px",
+                  height: "400px",
+
+                  backgroundColor: darkMode ? "#09090B" : undefined,
+                  borderColor: darkMode ? "#ffffff1A" : undefined,
+                }}
+              >
+                {content}
+              </Card>
+            </div>
+          );
+        })}
       </div>
     </div>
   );

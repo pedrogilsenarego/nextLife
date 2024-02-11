@@ -14,10 +14,6 @@ const DarkContent1 = () => {
           Personalize colors and configurations
         </H3>
       </div>
-      <img
-        style={{ width: "100%", height: "200px" }}
-        src="https://blog.smartpmtraining.com/wp-content/uploads/2023/03/1.-Dashboard-Thumbnail-1024x577.png"
-      />
     </div>
   );
 };

@@ -88,7 +88,15 @@ const About = () => {
                 </Card>
               </div>
 
-              <Carousel content={[<p>teste</p>]} />
+              <Carousel
+                content={[
+                  <p>0</p>,
+                  <p>1sasasa</p>,
+                  <p>2sasasa</p>,
+                  <p>3sasa</p>,
+                  <p>4sasasa</p>,
+                ]}
+              />
             </div>
             <Footer />
           </div>
@@ -149,7 +157,16 @@ const About = () => {
                     </Button>
                   </Card>
                 </div>
-                <Carousel darkMode content={[<DarkContent1 />]} />
+                <Carousel
+                  darkMode
+                  content={[
+                    <DarkContent1 />,
+                    <p>1sasasa</p>,
+                    <p>2sasa</p>,
+                    <p>3sasasa</p>,
+                    <p>4sasa</p>,
+                  ]}
+                />
               </div>
             </div>
             <Footer lightMode />
