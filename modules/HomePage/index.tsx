@@ -86,7 +86,7 @@ const About = () => {
                   </H1>
                   <Button
                     onClick={handleClickSettings}
-                    style={{ marginTop: "40px" }}
+                    style={{ marginTop: "30px" }}
                   >
                     Get Started
                   </Button>
@@ -150,7 +150,7 @@ const About = () => {
                     <Button
                       onClick={handleClickSettings}
                       style={{
-                        marginTop: "40px",
+                        marginTop: "30px",
                         fontWeight: 800,
                         color: "black",
                         backgroundColor: "#E4E4E7",

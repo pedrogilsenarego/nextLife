@@ -1,3 +1,4 @@
+import { Toaster } from "@/components/ui/toaster";
 import ReactQueryProvider from "@/providers/ReactQueryProvider";
 import { GeistSans } from "geist/font/sans";
 import "./globals.css";
@@ -18,6 +19,7 @@ export default function RootLayout({
           <main className="min-h-screen flex flex-col items-center">
             <ReactQueryProvider>{children}</ReactQueryProvider>
           </main>
+          <Toaster />
         </body>
       </html>
     </>
