@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { H1 } from "@/components/ui/h1";
 import { H3 } from "@/components/ui/h3";
+import { ROUTE_PATHS } from "@/constants/routes";
 import { Delicious_Handrawn } from "next/font/google";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -42,7 +43,7 @@ const About = () => {
   }, [mouseX]);
 
   const handleClickSettings = () => {
-    router.push(`/login`);
+    router.push(ROUTE_PATHS.SIGNUP);
   };
 
   return (

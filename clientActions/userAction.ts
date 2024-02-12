@@ -150,6 +150,51 @@ export const signinUser = async ({
   });
 };
 
+export const signupUser = async ({
+  email,
+  password,
+  username,
+}: {
+  email: string;
+  password: string;
+  username: string;
+}): Promise<unknown> => {
+  console.log("creatingUser");
+  return new Promise(async (resolve, reject) => {
+    try {
+      const { data, error } = await supabase.auth.signUp({
+        email,
+        password,
+        options: {
+          emailRedirectTo: `${origin}/auth/callback`,
+        },
+      });
+
+      if (error) {
+        reject(error);
+      }
+
+      const user_id = data?.user?.id;
+      console.log(user_id, email, username);
+      const { error: userError } = await supabase.from("users").upsert([
+        {
+          id: user_id,
+          email,
+          username,
+        },
+      ]);
+
+      if (userError) {
+        reject("Error adding user data");
+      }
+      return resolve("Check email to continue sign in process");
+    } catch (error) {
+      console.error("error", error);
+      reject(error);
+    }
+  });
+};
+
 export const getUserSession = async (): Promise<User> => {
   console.log("getingUserSession");
   return new Promise(async (resolve, reject) => {
