@@ -76,7 +76,7 @@ export function TableWrapper<TData, TValue>({
           )}
         </div>
         <div>
-          <div className="rounded-md border w-full">
+          <div className="rounded-md border w-full shadow-md">
             <Table>
               <TableHeader>
                 {table.getHeaderGroups().map((headerGroup) => (
@@ -126,8 +126,9 @@ export function TableWrapper<TData, TValue>({
               </TableBody>
             </Table>
           </div>
-
-          {pagination && <DataTablePagination table={table} />}
+          <div className="mt-2">
+            {pagination && <DataTablePagination table={table} />}
+          </div>
         </div>
       </div>
     </>

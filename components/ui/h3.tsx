@@ -6,7 +6,6 @@ type Props = React.HTMLAttributes<HTMLHeadingElement> & {
 };
 
 export function H3({ children, className, ...props }: Props) {
-  console.log(className);
   return (
     <h3
       className={cn(className, "text-2xl font-semibold tracking-tight")}

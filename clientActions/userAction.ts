@@ -1,5 +1,6 @@
 import { UserQuery } from "@/types/userTypes";
 import { createClient } from "@/utils/supabase/client";
+import { Session, User } from "@supabase/supabase-js";
 
 const supabase = createClient();
 type CategoryType = "expense" | "income";
@@ -101,4 +102,30 @@ export const getUserData = async (): Promise<UserQuery> => {
       reject(error);
     }
   });
+};
+
+export const getUserSession = async (): Promise<User> => {
+  console.log("getingUserSession");
+  return new Promise(async (resolve, reject) => {
+    try {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+
+      if (!user) {
+        return null;
+      }
+
+      resolve(user);
+    } catch (error) {
+      console.error("error", error);
+      reject(error);
+    }
+  });
+};
+
+export const userLogout = async (): Promise<any> => {
+  try {
+    await supabase.auth.signOut();
+  } catch {}
 };

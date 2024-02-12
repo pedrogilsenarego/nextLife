@@ -23,15 +23,12 @@ const Carousel = ({ darkMode, content }: Props) => {
 
     let currentPosition = 0;
 
-    //let currentIndex = 0;
-
     const moveCarousel = () => {
       currentPosition -= 1;
       container.style.transition = "none";
       container.style.transform = `translateX(${currentPosition}px)`;
 
       if (currentPosition <= -unitWidth) {
-        console.log("here");
         let firstElements = tilesArray.slice(0, tilesArray.length / 2);
         setTilesArray((prev) => [
           ...prev.slice(tilesArray.length / 2),
@@ -94,7 +91,7 @@ const Carousel = ({ darkMode, content }: Props) => {
       >
         {tilesArray?.map((content, index) => {
           return (
-            <div style={{ padding: "0px 10px" }}>
+            <div style={{ padding: "10px 10px" }}>
               <Card
                 key={index}
                 style={{

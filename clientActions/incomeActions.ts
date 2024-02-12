@@ -160,7 +160,7 @@ export const getAllIncomesForCurrentMonth = async ({
         .eq("user_id", user.id)
         .gt("created_at", currentMonthStart.toISOString())
         .lt("created_at", currentDate.toISOString())
-        .order("created_at", { ascending: true });
+        .order("created_at", { ascending: false });
 
       if (IncomesError) {
         console.error(IncomesError);

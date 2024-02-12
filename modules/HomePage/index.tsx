@@ -1,14 +1,18 @@
 "use client";
 import Footer from "@/components/LayoutComponents/Footer";
+import Header from "@/components/LayoutComponents/Header";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { H1 } from "@/components/ui/h1";
 import { H3 } from "@/components/ui/h3";
+import { Delicious_Handrawn } from "next/font/google";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import Carousel from "./components/Carousel";
 import DarkContent1 from "./components/Carousel/components/DarkContent1";
 import "./index.css";
+
+const delicious = Delicious_Handrawn({ weight: "400", subsets: ["latin"] });
 
 const About = () => {
   const [mouseX, setMouseX] = useState<number>(0);
@@ -55,26 +59,27 @@ const About = () => {
       >
         <div className="first-box">
           <div
-            style={{ rowGap: "100px" }}
-            className="flex flex-col w-full items-center justify-between"
+            style={{ minHeight: "100vh" }}
+            className="flex flex-col w-full items-center justify-between "
           >
+            <Header />
             <div>
-              <div
-                className="flex items-center p-8 justify-center flex-col "
-                style={{ marginTop: "50px" }}
-              >
+              <div className="flex items-center p-8 justify-center flex-col ">
                 <Card className="flex items-center p-8 justify-center flex-col bg">
                   <H1 style={{ marginTop: "20px" }}>Control your money flow</H1>
                   <H3 style={{ marginTop: "5px", color: "#71717A" }}>
                     {maintext}
                   </H3>
                   <H1
+                    className={delicious.className}
                     style={{
-                      marginTop: "40px",
-                      color: "#71717A",
+                      marginTop: "30px",
+
                       textTransform: "uppercase",
+                      fontSize: "60px",
+                      color: "orangered",
                       fontWeight: 600,
-                      letterSpacing: "2px",
+                      letterSpacing: "3px",
                     }}
                   >
                     Incomes
@@ -108,18 +113,13 @@ const About = () => {
           }}
         >
           <div
-            style={{ rowGap: "100px" }}
+            style={{ minHeight: "100vh" }}
             className="flex flex-col w-full items-center justify-between"
           >
-            <div
-              style={{ rowGap: "100px" }}
-              className="flex flex-col w-full items-center justify-between"
-            >
+            <Header darkMode />
+            <div className="flex flex-col w-full items-center justify-between">
               <div>
-                <div
-                  className="flex items-center p-8 justify-center flex-col "
-                  style={{ marginTop: "50px" }}
-                >
+                <div className="flex items-center p-8 justify-center flex-col ">
                   <Card
                     className="flex items-center p-8 justify-center flex-col bg"
                     style={{
@@ -134,12 +134,15 @@ const About = () => {
                       {maintext}
                     </H3>
                     <H1
+                      className={delicious.className}
                       style={{
-                        color: "#ffffffCC",
-                        marginTop: "40px",
+                        marginTop: "30px",
+
                         textTransform: "uppercase",
+                        fontSize: "60px",
+                        color: "purple",
                         fontWeight: 600,
-                        letterSpacing: "2px",
+                        letterSpacing: "3px",
                       }}
                     >
                       Expenses
