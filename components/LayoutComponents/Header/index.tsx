@@ -8,9 +8,10 @@ import { useEffect, useState } from "react";
 
 type Props = {
   darkMode?: boolean;
+  initial?: boolean;
 };
 
-const Header = ({ darkMode }: Props) => {
+const Header = ({ darkMode, initial }: Props) => {
   const router = useRouter();
   const [session, setSession] = useState<null | User>(null);
 
@@ -22,8 +23,6 @@ const Header = ({ darkMode }: Props) => {
     };
     fetchUserSession();
   }, []);
-
-  console.log("userSession", session);
 
   const handleLogout = async () => {
     await userLogout();
@@ -38,9 +37,13 @@ const Header = ({ darkMode }: Props) => {
   return (
     <nav
       style={{ borderBottomColor: darkMode ? "#ffffff1A" : undefined }}
-      className="w-full flex justify-center border-b border-b-foreground/10 h-16"
+      className={
+        initial
+          ? "w-full flex justify-center border-b border-b-foreground/10 h-16"
+          : "w-full flex justify-center border-b border-b-foreground/10 h-16 z-20"
+      }
     >
-      <div className="w-full max-w-6xl flex justify-end items-center p-3 text-sm">
+      <div className="w-full max-w-screen-2xl flex justify-end items-center p-3 text-sm">
         {session ? (
           <div
             style={{

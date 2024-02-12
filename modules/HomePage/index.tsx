@@ -63,7 +63,7 @@ const About = () => {
             style={{ minHeight: "100vh" }}
             className="flex flex-col w-full items-center justify-between "
           >
-            <Header />
+            <Header initial />
             <div>
               <div className="flex items-center p-8 justify-center flex-col ">
                 <Card className="flex items-center p-8 justify-center flex-col bg">
@@ -117,7 +117,7 @@ const About = () => {
             style={{ minHeight: "100vh" }}
             className="flex flex-col w-full items-center justify-between"
           >
-            <Header darkMode />
+            <Header darkMode initial />
             <div className="flex flex-col w-full items-center justify-between">
               <div>
                 <div className="flex items-center p-8 justify-center flex-col ">

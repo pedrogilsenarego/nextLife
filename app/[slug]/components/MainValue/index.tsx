@@ -1,6 +1,5 @@
 "use client";
-import { H1 } from "@/components/ui/h1";
-import { H2 } from "@/components/ui/h2";
+
 import useMonthExpenses from "@/hooks/useMonthExpenses";
 import useMonthIncomes from "@/hooks/useMonthIncomes";
 import SlotCounter from "react-slot-counter";
