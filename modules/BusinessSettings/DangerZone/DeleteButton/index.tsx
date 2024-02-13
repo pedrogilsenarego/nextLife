@@ -19,7 +19,6 @@ type Props = {
 const DeleteButton = ({ params }: Props) => {
   const { handleDeleteBusiness, openDialog, setOpenDialog, isPending } =
     useDeleteButton({ businessName: params.business });
-
   return (
     <>
       <Button onClick={() => setOpenDialog(true)} variant={"destructive"}>

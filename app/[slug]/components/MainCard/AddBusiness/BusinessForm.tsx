@@ -8,7 +8,7 @@ import { queryKeys } from "@/constants/queryKeys";
 import { AddBusiness, addBusinessSchema } from "@/zodSchema/addBusiness";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 type Props = {
   setOpen: (open: boolean) => void;
@@ -21,6 +21,24 @@ const BusinessForm = ({ setOpen }: Props) => {
   const form = useForm<AddBusiness>({
     resolver: zodResolver(addBusinessSchema),
   });
+
+  const newBusiness = form.watch("businessName") || "";
+
+  useEffect(() => {
+    const hasSpaces = newBusiness.includes(" ");
+    const hasUpperCase = /[A-Z]/.test(newBusiness);
+    if (hasSpaces || hasUpperCase) {
+      const formattedBusinessName = newBusiness
+        .toLowerCase()
+        .replace(/\s+/g, "-");
+      setHasSpacesOrUpperCase({
+        status: true,
+        formatedName: formattedBusinessName,
+      });
+    } else {
+      setHasSpacesOrUpperCase({ status: false, formatedName: newBusiness });
+    }
+  }, [newBusiness]);
 
   const { refetch } = useQuery({
     queryKey: [queryKeys.businesses],
@@ -41,24 +59,11 @@ const BusinessForm = ({ setOpen }: Props) => {
   });
 
   function onSubmit(data: AddBusiness) {
-    const hasSpaces = data.businessName.includes(" ");
-    const hasUpperCase = /[A-Z]/.test(data.businessName);
-
-    // Modify business name to lowercase and replace spaces with dashes
-    const formattedBusinessName = data.businessName
-      .toLowerCase()
-      .replace(/\s+/g, "-");
-
-    // Update state based on conditions
-    if (hasSpaces || hasUpperCase) {
-      setHasSpacesOrUpperCase({
-        status: true,
-        formatedName: formattedBusinessName,
-      });
-    } else {
-      setHasSpacesOrUpperCase({ status: false, formatedName: "" });
-    }
-    addBusinessMutation(formattedBusinessName);
+    addBusinessMutation(
+      hasSpacesOrUpperCase.status
+        ? hasSpacesOrUpperCase.formatedName
+        : data.businessName
+    );
   }
 
   return (
