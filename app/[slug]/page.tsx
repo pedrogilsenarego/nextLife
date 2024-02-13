@@ -4,11 +4,7 @@ import { MonthIncomesQuery } from "@/types/incomesTypes";
 import { UserQuery } from "@/types/userTypes";
 import { createClient } from "@/utils/supabase/server";
 import { PostgrestSingleResponse } from "@supabase/supabase-js";
-import {
-  HydrationBoundary,
-  QueryClient,
-  dehydrate,
-} from "@tanstack/react-query";
+import { QueryClient } from "@tanstack/react-query";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import DashBoard from "./components";
@@ -42,9 +38,5 @@ export default async function ({ params }: LayoutProps) {
   }
   queryClient.setQueryData([queryKeys.user], userQuery.data);
 
-  return (
-    <HydrationBoundary state={dehydrate(queryClient)}>
-      <DashBoard />
-    </HydrationBoundary>
-  );
+  return <DashBoard />;
 }

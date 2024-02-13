@@ -85,7 +85,7 @@ export const deleteBusiness = async (businessId: string): Promise<string> => {
 
       if (deleteError) {
         console.error("Error deleting business:", deleteError);
-        return reject(deleteError);
+        return reject(deleteError.message);
       }
 
       resolve("Business deleted successfully");

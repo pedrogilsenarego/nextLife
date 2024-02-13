@@ -8,7 +8,6 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 
-import { useState } from "react";
 import useDeleteButton from "./useDeleteButton";
 
 type Props = {
@@ -18,7 +17,8 @@ type Props = {
   };
 };
 const DeleteButton = ({ params }: Props) => {
-  const { handleDeleteBusiness, openDialog, setOpenDialog } = useDeleteButton();
+  const { handleDeleteBusiness, openDialog, setOpenDialog, isPending } =
+    useDeleteButton({ businessName: params.business });
 
   return (
     <>
@@ -39,6 +39,7 @@ const DeleteButton = ({ params }: Props) => {
             are you sure wou want to procede?
           </DialogDescription>
           <Button
+            isLoading={isPending}
             onClick={handleDeleteBusiness}
             variant={"destructive"}
             className="capitalize"
