@@ -1,4 +1,6 @@
+import { Card } from "@/components/ui/card";
 import { queryKeys } from "@/constants/queryKeys";
+import DangerZone from "@/modules/BusinessSettings/DangerZone";
 import { BusinessesQuery } from "@/types/businessTypes";
 import { UserQuery } from "@/types/userTypes";
 import { createClient } from "@/utils/supabase/server";
@@ -6,7 +8,6 @@ import { PostgrestSingleResponse } from "@supabase/supabase-js";
 import { QueryClient } from "@tanstack/react-query";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import Business from "./components/Business";
 
 type LayoutProps = {
   params: {
@@ -55,7 +56,7 @@ export default async function ({ params }: LayoutProps) {
 
   return (
     <div>
-      <Business />
+      <DangerZone />
     </div>
   );
 }
