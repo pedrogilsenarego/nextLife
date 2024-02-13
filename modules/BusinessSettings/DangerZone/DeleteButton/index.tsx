@@ -9,6 +9,8 @@ import {
 } from "@/components/ui/dialog";
 
 import { useState } from "react";
+import useDeleteButton from "./useDeleteButton";
+
 type Props = {
   params: {
     slug: string;
@@ -16,7 +18,8 @@ type Props = {
   };
 };
 const DeleteButton = ({ params }: Props) => {
-  const [openDialog, setOpenDialog] = useState<boolean>(false);
+  const { handleDeleteBusiness, openDialog, setOpenDialog } = useDeleteButton();
+
   return (
     <>
       <Button onClick={() => setOpenDialog(true)} variant={"destructive"}>
@@ -31,7 +34,17 @@ const DeleteButton = ({ params }: Props) => {
               Delete {params?.business}
             </DialogTitle>
           </DialogHeader>
-          <DialogDescription>teste</DialogDescription>
+          <DialogDescription>
+            This will also delete all the entries associated to this business,
+            are you sure wou want to procede?
+          </DialogDescription>
+          <Button
+            onClick={handleDeleteBusiness}
+            variant={"destructive"}
+            className="capitalize"
+          >
+            Delete {params.business}
+          </Button>
         </DialogContent>
       </Dialog>
     </>
