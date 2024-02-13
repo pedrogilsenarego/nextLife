@@ -1,5 +1,4 @@
 "use server";
-import AuthButton from "@/components/AuthButton";
 import Footer from "@/components/LayoutComponents/Footer";
 import Header from "@/components/LayoutComponents/Header";
 

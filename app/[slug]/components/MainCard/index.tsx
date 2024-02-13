@@ -14,6 +14,7 @@ import useMonthExpenses from "@/hooks/useMonthExpenses";
 import useMonthIncomes from "@/hooks/useMonthIncomes";
 import useUser from "@/hooks/useUser";
 
+import { Delicious_Handrawn } from "next/font/google";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useData } from "../dashboard.provider";
@@ -21,6 +22,8 @@ import AddBusiness from "./AddBusiness/AddBusiness";
 import Chart from "./Chart";
 import { default as FullExpensesTable } from "./FullTables/FullExpensesTable";
 import FullIncomeTable from "./FullTables/FullIncomeTable";
+
+const delicious = Delicious_Handrawn({ weight: "400", subsets: ["latin"] });
 
 const MainCard = () => {
   const [fetchingDateRange, setFetchingDateRange] = useState(false);
@@ -125,9 +128,19 @@ const MainCard = () => {
             </Tabs>
           </div>
           <Separator className="my-2" />
-          <div className="flex flex-col gap-2 py-2 w-full">
+          <div className="flex flex-col gap-4 py-2 w-full">
             <div className="flex gap-2">
-              <H2 className="capitalize">{businessName}</H2>
+              <H2
+                style={{
+                  fontSize: "40px",
+                  color: "purple",
+                  textTransform: "uppercase",
+                  letterSpacing: "1px",
+                }}
+                className={delicious.className}
+              >
+                {businessName}
+              </H2>
               <Separator orientation="vertical" />
               <Button variant="ghost" onClick={handleClickSettings}>
                 Settings

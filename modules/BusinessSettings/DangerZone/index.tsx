@@ -1,14 +1,20 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { H2 } from "@/components/ui/h2";
 import { P } from "@/components/ui/p";
 import { Delicious_Handrawn } from "next/font/google";
+import DeleteButton from "./DeleteButton";
 
 const delicious = Delicious_Handrawn({ weight: "400", subsets: ["latin"] });
 
-const DangerZone = () => {
+type Props = {
+  params: {
+    slug: string;
+    business: string;
+  };
+};
+const DangerZone = ({ params }: Props) => {
   return (
     <div className="gap-2 flex flex-col">
       <H2 className={delicious.className} style={{ color: "orangered" }}>
@@ -23,7 +29,7 @@ const DangerZone = () => {
               certain.
             </P>
           </div>
-          <Button variant={"destructive"}>Delete this Business</Button>
+          <DeleteButton params={params} />
         </div>
       </Card>
     </div>

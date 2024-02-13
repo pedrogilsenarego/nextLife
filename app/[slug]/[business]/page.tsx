@@ -56,7 +56,7 @@ export default async function ({ params }: LayoutProps) {
 
   return (
     <div>
-      <DangerZone />
+      <DangerZone params={params} />
     </div>
   );
 }
