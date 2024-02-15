@@ -1,10 +1,8 @@
-import { NextResponse, type NextRequest } from "next/server";
 import { createClient } from "@/utils/supabase/middleware";
+import { NextResponse, type NextRequest } from "next/server";
 
 export async function middleware(request: NextRequest) {
   try {
-    // This `try/catch` block is only here for the interactive tutorial.
-    // Feel free to remove once you have Supabase connected.
     const { supabase, response } = createClient(request);
 
     // Refresh session if expired - required for Server Components
