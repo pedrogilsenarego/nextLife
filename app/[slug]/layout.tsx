@@ -1,6 +1,5 @@
 "use server";
-import Footer from "@/components/LayoutComponents/Footer";
-import Header from "@/components/LayoutComponents/Header";
+
 import { createClient } from "@/utils/supabase/server";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
@@ -17,11 +16,5 @@ export default async function Layout({
   } = await supabase.auth.getSession();
   if (!session) redirect("/login");
 
-  return (
-    <div className="flex-1 w-full  flex flex-col gap-20 items-center">
-      <Header />
-      {children}
-      <Footer />
-    </div>
-  );
+  return <>{children}</>;
 }

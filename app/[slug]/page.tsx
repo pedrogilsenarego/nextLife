@@ -1,5 +1,12 @@
 import DashBoard from "./components";
 
-export default async function () {
-  return <DashBoard />;
+type LayoutProps = {
+  params: {
+    slug: string;
+    business: string;
+  };
+};
+
+export default async function ({ params }: LayoutProps) {
+  return <DashBoard params={params} />;
 }
