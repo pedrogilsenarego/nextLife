@@ -154,7 +154,7 @@ export const signupUser = async ({
         password,
        
         options: {
-          emailRedirectTo: `next-life-xi.vercel.app/auth/callback`,
+          emailRedirectTo: `${origin}/auth/callback`,
           data:{
             displayName:username
           }
