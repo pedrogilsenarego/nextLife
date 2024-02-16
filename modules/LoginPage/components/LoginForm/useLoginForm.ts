@@ -23,7 +23,7 @@ const useLoginForm = () => {
         title: "Uh oh! Something went wrong.",
         description: data,
       });
-      console.log(data);
+      
     },
     onSuccess: (data: any) => {
       router.push(`/${data}`);

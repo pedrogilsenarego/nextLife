@@ -110,39 +110,26 @@ export const signinUser = async ({
 }: {
   email: string;
   password: string;
-}): Promise<UserQuery> => {
+}): Promise<string> => {
   console.log("loggingUser");
   return new Promise(async (resolve, reject) => {
     try {
-      const { error } = await supabase.auth.signInWithPassword({
+      const session = await supabase.auth.signInWithPassword({
         email,
         password,
       });
-      if (error) {
+      
+      if (session.error) {
         reject("Could not autenticate user");
       }
-      if (email) {
+      if (session.data.user) {
         // Fetch user data from Supabase table
-        const { data: userData, error: userError } = await supabase
-          .from("users")
-          .select("username")
-          .eq("email", email)
-          .single();
-
-        if (userError) {
-          console.error("Error fetching user data:", userError.message);
-          reject("Could not fetch user data");
-        }
-
-        if (userData) {
-          const username = userData.username;
-
-          // Redirect to the user's specific page based on their username
-          return resolve(username);
+        
+          return resolve(session.data.user.user_metadata.displayName);
         } else {
           reject("User data not found.");
         }
-      }
+      
     } catch (error) {
       console.error("error", error);
       reject(error);
@@ -165,8 +152,13 @@ export const signupUser = async ({
       const { data, error } = await supabase.auth.signUp({
         email,
         password,
+       
         options: {
           emailRedirectTo: `${origin}/auth/callback`,
+          data:{
+            displayName:username
+          }
+          
         },
       });
 
