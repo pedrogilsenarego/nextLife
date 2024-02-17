@@ -118,18 +118,17 @@ export const signinUser = async ({
         email,
         password,
       });
-      
+
       if (session.error) {
-        reject("Could not autenticate user");
+        reject(session?.error?.message || "Could not autenticate user");
       }
       if (session.data.user) {
         // Fetch user data from Supabase table
-        
-          return resolve(session.data.user.user_metadata.displayName);
-        } else {
-          reject("User data not found.");
-        }
-      
+
+        return resolve(session.data.user.user_metadata.displayName);
+      } else {
+        reject("User data not found.");
+      }
     } catch (error) {
       console.error("error", error);
       reject(error);
@@ -152,13 +151,12 @@ export const signupUser = async ({
       const { data, error } = await supabase.auth.signUp({
         email,
         password,
-       
+
         options: {
           emailRedirectTo: `${origin}/auth/callback`,
-          data:{
-            displayName:username
-          }
-          
+          data: {
+            displayName: username,
+          },
         },
       });
 
