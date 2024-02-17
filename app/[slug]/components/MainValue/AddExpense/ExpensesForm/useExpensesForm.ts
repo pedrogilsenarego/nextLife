@@ -34,7 +34,7 @@ const useExpensesForm = ({ setOpen }: Props) => {
   const form = useForm<z.infer<typeof addExpenseSchema>>({
     resolver: zodResolver(addExpenseSchema),
     defaultValues: {
-      businessId,
+      businessId: businessId !== "total" ? businessId : undefined,
       created_at: new Date(),
     },
   });

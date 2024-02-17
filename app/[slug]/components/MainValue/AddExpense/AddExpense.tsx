@@ -11,14 +11,36 @@ import {
 import { H3 } from "@/components/ui/h3";
 import { useState } from "react";
 import BusinessForm from "./ExpensesForm/ExpenseForm";
+import useBusinesses from "@/hooks/useBusinesses";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import { P } from "@/components/ui/p";
 
 export default function () {
   const [open, setOpen] = useState<boolean>(false);
+  const business = useBusinesses();
+  const businesses = business?.data || [];
   return (
     <>
-      <Button className="w-full h-full" onClick={() => setOpen(!open)}>
-        <H3>Expense</H3>
-      </Button>
+      <Tooltip delayDuration={0.5}>
+        <TooltipTrigger>
+          <Button
+            disabled={businesses.length <= 0}
+            className="w-full h-full"
+            onClick={() => setOpen(!open)}
+          >
+            <H3>Expense</H3>
+          </Button>
+        </TooltipTrigger>
+        {businesses.length <= 0 && (
+          <TooltipContent>
+            <P>Create businesses first to add your first expense</P>
+          </TooltipContent>
+        )}
+      </Tooltip>
       <Dialog open={open} setOpen={setOpen}>
         <DialogContent>
           <DialogHeader>

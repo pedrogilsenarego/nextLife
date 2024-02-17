@@ -18,15 +18,12 @@ const MainMetrics = () => {
     expensesByCategory?.map((expenses) => {
       return { value: expenses.amount, name: expenses.category };
     }) || [];
-  // const mappedIncomesByCategory =
-  //   incomesByCategory?.map((expenses) => {
-  //     return { value: expenses.amount, name: expenses.category };
-  //   }) || [];
+  
 
   return (
     <div className="flex gap-3 justify-between w-full">
       <div>
-        {!expensesQuery.isLoading && (
+        {!expensesQuery.isLoading && mappedExpensesByCategory.length>0 && (
           <OneLevelChartPie data1={mappedExpensesByCategory} />
         )}
         <H2

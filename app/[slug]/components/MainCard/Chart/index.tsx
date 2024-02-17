@@ -18,6 +18,8 @@ const Chart = () => {
     dataByMonth(incomesByCategory)
   );
 
+  if(data.length<=0) return
+
   return <LineChartComponent data={data} />;
 };
 

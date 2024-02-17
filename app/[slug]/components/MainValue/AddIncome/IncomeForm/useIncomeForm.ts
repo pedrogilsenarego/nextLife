@@ -30,7 +30,7 @@ const useIncomeForm = ({ setOpen }: Props) => {
   const form = useForm<z.infer<typeof addIncomeSchema>>({
     resolver: zodResolver(addIncomeSchema),
     defaultValues: {
-      businessId,
+      businessId: businessId !== "total" ? businessId : undefined,
       created_at: new Date(),
     },
   });
