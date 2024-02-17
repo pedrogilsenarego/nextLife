@@ -28,7 +28,7 @@ const DashBoard = ({ params }: LayoutProps) => {
 
   return (
     <DataProvider>
-      <div className="flex-1 w-full max-w-screen-2xl flex flex-col gap-3 items-center rounded-md bg-slate-50">
+      <div className="flex-1 w-full max-w-screen-2xl flex flex-col gap-3 items-start rounded-md bg-slate-50">
         <HeaderDashboard />
         <MainMetrics />
         <MainCard />

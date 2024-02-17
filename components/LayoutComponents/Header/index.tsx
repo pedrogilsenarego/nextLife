@@ -27,7 +27,7 @@ const Header = ({ darkMode, initial }: Props) => {
   const handleLogout = async () => {
     await userLogout();
     setSession(null);
-    router.push("/login");
+    router.push("/");
   };
 
   const handleLogin = () => {
