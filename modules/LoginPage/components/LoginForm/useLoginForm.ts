@@ -13,6 +13,10 @@ const useLoginForm = () => {
   const router = useRouter();
   const form = useForm<Login>({
     resolver: zodResolver(loginSchema),
+    defaultValues: {
+      email: "",
+      password: "",
+    },
   });
 
   const { mutate: loginMutation, isPending } = useMutation({
@@ -23,7 +27,6 @@ const useLoginForm = () => {
         title: "Uh oh! Something went wrong.",
         description: data,
       });
-      
     },
     onSuccess: (data: any) => {
       router.push(`/${data}`);

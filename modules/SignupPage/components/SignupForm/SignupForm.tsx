@@ -12,30 +12,38 @@ const SignupForm = () => {
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="w-2/3 space-y-6">
         <InputForm
+          id="email"
+          autoComplete="email"
           label={"Email"}
           name="email"
           control={form.control}
           placeholder="Your email"
         />
         <InputForm
+          id="password"
           type="password"
           label={"Password"}
           name="password"
           control={form.control}
           placeholder="Your Password"
+          autoComplete="new-password"
         />
         <InputForm
+          id="password"
           type="password"
           label={"Confirm Password"}
           name="confirmPassword"
           control={form.control}
           placeholder="Confirm Your Password"
+          autoComplete="new-password"
         />
         <InputForm
+          id="username"
           label={"Username"}
           name="username"
           control={form.control}
           placeholder="Your Username"
+          autoComplete="username"
         />
 
         <Button isLoading={isPending} type="submit">

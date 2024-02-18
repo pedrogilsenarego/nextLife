@@ -14,6 +14,12 @@ const useSignupForm = () => {
   const router = useRouter();
   const form = useForm<Signup>({
     resolver: zodResolver(signupSchema),
+    defaultValues: {
+      email: "",
+      password: "",
+      confirmPassword: "",
+      username: "",
+    },
   });
 
   const { mutate: signupMutation, isPending } = useMutation({

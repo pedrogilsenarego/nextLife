@@ -64,7 +64,7 @@ const About = () => {
             className="flex flex-col w-full items-center justify-between "
           >
             <Header initial />
-            <div>
+            <div className="w-full">
               <div className="flex items-center p-8 justify-center flex-col ">
                 <Card className="flex items-center p-8 justify-center flex-col bg">
                   <H1 style={{ marginTop: "20px" }}>Control your money flow</H1>
@@ -118,7 +118,7 @@ const About = () => {
             className="flex flex-col w-full items-center justify-between"
           >
             <Header darkMode initial />
-            <div className="flex flex-col w-full items-center justify-between">
+            <div className="w-full">
               <div>
                 <div className="flex items-center p-8 justify-center flex-col ">
                   <Card

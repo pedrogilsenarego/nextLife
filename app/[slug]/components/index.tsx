@@ -9,6 +9,7 @@ import MainMetrics from "./MainMetrics";
 import MainValue from "./MainValue";
 import { DataProvider } from "./dashboard.provider";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { getUserSession } from "@/clientActions/userAction";
 
 type LayoutProps = {
   params: {
@@ -19,6 +20,7 @@ type LayoutProps = {
 
 const DashBoard = ({ params }: LayoutProps) => {
   const { user } = useUser();
+
   const router = useRouter();
 
   if (!user) return;
@@ -30,11 +32,11 @@ const DashBoard = ({ params }: LayoutProps) => {
   return (
     <DataProvider>
       <TooltipProvider>
-      <div className="flex-1 w-full max-w-screen-2xl flex flex-col gap-3 items-start rounded-md bg-slate-50">
-        <HeaderDashboard />
-        <MainMetrics />
-        <MainCard />
-      </div>
+        <div className="flex-1 w-full max-w-screen-2xl flex flex-col gap-3 items-start rounded-md bg-slate-50">
+          <HeaderDashboard />
+          <MainMetrics />
+          <MainCard />
+        </div>
       </TooltipProvider>
     </DataProvider>
   );

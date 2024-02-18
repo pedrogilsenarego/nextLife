@@ -8,12 +8,7 @@ type Props = {
 
 const Carousel = ({ darkMode, content }: Props) => {
   return (
-    <div
-      className="flex overflow-hidden"
-      style={{
-        width: "100vw",
-      }}
-    >
+    <div className="flex overflow-hidden w-full">
       <div
         className="move-left"
         style={{

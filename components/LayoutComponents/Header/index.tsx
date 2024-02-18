@@ -2,6 +2,7 @@
 
 import { getUserSession, userLogout } from "@/clientActions/userAction";
 import { Button } from "@/components/ui/button";
+import useUser from "@/hooks/useUser";
 import { User } from "@supabase/supabase-js";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -13,20 +14,10 @@ type Props = {
 
 const Header = ({ darkMode, initial }: Props) => {
   const router = useRouter();
-  const [session, setSession] = useState<null | User>(null);
-
-  useEffect(() => {
-    // Fetch user session when component mounts
-    const fetchUserSession = async () => {
-      const userSession = await getUserSession();
-      setSession(userSession);
-    };
-    fetchUserSession();
-  }, []);
+  const { user } = useUser();
 
   const handleLogout = async () => {
     await userLogout();
-    setSession(null);
     router.push("/");
   };
 
@@ -44,14 +35,14 @@ const Header = ({ darkMode, initial }: Props) => {
       }
     >
       <div className="w-full max-w-screen-2xl flex justify-end items-center p-3 text-sm">
-        {session ? (
+        {user ? (
           <div
             style={{
               color: darkMode ? "#ffffff66" : undefined,
             }}
             className="flex items-center gap-4 "
           >
-            Hey, {session.email}!
+            Hey, {user.email}!
             {darkMode ? (
               <Button
                 style={{
