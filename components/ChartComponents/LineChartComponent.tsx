@@ -19,6 +19,13 @@ type Props = {
 };
 
 const LineChartComponent = ({ data = [] }: Props) => {
+  // just to remove the errors on the chart
+  const error = console.error;
+  console.error = (...args: any) => {
+    if (/defaultProps/.test(args[0])) return;
+    error(...args);
+  };
+  //
   data?.forEach((d: any) => {
     d.xAxis = moment(d.xAxis).valueOf(); // date -> epoch
   });

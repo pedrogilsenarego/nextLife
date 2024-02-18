@@ -23,19 +23,19 @@ export default function () {
   const [open, setOpen] = useState<boolean>(false);
   const business = useBusinesses();
   const businesses = business?.data || [];
+  const conditionDisable = businesses.length <= 0;
   return (
     <>
       <Tooltip delayDuration={0.5}>
-        <TooltipTrigger>
+        <TooltipTrigger asChild>
           <Button
-            disabled={businesses.length <= 0}
-            className="w-full h-full"
-            onClick={() => setOpen(!open)}
+            variant={conditionDisable ? "defaultDisabled" : "default"}
+            onClick={conditionDisable ? () => null : () => setOpen(!open)}
           >
             <H3>Expense</H3>
           </Button>
         </TooltipTrigger>
-        {businesses.length <= 0 && (
+        {conditionDisable && (
           <TooltipContent>
             <P>Create businesses first to add your first expense</P>
           </TooltipContent>
