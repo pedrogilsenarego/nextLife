@@ -30,8 +30,23 @@ const useMonthExpenses = () => {
 
   const expensesFilteredByBusiness =
     selectedBusiness === "total"
-      ? expensesQuery.data?.data
-      : expensesQuery.data?.data.filter(
+      ? (expensesQuery?.data?.data as MonthExpense[])?.reduce(
+          (accumulator, expense) => {
+            const existingExpense = accumulator.find(
+              (item: MonthExpense) => item.category === expense.category
+            );
+
+            if (existingExpense) {
+              existingExpense.amount += expense.amount;
+            } else {
+              accumulator.push({ ...expense });
+            }
+
+            return accumulator;
+          },
+          [] as MonthExpense[]
+        )
+      : (expensesQuery.data?.data as MonthExpense[]).filter(
           (expense) => expense.businessId === selectedBusiness
         );
 

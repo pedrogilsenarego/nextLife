@@ -3,7 +3,7 @@
 import { useData } from "@/app/[slug]/components/dashboard.provider";
 import { getCumulativeIncomesForCurrentMonth } from "@/clientActions/incomeActions";
 import { queryKeys } from "@/constants/queryKeys";
-import { MonthIncomesQuery } from "@/types/incomesTypes";
+import { MonthIncome, MonthIncomesQuery } from "@/types/incomesTypes";
 import { dateQueriesMap } from "@/utils/dateFormat";
 import { useQuery } from "@tanstack/react-query";
 
@@ -24,10 +24,26 @@ const useMonthIncomes = () => {
   });
   const incomesFilteredByBusiness =
     selectedBusiness === "total"
-      ? incomesQuery.data?.data
-      : incomesQuery.data?.data.filter(
+      ? (incomesQuery?.data?.data as MonthIncome[])?.reduce(
+          (accumulator, expense) => {
+            const existingExpense = accumulator.find(
+              (item: MonthIncome) => item.category === expense.category
+            );
+
+            if (existingExpense) {
+              existingExpense.amount += expense.amount;
+            } else {
+              accumulator.push({ ...expense });
+            }
+
+            return accumulator;
+          },
+          [] as MonthIncome[]
+        )
+      : (incomesQuery.data?.data as MonthIncome[]).filter(
           (expense) => expense.businessId === selectedBusiness
         );
+
   const incomes = incomesFilteredByBusiness
     ?.reduce((sum, expense) => sum + (expense.amount || 0), 0)
     .toFixed(2);

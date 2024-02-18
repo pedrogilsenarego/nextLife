@@ -11,7 +11,7 @@ const ResumedTable = () => {
 
   const mappedExpensesByCategory =
     expensesByCategory?.map((expenses) => {
-      return { value: expenses.amount, name: expenses.category };
+      return { value: Math.round(expenses.amount), name: expenses.category };
     }) || [];
 
   mappedExpensesByCategory.sort((a, b) => b.value - a.value);
