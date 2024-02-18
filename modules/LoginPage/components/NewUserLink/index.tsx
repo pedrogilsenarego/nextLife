@@ -1,13 +1,19 @@
 "use client";
 
+import { P } from "@/components/ui/p";
+import { ROUTE_PATHS } from "@/constants/routes";
 import { useRouter } from "next/navigation";
 
 const NewUserLink = () => {
   const router = useRouter();
   return (
-    <p style={{ cursor: "pointer" }} onClick={() => router.push("/signup")}>
+    <P
+      className="mt-2 text-sm"
+      style={{ cursor: "pointer" }}
+      onClick={() => router.push(ROUTE_PATHS.SIGNUP)}
+    >
       If you are a new user click here
-    </p>
+    </P>
   );
 };
 

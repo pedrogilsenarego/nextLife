@@ -10,8 +10,9 @@ const LoginForm = () => {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="w-2/3 space-y-6">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="w-full space-y-6">
         <InputForm
+          className="w-full"
           label={"Email"}
           name="email"
           control={form.control}
@@ -25,7 +26,7 @@ const LoginForm = () => {
           placeholder="Your Password"
         />
 
-        <Button isLoading={isPending} type="submit">
+        <Button isLoading={isPending} type="submit" className="w-full">
           Submit
         </Button>
       </form>

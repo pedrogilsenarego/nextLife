@@ -10,7 +10,7 @@ const SignupForm = () => {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="w-2/3 space-y-6">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="w-full space-y-6">
         <InputForm
           id="email"
           autoComplete="email"
@@ -46,7 +46,7 @@ const SignupForm = () => {
           autoComplete="username"
         />
 
-        <Button isLoading={isPending} type="submit">
+        <Button isLoading={isPending} type="submit" className="w-full">
           Submit
         </Button>
       </form>
