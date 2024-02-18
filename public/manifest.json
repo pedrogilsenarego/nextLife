@@ -1,12 +1,12 @@
 {
-    "theme_color": "#382b1e",
-    "background_color": "#41372d",
+    "theme_color": "#ffffff",
+    "background_color": "#ffffff",
     "display": "standalone",
     "scope": "/",
     "start_url": "/",
-    "name": "Next Life",
-    "short_name": "NLife",
-    "description": "Money flow easy",
+    "name": "Next life",
+    "description": "Money flow control app",
+    "short_name": "NextLife",
     "icons": [
         {
             "src": "/icon-192x192.png",
