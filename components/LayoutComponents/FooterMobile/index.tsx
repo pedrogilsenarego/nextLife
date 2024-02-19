@@ -14,10 +14,10 @@ const FooterMobile = () => {
     <div
       style={{
         background:
-          "linear-gradient(to top, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.5))",
+          "linear-gradient(to top, rgba(255, 255, 255, 1) 20%, rgba(255, 255, 255, 0.8) 70%, rgba(255, 255, 255, 0.6) 100%)",
       }}
       className="
-      flex justify-center fixed bottom-0 w-full bg-white py-2 border border-solid"
+      flex justify-center fixed bottom-0 w-full bg-white py-2 pb-8 border border-solid"
     >
       <PlusSquare
         onClick={() => setOpenAdd(true)}
