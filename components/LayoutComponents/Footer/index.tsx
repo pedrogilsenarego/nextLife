@@ -1,11 +1,18 @@
+"use client";
+import useScreenSize from "@/hooks/useScreenSize";
+
 type Props = {
   lightMode?: boolean;
 };
 
 const Footer = ({ lightMode }: Props) => {
+  const { isSmallScreen } = useScreenSize();
   return (
     <footer
-      style={{ borderTopColor: lightMode ? "#ffffff66" : undefined }}
+      style={{
+        borderTopColor: lightMode ? "#ffffff66" : undefined,
+        marginBottom: isSmallScreen ? "50px" : "0px",
+      }}
       className="w-full border-t border-t-foreground/10 p-8 flex justify-center text-center text-xs"
     >
       <p style={{ color: lightMode ? "#ffffffCC" : undefined }}>
