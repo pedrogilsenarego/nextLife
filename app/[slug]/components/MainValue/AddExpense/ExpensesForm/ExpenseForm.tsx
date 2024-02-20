@@ -31,14 +31,18 @@ const BusinessForm = ({ setOpen }: Props) => {
           control={form.control}
           options={businessIdOptions}
         />
-        <div className="flex gap-2 w-full">
-          <SelectForm
-            label="Category"
-            name="category"
-            description={isSmallScreen ? undefined : "Category of the expense"}
-            control={form.control}
-            options={categoriesOptions}
-          />
+        <div className="flex w-full gap-2">
+          <div className="w-full">
+            <SelectForm
+              label="Category"
+              name="category"
+              description={
+                isSmallScreen ? undefined : "Category of the expense"
+              }
+              control={form.control}
+              options={categoriesOptions}
+            />
+          </div>
           <div style={{ marginTop: "30px" }}>
             <AddCategory configuration="expense" />
           </div>

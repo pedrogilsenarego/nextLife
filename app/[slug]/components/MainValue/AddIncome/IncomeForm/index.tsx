@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import AddCategory from "../../AddCategory";
 import useIncomeForm from "./useIncomeForm";
+import useScreenSize from "@/hooks/useScreenSize";
 type Props = {
   setOpen: (open: boolean) => void;
 };
@@ -16,30 +17,40 @@ const IncomeForm = ({ setOpen }: Props) => {
     useIncomeForm({
       setOpen,
     });
+  const { isSmallScreen } = useScreenSize();
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="w-2/3 space-y-6">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="w-full space-y-6">
         <SelectForm
           label="Business"
           name="businessId"
-          description="The business that will be associated"
+          description={
+            isSmallScreen ? undefined : "The business that will be associated"
+          }
           control={form.control}
           options={businessIdOptions}
         />
-        <div className="flex gap-2">
-          <SelectForm
-            label="Category"
-            name="category"
-            description="Category of the income"
-            control={form.control}
-            options={categoriesOptions}
-          />
+        <div className="flex w-full gap-2">
+          <div className="w-full">
+            <SelectForm
+              label="Category"
+              name="category"
+              description={isSmallScreen ? undefined : "Category of the income"}
+              control={form.control}
+              options={categoriesOptions}
+            />
+          </div>
           <div style={{ marginTop: "30px" }}>
             <AddCategory configuration="income" />
           </div>
         </div>
-        <DatePickerForm label="Date" name="created_at" control={form.control} />
+        <DatePickerForm
+          className="w-full"
+          label="Date"
+          name="created_at"
+          control={form.control}
+        />
         <InputForm
           type="number"
           label={"Amount"}
@@ -53,7 +64,7 @@ const IncomeForm = ({ setOpen }: Props) => {
           control={form.control}
           placeholder="You can add a note if you want ..."
         />
-        <Button isLoading={isPending} type="submit">
+        <Button className="w-full" isLoading={isPending} type="submit">
           Submit
         </Button>
       </form>
