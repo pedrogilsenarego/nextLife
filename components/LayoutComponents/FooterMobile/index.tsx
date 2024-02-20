@@ -15,13 +15,11 @@ const FooterMobile = () => {
           "linear-gradient(to top, rgba(255, 255, 255, 1) 20%, rgba(255, 255, 255, 0.8) 70%, rgba(255, 255, 255, 0.7) 100%)",
       }}
       className="
-      flex justify-center fixed bottom-0 w-full bg-white py-1 pb-8 border border-solid"
+      flex justify-center fixed bottom-0 w-full bg-white  pb-8 border border-solid"
     >
-      <PlusSquare
-        onClick={() => setOpenAdd(true)}
-        className="text-primary"
-        size={30}
-      />
+      <div onClick={() => setOpenAdd(true)} className="py-1 px-2">
+        <PlusSquare className="text-primary" size={26} />
+      </div>
       <DrawerWrapper open={openAdd} setOpen={setOpenAdd} />
     </div>
   );

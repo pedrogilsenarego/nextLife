@@ -12,6 +12,7 @@ import {
   FormMessage,
 } from "../form";
 import { Popover, PopoverContent, PopoverTrigger } from "../popover";
+import { InputProps } from "react-day-picker";
 
 type Props = {
   control: any;
@@ -19,15 +20,22 @@ type Props = {
   label?: string;
   placeholder?: string;
   description?: string;
-};
+  className?: string;
+} & InputProps;
 
-const DatePickerForm = ({ control, name, label, description }: Props) => {
+const DatePickerForm = ({
+  control,
+  name,
+  label,
+  description,
+  className,
+}: Props) => {
   return (
     <FormField
       control={control}
       name={name}
       render={({ field }) => (
-        <FormItem className="flex flex-col">
+        <FormItem className={cn(className, "flex flex-col")}>
           <FormLabel>{label}</FormLabel>
           <Popover>
             <PopoverTrigger asChild>

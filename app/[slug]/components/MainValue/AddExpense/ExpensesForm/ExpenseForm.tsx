@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import AddCategory from "../../AddCategory";
 import useExpensesForm from "./useExpensesForm";
+import useScreenSize from "@/hooks/useScreenSize";
 type Props = {
   setOpen: (open: boolean) => void;
 };
@@ -16,22 +17,25 @@ const BusinessForm = ({ setOpen }: Props) => {
     useExpensesForm({
       setOpen,
     });
+  const { isSmallScreen } = useScreenSize();
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="w-2/3 space-y-6">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="w-full space-y-4">
         <SelectForm
           label="Business"
           name="businessId"
-          description="The business that will be associated"
+          description={
+            isSmallScreen ? undefined : "The business that will be associated"
+          }
           control={form.control}
           options={businessIdOptions}
         />
-        <div className="flex gap-2">
+        <div className="flex gap-2 w-full">
           <SelectForm
             label="Category"
             name="category"
-            description="Category of the expense"
+            description={isSmallScreen ? undefined : "Category of the expense"}
             control={form.control}
             options={categoriesOptions}
           />
@@ -39,8 +43,14 @@ const BusinessForm = ({ setOpen }: Props) => {
             <AddCategory configuration="expense" />
           </div>
         </div>
-        <DatePickerForm label="Date" name="created_at" control={form.control} />
+        <DatePickerForm
+          className="w-full"
+          label="Date"
+          name="created_at"
+          control={form.control}
+        />
         <InputForm
+          className="w-full"
           type="number"
           label={"Amount"}
           name="amount"
@@ -53,7 +63,7 @@ const BusinessForm = ({ setOpen }: Props) => {
           control={form.control}
           placeholder="You can add a note if you want ..."
         />
-        <Button isLoading={isPending} type="submit">
+        <Button className="w-full" isLoading={isPending} type="submit">
           Submit
         </Button>
       </form>

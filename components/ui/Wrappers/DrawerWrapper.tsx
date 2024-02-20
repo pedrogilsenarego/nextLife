@@ -26,11 +26,11 @@ const DrawerWrapper = ({ open, setOpen }: Props) => {
       }}
     >
       <DrawerContent>
-        <div className="mx-auto w-full max-w-sm">
-          <DrawerHeader>
+        <div className="mx-auto w-full max-w-sm p-4 pb-20">
+          {/* <DrawerHeader>
             <DrawerTitle>Move Goal</DrawerTitle>
             <DrawerDescription>Set your daily activity goal.</DrawerDescription>
-          </DrawerHeader>
+          </DrawerHeader> */}
           <BusinessForm setOpen={setOpen} />
         </div>
       </DrawerContent>

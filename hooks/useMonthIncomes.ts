@@ -40,7 +40,7 @@ const useMonthIncomes = () => {
           },
           [] as MonthIncome[]
         )
-      : (incomesQuery.data?.data as MonthIncome[]).filter(
+      : (incomesQuery.data?.data as MonthIncome[])?.filter(
           (expense) => expense.businessId === selectedBusiness
         );
 
