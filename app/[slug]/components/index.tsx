@@ -11,6 +11,7 @@ import { DataProvider } from "./dashboard.provider";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { getUserSession } from "@/clientActions/userAction";
 import useScreenSize from "@/hooks/useScreenSize";
+import FooterMobile from "@/components/LayoutComponents/FooterMobile";
 
 type LayoutProps = {
   params: {
@@ -40,6 +41,7 @@ const DashBoard = ({ params }: LayoutProps) => {
             <MainCard />
           </div>
         )}
+        {isSmallScreen && <FooterMobile />}
       </TooltipProvider>
     </DataProvider>
   );

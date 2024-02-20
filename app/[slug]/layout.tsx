@@ -29,7 +29,6 @@ export default async function Layout({
         style={{ height: "130vh", width: "100%" }}
       />
       <Footer />
-      <FooterMobile />
     </div>
   );
 }
