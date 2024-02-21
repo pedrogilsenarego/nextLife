@@ -24,10 +24,7 @@ export default async function Layout({
       <Header />
 
       {children}
-      <img
-        src="https://www.shutterstock.com/image-photo/maldives-islands-ocean-tropical-beach-600nw-1938868960.jpg"
-        style={{ height: "130vh", width: "100%" }}
-      />
+
       <Footer />
     </div>
   );

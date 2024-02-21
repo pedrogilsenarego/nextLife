@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { Cell, Pie, PieChart, Sector } from "recharts";
 import "./index.css";
+import useScreenSize from "@/hooks/useScreenSize";
 
 type Props = {
   data1: { name: string; value: number }[];
@@ -14,7 +15,7 @@ type DataItem = {
 };
 
 const TwoLevelChartPie = ({ data1 }: Props) => {
-  // Calculate total value
+  const { isSmallScreen } = useScreenSize();
   const totalValue = data1.reduce((acc, { value }) => acc + value, 0);
 
   // Calculate modified data
@@ -52,16 +53,16 @@ const TwoLevelChartPie = ({ data1 }: Props) => {
   //   "#d9004c",
   // ];
 
-  const COLORS_GREEN = [
-    "#5f9ea0",
-    "#40826d",
-    "#20b2aa",
-    "#009b7d",
-    "#004040",
-    "#aaf0d1",
-    "#88d8c0",
-    "#29ab87",
-  ];
+  // const COLORS_GREEN = [
+  //   "#5f9ea0",
+  //   "#40826d",
+  //   "#20b2aa",
+  //   "#009b7d",
+  //   "#004040",
+  //   "#aaf0d1",
+  //   "#88d8c0",
+  //   "#29ab87",
+  // ];
 
   const renderActiveShape = (props: any) => {
     const RADIAN = Math.PI / 180;
@@ -80,10 +81,10 @@ const TwoLevelChartPie = ({ data1 }: Props) => {
     } = props;
     const sin = Math.sin(-RADIAN * midAngle);
     const cos = Math.cos(-RADIAN * midAngle);
-    const sx = cx + (outerRadius + 10) * cos;
-    const sy = cy + (outerRadius + 10) * sin;
-    const mx = cx + (outerRadius + 30) * cos;
-    const my = cy + (outerRadius + 30) * sin;
+    const sx = cx + (outerRadius + (isSmallScreen ? 5 : 10)) * cos;
+    const sy = cy + (outerRadius + (isSmallScreen ? 5 : 10)) * sin;
+    const mx = cx + (outerRadius + (isSmallScreen ? 15 : 30)) * cos;
+    const my = cy + (outerRadius + (isSmallScreen ? 15 : 30)) * sin;
     const ex = mx + (cos >= 0 ? 1 : -1) * 22;
     const ey = my;
     const textAnchor = cos >= 0 ? "start" : "end";
@@ -105,8 +106,8 @@ const TwoLevelChartPie = ({ data1 }: Props) => {
           cy={cy}
           startAngle={startAngle}
           endAngle={endAngle}
-          innerRadius={outerRadius + 6}
-          outerRadius={outerRadius + 10}
+          innerRadius={outerRadius + (isSmallScreen ? 2 : 6)}
+          outerRadius={outerRadius + (isSmallScreen ? 6 : 10)}
           cornerRadius={3}
           fill={"#0F172A1A"}
         />
@@ -115,8 +116,8 @@ const TwoLevelChartPie = ({ data1 }: Props) => {
           cy={cy}
           startAngle={startAngle}
           endAngle={endAngle}
-          innerRadius={innerRadius - 10}
-          outerRadius={innerRadius - 6}
+          innerRadius={innerRadius - (isSmallScreen ? 6 : 10)}
+          outerRadius={innerRadius - (isSmallScreen ? 2 : 6)}
           cornerRadius={3}
           fill={"#0F172A1A"}
         />
@@ -127,7 +128,7 @@ const TwoLevelChartPie = ({ data1 }: Props) => {
         />
         <circle cx={ex} cy={ey} r={2} fill={"black"} stroke="none" />
         <text
-          fontSize={12}
+          fontSize={isSmallScreen ? 9 : 12}
           x={ex + (cos >= 0 ? 1 : -1) * 12}
           y={ey}
           textAnchor={textAnchor}
@@ -155,7 +156,7 @@ const TwoLevelChartPie = ({ data1 }: Props) => {
       <text
         style={{
           fill: "white",
-          fontSize: "12px",
+          fontSize: isSmallScreen ? "9px" : "12px",
         }}
         x={x}
         y={y}
@@ -168,18 +169,24 @@ const TwoLevelChartPie = ({ data1 }: Props) => {
   };
 
   return (
-    <PieChart width={600} height={420}>
+    <PieChart
+      width={isSmallScreen ? 350 : 600}
+      height={isSmallScreen ? 300 : 420}
+    >
       <Pie
         data={modifiedDataArray}
         dataKey="value"
         cx="50%"
         cy="50%"
-        activeIndex={activeIndex}
+        activeIndex={Array.from(
+          { length: modifiedDataArray.length },
+          (_, index) => index
+        )}
         activeShape={renderActiveShape}
         label={renderCustomizedLabel}
-        innerRadius={80}
+        innerRadius={isSmallScreen ? 40 : 80}
         cornerRadius={4}
-        outerRadius={160}
+        outerRadius={isSmallScreen ? 80 : 160}
         paddingAngle={2}
         fill="#18181B"
         labelLine={false} //!primarySelected ? true : false}

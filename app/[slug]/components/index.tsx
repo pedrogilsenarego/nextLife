@@ -12,6 +12,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { getUserSession } from "@/clientActions/userAction";
 import useScreenSize from "@/hooks/useScreenSize";
 import FooterMobile from "@/components/LayoutComponents/FooterMobile";
+import DashBoardMobile from "@/modules/Business/DashBoardMobile";
 
 type LayoutProps = {
   params: {
@@ -41,7 +42,13 @@ const DashBoard = ({ params }: LayoutProps) => {
             <MainCard />
           </div>
         )}
-        {isSmallScreen && <FooterMobile />}
+
+        {isSmallScreen && (
+          <>
+            <DashBoardMobile />
+            <FooterMobile />
+          </>
+        )}
       </TooltipProvider>
     </DataProvider>
   );
