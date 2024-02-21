@@ -8,9 +8,38 @@ type Props = {
   data1: { name: string; value: number }[];
 };
 
+type DataItem = {
+  name: string;
+  value: number;
+};
+
 const TwoLevelChartPie = ({ data1 }: Props) => {
+  // Calculate total value
+  const totalValue = data1.reduce((acc, { value }) => acc + value, 0);
+
+  // Calculate modified data
+  const modifiedData: Record<string, number> = data1.reduce(
+    (acc: any, { name, value }) => {
+      const percentage = (value / totalValue) * 100;
+      if (percentage < 3) {
+        // If percentage is smaller than 3%, add to "Other" category
+        acc.Other = (acc.Other || 0) + value;
+      } else {
+        // Otherwise, add to original category
+        acc[name] = value;
+      }
+      return acc;
+    },
+    {}
+  );
+
+  // Convert modified data to array format
+  const modifiedDataArray: DataItem[] = Object.entries(modifiedData).map(
+    ([name, value]) => ({ name, value })
+  );
+
   const [activeIndex, setActiveIndex] = useState<number[]>(
-    Array.from({ length: data1.length }, (_, index) => index)
+    Array.from({ length: modifiedDataArray.length }, (_, index) => index)
   );
 
   // const COLORS_RED = [
@@ -130,7 +159,7 @@ const TwoLevelChartPie = ({ data1 }: Props) => {
         }}
         x={x}
         y={y}
-        textAnchor={x > cx ? "start" : "end"}
+        textAnchor={"middle"}
         dominantBaseline="central"
       >
         {`${(percent * 100).toFixed(0)}%`}
@@ -141,7 +170,7 @@ const TwoLevelChartPie = ({ data1 }: Props) => {
   return (
     <PieChart width={600} height={420}>
       <Pie
-        data={data1}
+        data={modifiedDataArray}
         dataKey="value"
         cx="50%"
         cy="50%"
