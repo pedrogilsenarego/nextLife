@@ -12,18 +12,16 @@ const TwoLevelChartPie = ({ data1 }: Props) => {
   const [activeIndex, setActiveIndex] = useState<number[]>(
     Array.from({ length: data1.length }, (_, index) => index)
   );
-  // useEffect(() => {
-  //   setActiveIndex(Array.from({ length: data1.length }, (_, index) => index));
-  // }, [data1]);
-  const COLORS_RED = [
-    "#7c0a02",
-    "#be4f62",
-    "#a40000",
-    "#ff355e",
-    "#d9603b",
-    "#c80815",
-    "#d9004c",
-  ];
+
+  // const COLORS_RED = [
+  //   "#7c0a02",
+  //   "#be4f62",
+  //   "#a40000",
+  //   "#ff355e",
+  //   "#d9603b",
+  //   "#c80815",
+  //   "#d9004c",
+  // ];
 
   const COLORS_GREEN = [
     "#5f9ea0",
@@ -70,6 +68,7 @@ const TwoLevelChartPie = ({ data1 }: Props) => {
           outerRadius={outerRadius}
           startAngle={startAngle}
           endAngle={endAngle}
+          cornerRadius={3}
           fill={fill}
         />
         <Sector
@@ -79,7 +78,18 @@ const TwoLevelChartPie = ({ data1 }: Props) => {
           endAngle={endAngle}
           innerRadius={outerRadius + 6}
           outerRadius={outerRadius + 10}
-          fill={"black"}
+          cornerRadius={3}
+          fill={"#0F172A1A"}
+        />
+        <Sector
+          cx={cx}
+          cy={cy}
+          startAngle={startAngle}
+          endAngle={endAngle}
+          innerRadius={innerRadius - 10}
+          outerRadius={innerRadius - 6}
+          cornerRadius={3}
+          fill={"#0F172A1A"}
         />
         <path
           d={`M${sx},${sy}L${mx},${my}L${ex},${ey}`}
@@ -108,7 +118,7 @@ const TwoLevelChartPie = ({ data1 }: Props) => {
     percent,
     index,
   }: any) => {
-    const radius = innerRadius + (outerRadius - innerRadius) * 0.7;
+    const radius = innerRadius + (outerRadius - innerRadius) * 0.45;
     const x = cx + radius * Math.cos(-midAngle * RADIAN);
     const y = cy + radius * Math.sin(-midAngle * RADIAN);
 
@@ -138,39 +148,27 @@ const TwoLevelChartPie = ({ data1 }: Props) => {
         activeIndex={activeIndex}
         activeShape={renderActiveShape}
         label={renderCustomizedLabel}
+        innerRadius={80}
+        cornerRadius={4}
         outerRadius={160}
-        fill="#a40000"
+        paddingAngle={2}
+        fill="#18181B"
         labelLine={false} //!primarySelected ? true : false}
-        onClick={(event, index) => {
-          setActiveIndex((prev) => {
-            // Check if the index exists in the state array
-            const indexExists = prev.includes(index);
+        // onClick={(event, index) => {
+        //   setActiveIndex((prev) => {
+        //     // Check if the index exists in the state array
+        //     const indexExists = prev.includes(index);
 
-            if (indexExists) {
-              // If the index exists, filter it out
-              return prev.filter((item) => item !== index);
-            } else {
-              // If the index doesn't exist, add it
-              return [...prev, index];
-            }
-          });
-        }}
-      >
-        {data1?.map((entry, index) => (
-          <Cell
-            key={`cell-${index}`}
-            fill={COLORS_RED[index % COLORS_RED.length]}
-            style={{
-              cursor: "pointer",
-              stroke: "#ffffff66",
-              filter: `drop-shadow(0px 0px 3px ${
-                COLORS_RED[index % COLORS_RED.length]
-              }`,
-            }}
-            stroke="0"
-          />
-        ))}
-      </Pie>
+        //     if (indexExists) {
+        //       // If the index exists, filter it out
+        //       return prev.filter((item) => item !== index);
+        //     } else {
+        //       // If the index doesn't exist, add it
+        //       return [...prev, index];
+        //     }
+        //   });
+        // }}
+      ></Pie>
     </PieChart>
   );
 };

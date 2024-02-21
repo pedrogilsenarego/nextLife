@@ -31,7 +31,7 @@ const IncomeForm = ({ setOpen }: Props) => {
           control={form.control}
           options={businessIdOptions}
         />
-        <div className="flex w-full gap-2">
+        <div className="flex w-full gap-2 items-center">
           <div className="w-full">
             <SelectForm
               label="Category"
@@ -41,7 +41,7 @@ const IncomeForm = ({ setOpen }: Props) => {
               options={categoriesOptions}
             />
           </div>
-          <div style={{ marginTop: "30px" }}>
+          <div>
             <AddCategory configuration="income" />
           </div>
         </div>
