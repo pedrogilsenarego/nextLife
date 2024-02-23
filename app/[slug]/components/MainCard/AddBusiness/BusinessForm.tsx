@@ -1,10 +1,13 @@
 "use client";
 import { addBusiness, getBusinesses } from "@/clientActions/businessActions";
 import InputForm from "@/components/ui/Wrappers/InputForm";
+import SelectForm from "@/components/ui/Wrappers/SelectForm";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import { P } from "@/components/ui/p";
+import { defaultBusiness } from "@/constants/defaultBusinesses";
 import { queryKeys } from "@/constants/queryKeys";
+import useScreenSize from "@/hooks/useScreenSize";
 import { AddBusiness, addBusinessSchema } from "@/zodSchema/addBusiness";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation, useQuery } from "@tanstack/react-query";
@@ -18,6 +21,7 @@ const BusinessForm = ({ setOpen }: Props) => {
     status: false,
     formatedName: "",
   });
+  const isSmallScreen = useScreenSize();
   const form = useForm<AddBusiness>({
     resolver: zodResolver(addBusinessSchema),
   });
@@ -26,6 +30,7 @@ const BusinessForm = ({ setOpen }: Props) => {
 
   useEffect(() => {
     const hasSpaces = newBusiness.includes(" ");
+
     const hasUpperCase = /[A-Z]/.test(newBusiness);
     if (hasSpaces || hasUpperCase) {
       const formattedBusinessName = newBusiness
@@ -59,11 +64,12 @@ const BusinessForm = ({ setOpen }: Props) => {
   });
 
   function onSubmit(data: AddBusiness) {
-    addBusinessMutation(
-      hasSpacesOrUpperCase.status
+    addBusinessMutation({
+      businessName: hasSpacesOrUpperCase.status
         ? hasSpacesOrUpperCase.formatedName
-        : data.businessName
-    );
+        : data.businessName,
+      type: data.type,
+    });
   }
 
   return (
@@ -83,6 +89,15 @@ const BusinessForm = ({ setOpen }: Props) => {
             {hasSpacesOrUpperCase.formatedName}
           </P>
         )}
+        <div className="w-full">
+          <SelectForm
+            label="Type Business"
+            name="type"
+            description={isSmallScreen ? undefined : "Category of the expense"}
+            control={form.control}
+            options={defaultBusiness}
+          />
+        </div>
         <Button isLoading={isPending} type="submit">
           Submit
         </Button>

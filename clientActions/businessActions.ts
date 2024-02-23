@@ -3,7 +3,13 @@ import { createClient } from "@/utils/supabase/client";
 
 const supabase = createClient();
 
-export const addBusiness = async (businessName: string): Promise<string> => {
+export const addBusiness = async ({
+  businessName,
+  type,
+}: {
+  businessName: string;
+  type: number;
+}): Promise<string> => {
   return new Promise(async (resolve, reject) => {
     console.log("addBusiness", businessName);
     try {
@@ -18,6 +24,7 @@ export const addBusiness = async (businessName: string): Promise<string> => {
       const { error: userError } = await supabase.from("business").upsert([
         {
           businessName,
+          type,
           user_id: user.id,
         },
       ]);

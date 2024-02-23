@@ -20,7 +20,7 @@ const AddCategory = ({ configuration }: Props) => {
   const [openDial, setOpenDial] = useState<boolean>(false);
   return (
     <>
-      <Button size={"sm"} className="" onClick={() => setOpenDial(!openDial)}>
+      <Button size={"sm"} onClick={() => setOpenDial(!openDial)}>
         <H3>+</H3>
       </Button>
       <Dialog open={openDial} setOpen={setOpenDial}>

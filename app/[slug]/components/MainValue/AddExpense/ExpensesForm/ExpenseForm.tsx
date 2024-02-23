@@ -31,7 +31,13 @@ const BusinessForm = ({ setOpen }: Props) => {
           control={form.control}
           options={businessIdOptions}
         />
-        <div className="flex w-full gap-2 items-center">
+        <div
+          className={
+            isSmallScreen
+              ? "flex w-full gap-2 items-end"
+              : "flex w-full gap-2 items-center"
+          }
+        >
           <div className="w-full">
             <SelectForm
               label="Category"
