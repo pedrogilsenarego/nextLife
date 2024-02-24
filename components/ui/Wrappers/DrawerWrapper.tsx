@@ -1,23 +1,15 @@
 "use client";
-import {
-  Drawer,
-  DrawerClose,
-  DrawerContent,
-  DrawerDescription,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerTitle,
-} from "@/components/ui/drawer";
-import { Button } from "../button";
+import { Drawer, DrawerContent } from "@/components/ui/drawer";
+
 import React from "react";
-import BusinessForm from "@/app/[slug]/components/MainValue/AddExpense/ExpensesForm/ExpenseForm";
 
 type Props = {
   open?: boolean;
   setOpen: (open: boolean) => void;
+  children: React.ReactNode;
 };
 
-const DrawerWrapper = ({ open, setOpen }: Props) => {
+const DrawerWrapper = ({ open, setOpen, children }: Props) => {
   return (
     <Drawer
       open={open}
@@ -31,7 +23,7 @@ const DrawerWrapper = ({ open, setOpen }: Props) => {
             <DrawerTitle>Move Goal</DrawerTitle>
             <DrawerDescription>Set your daily activity goal.</DrawerDescription>
           </DrawerHeader> */}
-          <BusinessForm setOpen={setOpen} />
+          {children}
         </div>
       </DrawerContent>
     </Drawer>

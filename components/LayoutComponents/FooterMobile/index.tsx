@@ -4,6 +4,7 @@ import { PlusSquare } from "lucide-react";
 import useScreenSize from "@/hooks/useScreenSize";
 import DrawerWrapper from "@/components/ui/Wrappers/DrawerWrapper";
 import { useState } from "react";
+import BusinessForm from "@/app/[slug]/components/MainValue/AddExpense/ExpensesForm/ExpenseForm";
 
 const FooterMobile = () => {
   const [openAdd, setOpenAdd] = useState(false);
@@ -20,7 +21,9 @@ const FooterMobile = () => {
       <div onClick={() => setOpenAdd(true)} className="py-1 px-2">
         <PlusSquare className="text-primary" size={26} />
       </div>
-      <DrawerWrapper open={openAdd} setOpen={setOpenAdd} />
+      <DrawerWrapper open={openAdd} setOpen={setOpenAdd}>
+        <BusinessForm setOpen={setOpenAdd} />
+      </DrawerWrapper>
     </div>
   );
 };
