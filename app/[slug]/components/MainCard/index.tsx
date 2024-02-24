@@ -13,8 +13,6 @@ import useIncomes from "@/hooks/useIncomes";
 import useMonthExpenses from "@/hooks/useMonthExpenses";
 import useMonthIncomes from "@/hooks/useMonthIncomes";
 import useUser from "@/hooks/useUser";
-
-import { Delicious_Handrawn } from "next/font/google";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useData } from "../dashboard.provider";
@@ -22,11 +20,11 @@ import AddBusiness from "./AddBusiness/AddBusiness";
 import Chart from "./Chart";
 import { default as FullExpensesTable } from "./FullTables/FullExpensesTable";
 import FullIncomeTable from "./FullTables/FullIncomeTable";
-
-const delicious = Delicious_Handrawn({ weight: "400", subsets: ["latin"] });
+import { H3 } from "@/components/ui/h3";
+import { P } from "@/components/ui/p";
+import { defaultBusiness } from "@/constants/defaultBusinesses";
 
 const MainCard = () => {
-  const [fetchingDateRange, setFetchingDateRange] = useState(false);
   const businessesQuery = useBusinesses();
   const dataContext = useData();
   const businessSelected = dataContext.state.currentBusiness;
@@ -47,22 +45,22 @@ const MainCard = () => {
   const handleClickTabDate = (tabValue: string) => {
     dataContext.setTimeRange(tabValue);
 
-    setFetchingDateRange(true);
     setTimeout(() => {
       expensesQuery.refetch();
       incomesQuery.refetch();
       monthExpensesQuery.refetch();
       monthIncomesQuery.refetch();
-      setFetchingDateRange(false);
     }, TIMOUT_FOR_REFETCH);
   };
 
-  const businessName =
-    businessesQuery.data.find((business) => business.id === businessSelected)
-      ?.businessName || "";
+  const businessSelectedData = businessesQuery.data.find(
+    (business) => business.id === businessSelected
+  );
 
   const handleClickSettings = () => {
-    router.push(`/${user?.userQuery?.data?.username}/${businessName}`);
+    router.push(
+      `/${user?.userQuery?.data?.username}/${businessSelectedData?.businessName}`
+    );
   };
 
   return (
@@ -129,28 +127,29 @@ const MainCard = () => {
           </div>
           <Separator className="my-2" />
           <div className="flex flex-col gap-4 py-2 w-full">
-            <div className="flex gap-2">
-              <H2
-                style={{
-                  fontSize: "40px",
-                  color: "purple",
-                  textTransform: "uppercase",
-                  letterSpacing: "1px",
-                }}
-                className={delicious.className}
-              >
-                {businessName}
-              </H2>
-              <Separator orientation="vertical" />
-              <Button variant="ghost" onClick={handleClickSettings}>
-                Settings
-              </Button>
-            </div>
             <div className="flex flex-col gap-6">
-              <Card className="py-2">
-                <Chart />
-              </Card>
-
+              <div className="flex flex-col gap-1">
+                <div className="flex gap-2 w-full justify-between">
+                  <div className="flex gap-3 items-center">
+                    <H3 className="capitalize">
+                      {businessSelectedData?.businessName || ""}
+                    </H3>
+                    <P className="text-slate-400">
+                      {defaultBusiness.find(
+                        (business) =>
+                          business.value ===
+                          businessSelectedData?.type.toString()
+                      )?.label || ""}
+                    </P>
+                  </div>
+                  <Button variant="ghost" onClick={handleClickSettings}>
+                    Settings
+                  </Button>
+                </div>
+                <Card className="py-2">
+                  <Chart />
+                </Card>
+              </div>
               <FullExpensesTable />
               <FullIncomeTable />
             </div>

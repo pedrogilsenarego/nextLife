@@ -13,6 +13,7 @@ import { getUserSession } from "@/clientActions/userAction";
 import useScreenSize from "@/hooks/useScreenSize";
 import FooterMobile from "@/components/LayoutComponents/FooterMobile";
 import DashBoardMobile from "@/modules/Business/DashBoardMobile";
+import HeaderMobile from "@/components/LayoutComponents/HeaderMobile";
 
 type LayoutProps = {
   params: {
@@ -45,6 +46,7 @@ const DashBoard = ({ params }: LayoutProps) => {
 
         {isSmallScreen && (
           <>
+            <HeaderMobile />
             <DashBoardMobile />
             <FooterMobile />
           </>

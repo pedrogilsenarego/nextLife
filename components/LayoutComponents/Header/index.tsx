@@ -2,6 +2,7 @@
 
 import { getUserSession, userLogout } from "@/clientActions/userAction";
 import { Button } from "@/components/ui/button";
+import useScreenSize from "@/hooks/useScreenSize";
 import useUser from "@/hooks/useUser";
 import { User } from "@supabase/supabase-js";
 import { useRouter } from "next/navigation";
@@ -13,9 +14,11 @@ type Props = {
 };
 
 const Header = ({ darkMode, initial }: Props) => {
+  const { isSmallScreen } = useScreenSize();
+
   const router = useRouter();
   const { user } = useUser();
-
+  if (isSmallScreen) return;
   const handleLogout = async () => {
     await userLogout();
     router.push("/");
