@@ -17,6 +17,7 @@ const BusinessSelectModal = () => {
   );
   const handleClickTab = (tabValue: string) => {
     dataContext.setCurrentBusiness(tabValue);
+    setOpenBusinessSelect(false);
   };
   return (
     <>
