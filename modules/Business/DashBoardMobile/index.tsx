@@ -10,7 +10,10 @@ const DashBoardMobile = () => {
       return { value: expenses.amount, name: expenses.category };
     }) || [];
   return (
-    <div className="w-full p-4 gap-2 flex flex-col">
+    <div
+      style={{ marginTop: "60px" }}
+      className="w-full p-4 gap-2 flex flex-col"
+    >
       <Card className="flex justify-center p-2">
         {!expensesQuery.isLoading && mappedExpensesByCategory.length > 0 && (
           <OneLevelChartPie data1={mappedExpensesByCategory} />
