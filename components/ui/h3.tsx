@@ -2,7 +2,7 @@ import { cn } from "@/lib/utils";
 import React from "react";
 
 type Props = React.HTMLAttributes<HTMLHeadingElement> & {
-  children: string;
+  children: string | number;
 };
 
 export function H3({ children, className, ...props }: Props) {

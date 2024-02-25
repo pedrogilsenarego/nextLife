@@ -22,9 +22,7 @@ export default async function Layout({
   return (
     <div className="flex-1 w-full h-full justify-between  flex flex-col gap-10 items-center">
       <Header />
-
       {children}
-
       <Footer />
     </div>
   );
