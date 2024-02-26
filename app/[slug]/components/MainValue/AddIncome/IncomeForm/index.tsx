@@ -21,7 +21,7 @@ const IncomeForm = ({ setOpen }: Props) => {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="w-full space-y-6">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="w-full space-y-4">
         <SelectForm
           label="Business"
           name="businessId"

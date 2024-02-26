@@ -7,13 +7,17 @@ import useMonthIncomes from "@/hooks/useMonthIncomes";
 const InfoTable = () => {
   const { incomes: cumulativeIncomes } = useMonthIncomes();
   const { expenses: cumulativeExpenses } = useMonthExpenses();
-  const IVA = parseFloat(cumulativeIncomes) * 0.23;
+  const IVA = (parseFloat(cumulativeIncomes) * 0.23).toFixed(0);
   const profit = (
     parseFloat(cumulativeIncomes) * 0.77 -
     parseFloat(cumulativeExpenses)
   ).toFixed(0);
-  const IRC = parseFloat(profit) < 0 ? 0 : parseFloat(profit) * 0.17;
-  const IRS = parseFloat(profit) < 0 ? 0 : parseFloat(profit) * 0.35;
+  const IRC = (parseFloat(profit) < 0 ? 0 : parseFloat(profit) * 0.17).toFixed(
+    0
+  );
+  const IRS = (parseFloat(profit) < 0 ? 0 : parseFloat(profit) * 0.35).toFixed(
+    0
+  );
 
   return (
     <Card className="p-2 rounded-sm">
