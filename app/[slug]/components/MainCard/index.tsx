@@ -14,7 +14,6 @@ import useMonthExpenses from "@/hooks/useMonthExpenses";
 import useMonthIncomes from "@/hooks/useMonthIncomes";
 import useUser from "@/hooks/useUser";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
 import { useData } from "../dashboard.provider";
 import AddBusiness from "./AddBusiness/AddBusiness";
 import Chart from "./Chart";
