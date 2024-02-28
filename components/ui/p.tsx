@@ -6,8 +6,8 @@ type Props = React.HTMLAttributes<HTMLHeadingElement> & {
 
 export function P({ children, className, ...props }: Props) {
   return (
-    <h2 className={cn("", className)} {...props}>
+    <p className={cn("", className)} {...props}>
       {children}
-    </h2>
+    </p>
   );
 }

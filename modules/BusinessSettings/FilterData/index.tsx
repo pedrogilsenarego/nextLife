@@ -3,6 +3,7 @@
 import { Card } from "@/components/ui/card";
 import { H2 } from "@/components/ui/h2";
 import { P } from "@/components/ui/p";
+import { defaultBusiness } from "@/constants/defaultBusinesses";
 import useBusinesses from "@/hooks/useBusinesses";
 
 const FilterData = () => {
@@ -17,9 +18,17 @@ const FilterData = () => {
             {businesses.data?.map((business) => {
               return (
                 <Card className="p-2" key={business.id}>
-                  <P className="capitalize font-bold">
-                    {business.businessName}
-                  </P>
+                  <div>
+                    <P className="capitalize font-bold">
+                      {business.businessName}
+                    </P>
+                    <P className="capitalize text-xs font-bold text-slate-500">
+                      {defaultBusiness.find(
+                        (business1) =>
+                          business1.value === business?.type.toString()
+                      )?.label || ""}
+                    </P>
+                  </div>
                 </Card>
               );
             })}
