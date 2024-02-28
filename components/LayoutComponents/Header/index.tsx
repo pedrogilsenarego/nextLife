@@ -4,9 +4,7 @@ import { getUserSession, userLogout } from "@/clientActions/userAction";
 import { Button } from "@/components/ui/button";
 import useScreenSize from "@/hooks/useScreenSize";
 import useUser from "@/hooks/useUser";
-import { User } from "@supabase/supabase-js";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
 
 type Props = {
   darkMode?: boolean;
