@@ -9,7 +9,7 @@ const DarkContent1 = () => {
           Build you own Dashboard
         </H2>
         <H3
-          style={{ textAlign: "center", color: "#ffffffCC", fontSize: "14px" }}
+          style={{ textAlign: "center", color: "#ffffffCC", fontSize: "18px" }}
         >
           Personalize colors and configurations
         </H3>

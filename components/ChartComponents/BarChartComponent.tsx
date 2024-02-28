@@ -15,88 +15,63 @@ import {
 
 const dataMok = [
   {
-    name: "Page A",
-    uv: 4000,
-    pv: 2400,
-    amt: 2400,
+    goal: 400,
   },
   {
-    name: "Page B",
-    uv: 3000,
-    pv: 1398,
-    amt: 2210,
+    goal: 300,
   },
   {
-    name: "Page C",
-    uv: 2000,
-    pv: 9800,
-    amt: 2290,
+    goal: 200,
   },
   {
-    name: "Page D",
-    uv: 2780,
-    pv: 3908,
-    amt: 2000,
+    goal: 300,
   },
   {
-    name: "Page E",
-    uv: 1890,
-    pv: 4800,
-    amt: 2181,
+    goal: 200,
   },
   {
-    name: "Page F",
-    uv: 2390,
-    pv: 3800,
-    amt: 2500,
+    goal: 278,
   },
   {
-    name: "Page G",
-    uv: 3490,
-    pv: 4300,
-    amt: 2100,
+    goal: 189,
+  },
+  {
+    goal: 239,
+  },
+  {
+    goal: 300,
+  },
+  {
+    goal: 200,
+  },
+  {
+    goal: 278,
+  },
+  {
+    goal: 189,
+  },
+  {
+    goal: 349,
   },
 ];
 
-const dateFormatter = (date: string) => {
-  return moment(date).format("DD/MM/YY");
-};
-
 type Props = {
-  data: { xAxis: string; uv: number; pv: number }[];
+  data?: any[];
 };
 
-const BarChartComponent = ({ data = [] }: Props) => {
-  data?.forEach((d: any) => {
-    d.xAxis = moment(d.xAxis).valueOf(); // date -> epoch
-  });
-
+const BarChartComponent = ({ data = dataMok }: Props) => {
   return (
-    <ResponsiveContainer width="100%" height={300}>
-      <BarChart
-        width={500}
-        height={300}
-        data={data}
-        margin={{
-          top: 5,
-          right: 30,
-          left: 20,
-          bottom: 5,
-        }}
-      >
-        <CartesianGrid strokeDasharray="3 3" />
-        <XAxis
-          dataKey="xAxis"
-          //domain={[data[0]?.xAxis, data[data.length - 1]?.xAxis]}
-          scale="time"
-          //type="number"
-          tickFormatter={dateFormatter}
+    <ResponsiveContainer width="100%" height="100%">
+      <BarChart data={data}>
+        <Bar
+          dataKey="goal"
+          style={
+            {
+              fill: "hsl(var(--foreground))",
+              opacity: 0.9,
+            } as React.CSSProperties
+          }
         />
-        <YAxis />
-        <Tooltip />
-
-        <Bar dataKey="pv" fill="#82ca9d" />
-        <Bar dataKey="uv" fill="#c80815E6" />
       </BarChart>
     </ResponsiveContainer>
   );

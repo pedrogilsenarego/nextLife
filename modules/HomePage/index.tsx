@@ -12,6 +12,7 @@ import { useEffect, useState } from "react";
 import Carousel from "./components/Carousel";
 import DarkContent1 from "./components/Carousel/components/DarkContent1";
 import "./index.css";
+import LightContent1 from "./components/Carousel/components/LightComponent1";
 
 const delicious = Delicious_Handrawn({ weight: "400", subsets: ["latin"] });
 
@@ -96,7 +97,7 @@ const About = () => {
 
               <Carousel
                 content={[
-                  <p>0</p>,
+                  <LightContent1 />,
                   <p>1sasasa</p>,
                   <p>2sasasa</p>,
                   <p>3sasa</p>,
@@ -110,7 +111,7 @@ const About = () => {
         <div
           className="container"
           style={{
-            background: `#09090B`,
+            background: `rgb(16, 16, 25)`,
           }}
         >
           <div
@@ -124,7 +125,7 @@ const About = () => {
                   <Card
                     className="flex items-center p-8 justify-center flex-col bg"
                     style={{
-                      backgroundColor: "#09090B",
+                      backgroundColor: "rgb(16, 16, 25)",
                       borderColor: "#ffffff1A",
                     }}
                   >

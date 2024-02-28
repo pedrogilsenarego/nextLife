@@ -25,7 +25,7 @@ const Carousel = ({ darkMode, content }: Props) => {
                   width: "400px",
                   height: "400px",
 
-                  backgroundColor: darkMode ? "#09090B" : undefined,
+                  backgroundColor: darkMode ? "rgb(16, 16, 25)" : undefined,
                   borderColor: darkMode ? "#ffffff1A" : undefined,
                 }}
               >
@@ -54,7 +54,7 @@ const Carousel = ({ darkMode, content }: Props) => {
                   width: "400px",
                   height: "400px",
 
-                  backgroundColor: darkMode ? "#09090B" : undefined,
+                  backgroundColor: darkMode ? "rgb(16, 16, 25)" : undefined,
                   borderColor: darkMode ? "#ffffff1A" : undefined,
                 }}
               >
