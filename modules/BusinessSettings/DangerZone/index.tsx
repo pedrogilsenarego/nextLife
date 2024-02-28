@@ -6,11 +6,8 @@ import { P } from "@/components/ui/p";
 import { ROUTE_PATHS } from "@/constants/routes";
 import useBusinesses from "@/hooks/useBusinesses";
 import useUser from "@/hooks/useUser";
-import { Delicious_Handrawn } from "next/font/google";
 import { useRouter } from "next/navigation";
 import DeleteButton from "./DeleteButton";
-
-const delicious = Delicious_Handrawn({ weight: "400", subsets: ["latin"] });
 
 type Props = {
   params: {
@@ -37,9 +34,7 @@ const DangerZone = ({ params }: Props) => {
 
   return (
     <div className="gap-2 flex flex-col">
-      <H2 className={delicious.className} style={{ color: "orangered" }}>
-        Danger zone
-      </H2>
+      <H2 style={{ color: "orangered" }}>Danger zone</H2>
       <Card style={{ borderColor: "orangered" }}>
         <div className="p-3 flex justify-between gap-4 items-center">
           <div>

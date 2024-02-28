@@ -58,7 +58,9 @@ const MainCard = () => {
 
   const handleClickSettings = () => {
     router.push(
-      `/${user?.userQuery?.data?.username}/${businessSelectedData?.businessName}`
+      `/${user?.userQuery?.data?.username}/${
+        businessSelectedData?.businessName || "total"
+      }`
     );
   };
 
