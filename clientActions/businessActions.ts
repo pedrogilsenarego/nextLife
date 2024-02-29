@@ -102,3 +102,68 @@ export const deleteBusiness = async (businessId: string): Promise<string> => {
     }
   });
 };
+
+export const updateSettingsBalanceState = async ({
+  businessId,
+  status,
+}: {
+  businessId: string;
+  status: boolean;
+}): Promise<string> => {
+  return new Promise(async (resolve, reject) => {
+    console.log("changing", businessId, "balance status to", status);
+    try {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+
+      if (!user) {
+        return reject(new Error("User not authenticated"));
+      }
+
+      // Fetch the business record based on the businessName
+      const { data: businessData, error: businessError } = await supabase
+        .from("business")
+        .select("*")
+        .eq("id", businessId)
+        .single();
+
+      if (businessError) {
+        console.error("Error fetching business:", businessError);
+        return reject(businessError);
+      }
+
+      if (!businessData) {
+        return reject(new Error("Business not found"));
+      }
+
+      // Get the current settings of the business
+      const currentSettings = businessData.settings || {};
+
+      // Update the balances status in the settings
+      const updatedSettings = {
+        ...currentSettings,
+        filters: {
+          ...currentSettings.filters,
+          balanceStatus: status,
+        },
+      };
+
+      // Perform update operation to update the settings
+      const { error: updateError } = await supabase
+        .from("business")
+        .update({ settings: updatedSettings })
+        .eq("id", businessId);
+
+      if (updateError) {
+        console.error("Error updating settings:", updateError);
+        return reject(updateError);
+      }
+
+      resolve("Success");
+    } catch (error) {
+      console.error("Error updating settings:", error);
+      reject(error);
+    }
+  });
+};

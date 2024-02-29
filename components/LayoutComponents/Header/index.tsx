@@ -16,7 +16,7 @@ const Header = ({ darkMode, initial }: Props) => {
 
   const router = useRouter();
   const { user } = useUser();
-  if (isSmallScreen) return;
+  if (isSmallScreen && !initial) return;
   const handleLogout = async () => {
     await userLogout();
     router.push("/");

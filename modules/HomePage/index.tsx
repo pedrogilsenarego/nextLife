@@ -13,10 +13,9 @@ import Carousel from "./components/Carousel";
 import DarkContent1 from "./components/Carousel/components/DarkContent1";
 import "./index.css";
 import LightContent1 from "./components/Carousel/components/LightComponent1";
+import { H2 } from "@/components/ui/h2";
 
-const delicious = Delicious_Handrawn({ weight: "400", subsets: ["latin"] });
-
-const About = () => {
+const Home = () => {
   const [mouseX, setMouseX] = useState<number>(0);
   const maintext = "Finally a service to organize your...  ";
   const router = useRouter();
@@ -72,20 +71,19 @@ const About = () => {
                   <H3 style={{ marginTop: "5px", color: "#71717A" }}>
                     {maintext}
                   </H3>
-                  <H1
-                    className={delicious.className}
+                  <H2
                     style={{
                       marginTop: "30px",
 
                       textTransform: "uppercase",
-                      fontSize: "60px",
+
                       color: "orangered",
                       fontWeight: 600,
                       letterSpacing: "3px",
                     }}
                   >
                     Incomes
-                  </H1>
+                  </H2>
                   <Button
                     onClick={handleClickSettings}
                     style={{ marginTop: "30px" }}
@@ -135,20 +133,19 @@ const About = () => {
                     <H3 style={{ color: "#A1A1AA", marginTop: "5px" }}>
                       {maintext}
                     </H3>
-                    <H1
-                      className={delicious.className}
+                    <H2
                       style={{
                         marginTop: "30px",
 
                         textTransform: "uppercase",
-                        fontSize: "60px",
+
                         color: "purple",
                         fontWeight: 600,
                         letterSpacing: "3px",
                       }}
                     >
                       Expenses
-                    </H1>
+                    </H2>
                     <Button
                       onClick={handleClickSettings}
                       style={{
@@ -182,4 +179,4 @@ const About = () => {
   );
 };
 
-export default About;
+export default Home;
