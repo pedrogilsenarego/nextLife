@@ -4,6 +4,11 @@ export type Business = {
   created_at: Date;
   id: string;
   type: number;
+  settings: {
+    filters: {
+      balanceStatus: boolean;
+    };
+  };
 };
 
 export type BusinessesQuery = Business[];
