@@ -1,41 +1,47 @@
 "use client";
-import {
-  addBusiness,
-  getBusinesses,
-  updateSettingsBalanceState,
-} from "@/clientActions/businessActions";
-import InputForm from "@/components/ui/Wrappers/InputForm";
-import SelectForm from "@/components/ui/Wrappers/SelectForm";
+import { updateSettingsBalanceState } from "@/clientActions/businessActions";
 import SwitchForm from "@/components/ui/Wrappers/SwitchForm";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Form, FormDescription, FormLabel } from "@/components/ui/form";
 import { H2 } from "@/components/ui/h2";
-import { P } from "@/components/ui/p";
-import { defaultBusiness } from "@/constants/defaultBusinesses";
 import useBusinesses from "@/hooks/useBusinesses";
 import useScreenSize from "@/hooks/useScreenSize";
-
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { TotalSettings, totalSettingsSchema } from "./validation";
+import { useMutation } from "@tanstack/react-query";
+import { useToast } from "@/components/ui/use-toast";
 
 const BusinessForm = () => {
   const isSmallScreen = useScreenSize();
   const businesses = useBusinesses();
+  const { toast } = useToast();
 
   const form = useForm<TotalSettings>({
     resolver: zodResolver(totalSettingsSchema),
   });
 
+  const { mutate: updateBalanceStatus, isPending } = useMutation({
+    mutationFn: updateSettingsBalanceState,
+    onError: (error: any) => {
+      console.log("error", error);
+    },
+    onSuccess: () => {
+      toast({
+        variant: "default",
+        title: "Settings updated",
+      });
+    },
+    onSettled: async () => {},
+  });
+
   function onSubmit(data: TotalSettings) {
-    console.log(data);
-    // if (businesses?.data && businesses.data.length > 0) {
-    //   const businessId = businesses.data[0].id;
-    //   updateSettingsBalanceState({ businessId, status: false });
-    // } else {
-    //   console.error("No business data available");
-    // }
+    const arr = Object.entries(data.balances).map(([id, status]) => ({
+      id,
+      status,
+    }));
+    updateBalanceStatus({ arr });
   }
 
   return (
@@ -55,19 +61,21 @@ const BusinessForm = () => {
                 </FormDescription>
               </div>
               {businesses.data?.map((business) => {
-                const balanceName = `balances.${business.businessName}`;
+                const balanceId = `balances.${business.id}`;
                 return (
                   <SwitchForm
                     key={business.id}
                     defaultValue={business.settings?.filters.balanceStatus}
                     control={form.control}
-                    name={balanceName}
+                    name={balanceId}
                     label={business.businessName}
                   />
                 );
               })}{" "}
             </div>
-            <Button type="submit">Submit</Button>
+            <Button type="submit" isLoading={isPending}>
+              Submit
+            </Button>
           </form>
         </Form>
       </Card>

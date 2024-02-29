@@ -104,14 +104,11 @@ export const deleteBusiness = async (businessId: string): Promise<string> => {
 };
 
 export const updateSettingsBalanceState = async ({
-  businessId,
-  status,
+  arr,
 }: {
-  businessId: string;
-  status: boolean;
+  arr: { id: string; status?: boolean }[];
 }): Promise<string> => {
   return new Promise(async (resolve, reject) => {
-    console.log("changing", businessId, "balance status to", status);
     try {
       const {
         data: { user },
@@ -121,43 +118,50 @@ export const updateSettingsBalanceState = async ({
         return reject(new Error("User not authenticated"));
       }
 
-      // Fetch the business record based on the businessName
-      const { data: businessData, error: businessError } = await supabase
-        .from("business")
-        .select("*")
-        .eq("id", businessId)
-        .single();
+      for (const { id, status } of arr) {
+        // Fetch the business record based on the businessId
+        const { data: businessData, error: businessError } = await supabase
+          .from("business")
+          .select("*")
+          .eq("id", id)
+          .single();
 
-      if (businessError) {
-        console.error("Error fetching business:", businessError);
-        return reject(businessError);
-      }
+        if (businessError) {
+          console.error("Error fetching business:", businessError);
+          return reject(businessError);
+        }
 
-      if (!businessData) {
-        return reject(new Error("Business not found"));
-      }
+        if (!businessData) {
+          console.error("Business not found:", id);
+          continue; // Skip to the next iteration if business is not found
+        }
 
-      // Get the current settings of the business
-      const currentSettings = businessData.settings || {};
+        // Get the current settings of the business
+        const currentSettings = businessData.settings || {};
 
-      // Update the balances status in the settings
-      const updatedSettings = {
-        ...currentSettings,
-        filters: {
-          ...currentSettings.filters,
-          balanceStatus: status,
-        },
-      };
+        // Update the balances status in the settings
+        const updatedSettings = {
+          ...currentSettings,
+          filters: {
+            ...currentSettings.filters,
+            balanceStatus: status,
+          },
+        };
 
-      // Perform update operation to update the settings
-      const { error: updateError } = await supabase
-        .from("business")
-        .update({ settings: updatedSettings })
-        .eq("id", businessId);
+        // Perform update operation to update the settings
+        const { error: updateError } = await supabase
+          .from("business")
+          .update({ settings: updatedSettings })
+          .eq("id", id);
 
-      if (updateError) {
-        console.error("Error updating settings:", updateError);
-        return reject(updateError);
+        if (updateError) {
+          console.error(
+            "Error updating settings for business:",
+            id,
+            updateError
+          );
+          // Don't reject here, continue updating other businesses
+        }
       }
 
       resolve("Success");
