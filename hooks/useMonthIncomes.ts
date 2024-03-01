@@ -6,12 +6,14 @@ import { queryKeys } from "@/constants/queryKeys";
 import { MonthIncome, MonthIncomesQuery } from "@/types/incomesTypes";
 import { dateQueriesMap } from "@/utils/dateFormat";
 import { useQuery } from "@tanstack/react-query";
+import useBusinesses from "./useBusinesses";
 
 const useMonthIncomes = () => {
   const dataContex = useData();
   const selectedBusiness = dataContex.state.currentBusiness;
   const timeRange = dataContex.state.timeRange;
   const datesToQuery = dateQueriesMap(timeRange);
+  const { onlyBalanceIds } = useBusinesses();
   const incomesQuery = useQuery<MonthIncomesQuery, Error>({
     queryKey: [queryKeys.monthIncomes],
     queryFn: () =>
@@ -24,7 +26,9 @@ const useMonthIncomes = () => {
   });
   const incomesByMonth =
     selectedBusiness === "total"
-      ? incomesQuery?.data?.data
+      ? incomesQuery?.data?.data.filter(
+          (income) => !onlyBalanceIds.includes(income.businessId)
+        )
       : (incomesQuery.data?.data as MonthIncome[])?.filter(
           (expense) => expense.businessId === selectedBusiness
         );
@@ -53,8 +57,8 @@ const useMonthIncomes = () => {
 
   const incomesByCategory =
     selectedBusiness === "total"
-      ? (incomesQuery?.data?.data as MonthIncome[])?.reduce(
-          (accumulator, expense) => {
+      ? (incomesQuery?.data?.data as MonthIncome[])
+          ?.reduce((accumulator, expense) => {
             const existingExpense = accumulator.find(
               (item: MonthIncome) => item.category === expense.category
             );
@@ -66,9 +70,8 @@ const useMonthIncomes = () => {
             }
 
             return accumulator;
-          },
-          [] as MonthIncome[]
-        )
+          }, [] as MonthIncome[])
+          .filter((income) => !onlyBalanceIds.includes(income.businessId))
       : (incomesQuery.data?.data as MonthIncome[])?.filter(
           (expense) => expense.businessId === selectedBusiness
         );

@@ -1,12 +1,11 @@
 import { Card } from "@/components/ui/card";
-import { H3 } from "@/components/ui/h3";
 import { P } from "@/components/ui/p";
 import useMonthExpenses from "@/hooks/useMonthExpenses";
 import useMonthIncomes from "@/hooks/useMonthIncomes";
 
 const InfoTable = () => {
-  const { incomes: cumulativeIncomes } = useMonthIncomes();
-  const { expenses: cumulativeExpenses } = useMonthExpenses();
+  const { totalIncomes: cumulativeIncomes } = useMonthIncomes();
+  const { totalExpenses: cumulativeExpenses } = useMonthExpenses();
   const IVA = (parseFloat(cumulativeIncomes) * 0.23).toFixed(0);
   const profit = (
     parseFloat(cumulativeIncomes) * 0.77 -

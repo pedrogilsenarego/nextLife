@@ -1,8 +1,7 @@
 import { useData } from "@/app/[slug]/components/dashboard.provider";
 import DrawerWrapper from "@/components/ui/Wrappers/DrawerWrapper";
 import { Button } from "@/components/ui/button";
-import { P } from "@/components/ui/p";
-import { defaultBusiness } from "@/constants/defaultBusinesses";
+
 import useBusinesses from "@/hooks/useBusinesses";
 import { CaretDownIcon } from "@radix-ui/react-icons";
 import { useState } from "react";

@@ -8,12 +8,10 @@ import "./index.css";
 import { H3 } from "@/components/ui/h3";
 import AddExpense from "./AddExpense/AddExpense";
 import AddIncome from "./AddIncome";
-import useMonthBalances from "@/hooks/useMonthBalances";
 
 const MainValue = () => {
   const { totalExpenses: cumulativeExpenses } = useMonthExpenses();
   const { totalIncomes: cumulativeIncomes } = useMonthIncomes();
-  useMonthBalances();
 
   if (!cumulativeExpenses || !cumulativeIncomes) return;
 
