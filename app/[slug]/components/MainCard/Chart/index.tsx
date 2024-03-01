@@ -1,6 +1,4 @@
 "use client";
-
-import BarChartComponent from "@/components/ChartComponents/BarChartComponent";
 import LineChartComponent from "@/components/ChartComponents/LineChartComponent";
 import useMonthExpenses from "@/hooks/useMonthExpenses";
 import useMonthIncomes from "@/hooks/useMonthIncomes";
@@ -18,7 +16,7 @@ const Chart = () => {
     dataByMonth(incomesByCategory)
   );
 
-  if(data.length<=0) return
+  if (data.length <= 0) return;
 
   return <LineChartComponent data={data} />;
 };

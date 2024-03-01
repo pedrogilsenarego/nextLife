@@ -24,22 +24,7 @@ const useMonthIncomes = () => {
   });
   const incomesFilteredByBusiness =
     selectedBusiness === "total"
-      ? (incomesQuery?.data?.data as MonthIncome[])?.reduce(
-          (accumulator, expense) => {
-            const existingExpense = accumulator.find(
-              (item: MonthIncome) => item.category === expense.category
-            );
-
-            if (existingExpense) {
-              existingExpense.amount += expense.amount;
-            } else {
-              accumulator.push({ ...expense });
-            }
-
-            return accumulator;
-          },
-          [] as MonthIncome[]
-        )
+      ? incomesQuery.data?.data
       : (incomesQuery.data?.data as MonthIncome[])?.filter(
           (expense) => expense.businessId === selectedBusiness
         );
