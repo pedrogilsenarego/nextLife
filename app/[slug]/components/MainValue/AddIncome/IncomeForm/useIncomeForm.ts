@@ -21,7 +21,7 @@ type Props = {
 };
 
 const useIncomeForm = ({ setOpen }: Props) => {
-  const business = useBusinesses();
+  const { businesses: business } = useBusinesses();
   const { incomesQuery } = useIncomes();
   const dataContext = useData();
   const { incomesQuery: incomeMonthQuery } = useMonthIncomes();

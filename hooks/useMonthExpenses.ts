@@ -10,12 +10,14 @@ import {
 } from "@/types/expensesTypes";
 import { dateQueriesMap } from "@/utils/dateFormat";
 import { useQuery } from "@tanstack/react-query";
+import useBusinesses from "./useBusinesses";
 
 const useMonthExpenses = () => {
   const dataContex = useData();
   const selectedBusiness = dataContex.state.currentBusiness;
   const timeRange = dataContex.state.timeRange;
   const datesToQuery = dateQueriesMap(timeRange);
+  const { onlyBalanceIds } = useBusinesses();
 
   const expensesQuery = useQuery<MonthExpensesQuery, Error>({
     queryKey: [queryKeys.monthExpenses],
@@ -28,24 +30,70 @@ const useMonthExpenses = () => {
       }),
   });
 
-  const expensesFilteredByBusiness =
+  const expensesByMonth =
     selectedBusiness === "total"
       ? expensesQuery?.data?.data
       : (expensesQuery.data?.data as MonthExpense[])?.filter(
           (expense) => expense.businessId === selectedBusiness
         );
 
-  const expenses = expensesFilteredByBusiness
+  const expensesByBusiness =
+    selectedBusiness === "total"
+      ? (expensesQuery?.data?.data as MonthExpense[])?.reduce(
+          (accumulator, expense) => {
+            const existingExpense = accumulator.find(
+              (item: MonthExpense) => item.businessId === expense.businessId
+            );
+
+            if (existingExpense) {
+              existingExpense.amount += expense.amount;
+            } else {
+              accumulator.push({ ...expense });
+            }
+
+            return accumulator;
+          },
+          [] as MonthExpense[]
+        )
+      : (expensesQuery.data?.data as MonthExpense[])?.filter(
+          (expense) => expense.businessId === selectedBusiness
+        );
+
+  const expensesByCategory =
+    selectedBusiness === "total"
+      ? (expensesQuery?.data?.data as MonthExpense[])?.reduce(
+          (accumulator, expense) => {
+            const existingExpense = accumulator.find(
+              (item: MonthExpense) => item.category === expense.category
+            );
+
+            if (existingExpense) {
+              existingExpense.amount += expense.amount;
+            } else {
+              accumulator.push({ ...expense });
+            }
+
+            return accumulator;
+          },
+          [] as MonthExpense[]
+        )
+      : (expensesQuery.data?.data as MonthExpense[])?.filter(
+          (expense) => expense.businessId === selectedBusiness
+        );
+
+  const totalExpenses = expensesByCategory
     ?.reduce((sum, expense) => sum + (expense.amount || 0), 0)
     .toFixed(2);
 
   const expensesMetadata = expensesQuery.data?.metaData;
 
   return {
-    expenses,
+    totalExpenses,
     expensesQuery,
     expensesMetadata,
-    expensesByCategory: expensesFilteredByBusiness,
+    expensesByCategory,
+    expensesByMonth,
+    expensesByBusiness,
   };
 };
 

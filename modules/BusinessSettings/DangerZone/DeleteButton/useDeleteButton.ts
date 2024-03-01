@@ -11,7 +11,7 @@ const useDeleteButton = ({ businessName }: { businessName: string }) => {
   const [openDialog, setOpenDialog] = useState<boolean>(false);
   const router = useRouter();
   const { toast } = useToast();
-  const businesses = useBusinesses();
+  const { businesses } = useBusinesses();
   const { user } = useUser();
   const businessId = businesses.data?.find(
     (business) => business.businessName === businessName

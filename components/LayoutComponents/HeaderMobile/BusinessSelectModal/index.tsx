@@ -9,7 +9,7 @@ import { useState } from "react";
 
 const BusinessSelectModal = () => {
   const [openBusinessSelect, setOpenBusinessSelect] = useState<boolean>(false);
-  const businessesQuery = useBusinesses();
+  const { businesses: businessesQuery } = useBusinesses();
   const dataContext = useData();
   const businessSelected = dataContext.state.currentBusiness;
   const businessSelectedData = businessesQuery?.data?.find(

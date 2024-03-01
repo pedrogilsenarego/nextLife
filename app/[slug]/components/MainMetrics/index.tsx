@@ -16,7 +16,7 @@ import { useData } from "../dashboard.provider";
 const MainMetrics = () => {
   const { expensesByCategory, expensesQuery } = useMonthExpenses();
   //const { incomes, incomesByCategory } = useMonthIncomes();
-  const businessesQuery = useBusinesses();
+  const { businesses: businessesQuery } = useBusinesses();
   const dataContext = useData();
   const businessSelected = dataContext.state.currentBusiness;
   //const ratio = (Number(expenses) || 1) / (Number(incomes) || 1);

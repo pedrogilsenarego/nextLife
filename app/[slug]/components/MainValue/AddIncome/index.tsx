@@ -21,7 +21,7 @@ import { P } from "@/components/ui/p";
 
 const AddIncome = () => {
   const [open, setOpen] = useState<boolean>(false);
-  const business = useBusinesses();
+  const { businesses: business } = useBusinesses();
   const businesses = business?.data || [];
   const conditionDisable = businesses.length <= 0;
   return (

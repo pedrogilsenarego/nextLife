@@ -24,7 +24,7 @@ import { P } from "@/components/ui/p";
 import { defaultBusiness } from "@/constants/defaultBusinesses";
 
 const MainCard = () => {
-  const businessesQuery = useBusinesses();
+  const { businesses: businessesQuery } = useBusinesses();
   const dataContext = useData();
   const businessSelected = dataContext.state.currentBusiness;
   const user = useUser();

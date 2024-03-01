@@ -22,22 +22,68 @@ const useMonthIncomes = () => {
         },
       }),
   });
-  const incomesFilteredByBusiness =
+  const incomesByMonth =
     selectedBusiness === "total"
-      ? incomesQuery.data?.data
+      ? incomesQuery?.data?.data
       : (incomesQuery.data?.data as MonthIncome[])?.filter(
           (expense) => expense.businessId === selectedBusiness
         );
 
-  const incomes = incomesFilteredByBusiness
+  const incomesByBusiness =
+    selectedBusiness === "total"
+      ? (incomesQuery?.data?.data as MonthIncome[])?.reduce(
+          (accumulator, expense) => {
+            const existingExpense = accumulator.find(
+              (item: MonthIncome) => item.businessId === expense.businessId
+            );
+
+            if (existingExpense) {
+              existingExpense.amount += expense.amount;
+            } else {
+              accumulator.push({ ...expense });
+            }
+
+            return accumulator;
+          },
+          [] as MonthIncome[]
+        )
+      : (incomesQuery.data?.data as MonthIncome[])?.filter(
+          (expense) => expense.businessId === selectedBusiness
+        );
+
+  const incomesByCategory =
+    selectedBusiness === "total"
+      ? (incomesQuery?.data?.data as MonthIncome[])?.reduce(
+          (accumulator, expense) => {
+            const existingExpense = accumulator.find(
+              (item: MonthIncome) => item.category === expense.category
+            );
+
+            if (existingExpense) {
+              existingExpense.amount += expense.amount;
+            } else {
+              accumulator.push({ ...expense });
+            }
+
+            return accumulator;
+          },
+          [] as MonthIncome[]
+        )
+      : (incomesQuery.data?.data as MonthIncome[])?.filter(
+          (expense) => expense.businessId === selectedBusiness
+        );
+
+  const totalIncomes = incomesByCategory
     ?.reduce((sum, expense) => sum + (expense.amount || 0), 0)
     .toFixed(2);
   const incomesMetadata = incomesQuery.data?.metaData;
   return {
     incomesMetadata,
     incomesQuery,
-    incomes,
-    incomesByCategory: incomesFilteredByBusiness,
+    totalIncomes,
+    incomesByCategory,
+    incomesByMonth,
+    incomesByBusiness,
   };
 };
 

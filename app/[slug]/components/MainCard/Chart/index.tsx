@@ -6,14 +6,14 @@ import { dataByMonth } from "@/utils/dataRearrange";
 import { buildData } from "./utils";
 
 const Chart = () => {
-  const { expensesByCategory } = useMonthExpenses();
-  const { incomesByCategory } = useMonthIncomes();
+  const { expensesByMonth } = useMonthExpenses();
+  const { incomesByMonth } = useMonthIncomes();
 
-  if (!expensesByCategory || !incomesByCategory) return;
+  if (!expensesByMonth || !incomesByMonth) return;
 
   const data = buildData(
-    dataByMonth(expensesByCategory),
-    dataByMonth(incomesByCategory)
+    dataByMonth(expensesByMonth),
+    dataByMonth(incomesByMonth)
   );
 
   if (data.length <= 0) return;

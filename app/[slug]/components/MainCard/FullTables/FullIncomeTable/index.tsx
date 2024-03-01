@@ -11,7 +11,7 @@ import { useMutation } from "@tanstack/react-query";
 import { columns } from "./columns";
 
 const FullIncomeTable = () => {
-  const businessesQuery = useBusinesses();
+  const { businesses: businessesQuery } = useBusinesses();
   const { incomes, incomesQuery } = useIncomes();
   const { incomesQuery: monthIncomesQuery } = useMonthIncomes();
   const businesses = businessesQuery.data;

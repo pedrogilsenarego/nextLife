@@ -6,7 +6,7 @@ import useMonthExpenses from "@/hooks/useMonthExpenses";
 import { columns } from "./columns";
 
 const ResumedTable = () => {
-  const businesses = useBusinesses();
+  const { businesses } = useBusinesses();
   const { expensesByCategory } = useMonthExpenses();
 
   const mappedExpensesByCategory =

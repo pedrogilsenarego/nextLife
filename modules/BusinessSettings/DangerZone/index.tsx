@@ -17,7 +17,7 @@ type Props = {
 };
 const DangerZone = ({ params }: Props) => {
   const { user } = useUser();
-  const businesses = useBusinesses();
+  const { businesses } = useBusinesses();
   const router = useRouter();
 
   if (!user || !businesses) return;

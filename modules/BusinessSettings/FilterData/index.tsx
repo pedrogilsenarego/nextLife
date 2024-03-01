@@ -15,7 +15,7 @@ import { useToast } from "@/components/ui/use-toast";
 
 const BusinessForm = () => {
   const isSmallScreen = useScreenSize();
-  const businesses = useBusinesses();
+  const { businesses } = useBusinesses();
   const { toast } = useToast();
 
   const form = useForm<TotalSettings>({

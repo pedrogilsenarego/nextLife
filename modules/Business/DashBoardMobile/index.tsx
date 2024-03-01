@@ -8,7 +8,7 @@ import useMonthExpenses from "@/hooks/useMonthExpenses";
 
 const DashBoardMobile = () => {
   const { expensesByCategory, expensesQuery } = useMonthExpenses();
-  const businessesQuery = useBusinesses();
+  const { businesses: businessesQuery } = useBusinesses();
   const dataContext = useData();
   const businessSelected = dataContext.state.currentBusiness;
   const { state } = useData();
