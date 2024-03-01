@@ -10,26 +10,38 @@ import AddExpense from "./AddExpense/AddExpense";
 import AddIncome from "./AddIncome";
 
 const MainValue = () => {
-  const { totalExpenses: cumulativeExpenses } = useMonthExpenses();
-  const { totalIncomes: cumulativeIncomes } = useMonthIncomes();
+  const { totalExpenses, sumOfExcludedTotalExpenses } = useMonthExpenses();
+  const { totalIncomes, sumOfExcludedTotalIncomes } = useMonthIncomes();
 
-  if (!cumulativeExpenses || !cumulativeIncomes) return;
+  const balanceOfExcluded =
+    sumOfExcludedTotalIncomes - sumOfExcludedTotalExpenses;
+
+  const cumulativeIncomes =
+    parseFloat(totalIncomes) -
+    sumOfExcludedTotalIncomes +
+    (balanceOfExcluded > 0 ? balanceOfExcluded : 0);
+  const cumulativeExpenses =
+    parseFloat(totalExpenses) -
+    sumOfExcludedTotalExpenses +
+    (balanceOfExcluded < 0 ? balanceOfExcluded : 0);
+
+  if (!totalExpenses || !totalIncomes) return;
 
   return (
     <div className="flex justify-around items-center gap-2">
       <div className="bg-slate-200 px-4 py-2 rounded-md flex justify-center items-center gap-2">
         <H3 className="  text-emerald-600  text-2xl font-semibold ">
-          {cumulativeIncomes.toString()}
+          {cumulativeIncomes.toFixed(0)}
         </H3>
-        <H3 className="  text-red-600  text-2xl font-semibold ">{`-${cumulativeExpenses.toString()}`}</H3>
+        <H3 className="  text-red-600  text-2xl font-semibold ">{`-${cumulativeExpenses.toFixed(
+          0
+        )}`}</H3>
         <div className="flex items-center">
           <H3 className="text-color-black text-2xl font-semibold">$</H3>
           <SlotCounter
             separatorClassName="slot"
             charClassName="slot"
-            value={(
-              Number(cumulativeIncomes) - Number(cumulativeExpenses)
-            ).toFixed(2)}
+            value={(cumulativeIncomes - cumulativeExpenses).toFixed(2)}
           />
         </div>
       </div>

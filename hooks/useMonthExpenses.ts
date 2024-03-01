@@ -32,9 +32,7 @@ const useMonthExpenses = () => {
 
   const expensesByMonth =
     selectedBusiness === "total"
-      ? expensesQuery?.data?.data.filter(
-          (expense) => !onlyBalanceIds.includes(expense.businessId)
-        )
+      ? expensesQuery?.data?.data
       : (expensesQuery.data?.data as MonthExpense[])?.filter(
           (expense) => expense.businessId === selectedBusiness
         );
@@ -63,8 +61,8 @@ const useMonthExpenses = () => {
 
   const expensesByCategory =
     selectedBusiness === "total"
-      ? (expensesQuery?.data?.data as MonthExpense[])
-          ?.reduce((accumulator, expense) => {
+      ? (expensesQuery?.data?.data as MonthExpense[])?.reduce(
+          (accumulator, expense) => {
             const existingExpense = accumulator.find(
               (item: MonthExpense) => item.category === expense.category
             );
@@ -76,11 +74,22 @@ const useMonthExpenses = () => {
             }
 
             return accumulator;
-          }, [] as MonthExpense[])
-          .filter((expense) => !onlyBalanceIds.includes(expense.businessId))
+          },
+          [] as MonthExpense[]
+        )
       : (expensesQuery.data?.data as MonthExpense[])?.filter(
           (expense) => expense.businessId === selectedBusiness
         );
+
+  const excludedExpensesByMonth =
+    expensesQuery?.data?.data.filter((expense) =>
+      onlyBalanceIds.includes(expense.businessId)
+    ) || [];
+
+  const sumOfExcludedTotalExpenses = excludedExpensesByMonth.reduce(
+    (sum, expense) => sum + expense.amount,
+    0
+  );
 
   const totalExpenses = expensesByCategory
     ?.reduce((sum, expense) => sum + (expense.amount || 0), 0)
@@ -95,6 +104,7 @@ const useMonthExpenses = () => {
     expensesByCategory,
     expensesByMonth,
     expensesByBusiness,
+    sumOfExcludedTotalExpenses,
   };
 };
 
