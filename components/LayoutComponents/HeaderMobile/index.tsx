@@ -6,8 +6,8 @@ import "./index.css";
 import BusinessSelectModal from "./BusinessSelectModal";
 
 const HeaderMobile = () => {
-  const { expenses: cumulativeExpenses } = useMonthExpenses();
-  const { incomes: cumulativeIncomes } = useMonthIncomes();
+  const { totalExpenses: cumulativeExpenses } = useMonthExpenses();
+  const { totalIncomes: cumulativeIncomes } = useMonthIncomes();
 
   return (
     <div
