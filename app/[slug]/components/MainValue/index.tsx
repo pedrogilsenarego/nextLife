@@ -10,20 +10,11 @@ import AddExpense from "./AddExpense/AddExpense";
 import AddIncome from "./AddIncome";
 
 const MainValue = () => {
-  const { totalExpenses, sumOfExcludedTotalExpenses } = useMonthExpenses();
-  const { totalIncomes, sumOfExcludedTotalIncomes } = useMonthIncomes();
+  const { totalExpenses } = useMonthExpenses();
+  const { totalIncomes } = useMonthIncomes();
 
-  const balanceOfExcluded =
-    sumOfExcludedTotalIncomes - sumOfExcludedTotalExpenses;
-
-  const cumulativeIncomes =
-    parseFloat(totalIncomes) -
-    sumOfExcludedTotalIncomes +
-    (balanceOfExcluded > 0 ? balanceOfExcluded : 0);
-  const cumulativeExpenses =
-    parseFloat(totalExpenses) -
-    sumOfExcludedTotalExpenses +
-    (balanceOfExcluded < 0 ? balanceOfExcluded : 0);
+  const cumulativeIncomes = parseFloat(totalIncomes);
+  const cumulativeExpenses = parseFloat(totalExpenses);
 
   if (!totalExpenses || !totalIncomes) return;
 

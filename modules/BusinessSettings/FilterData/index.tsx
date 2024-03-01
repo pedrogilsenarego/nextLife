@@ -32,6 +32,7 @@ const BusinessForm = () => {
         variant: "default",
         title: "Settings updated",
       });
+      businesses.refetch();
     },
     onSettled: async () => {},
   });
@@ -55,9 +56,9 @@ const BusinessForm = () => {
           >
             <div className="flex flex-col rounded-lg border shadow p-4 gap-2">
               <div className="border-b">
-                <FormLabel className="text-md">Show only Balance</FormLabel>
+                <FormLabel className="text-md">Show </FormLabel>
                 <FormDescription>
-                  Show in total only the balance between incomes and expenses
+                  Show in total only the selected businesses
                 </FormDescription>
               </div>
               {businesses.data?.map((business) => {
