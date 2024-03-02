@@ -5,7 +5,7 @@ import HomePageMobile from "./Mobile";
 import Home from "./Laptop";
 
 const HomePage = () => {
-  const { isSmallScreen } = useScreenSize();
+  const { isSmallScreen = true } = useScreenSize();
 
   return isSmallScreen ? <HomePageMobile /> : <Home />;
 };
