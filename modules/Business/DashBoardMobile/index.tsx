@@ -31,13 +31,18 @@ const DashBoardMobile = () => {
   );
   const typeBusiness = businessSelectedData?.type;
   return (
-    <div style={{ marginTop: "60px" }} className="w-full p-4  flex flex-col">
+    <div
+      style={{ marginTop: "60px" }}
+      className="w-full p-4 gap-1 flex flex-col"
+    >
       <p className="text-xl">
         Hello, <b>{user?.username}</b>
       </p>
       <div className="flex w-full justify-between">
         <div className="flex flex-col gap-0.5">
-          <p className="text-sm">Your balance</p>
+          <p style={{ color: "darkGrey" }} className="text-sm">
+            Your balance
+          </p>
           <div className="flex items-center">
             <SlotCounter
               separatorClassName="slot2"
@@ -46,7 +51,15 @@ const DashBoardMobile = () => {
                 Number(totalIncomes || 0) - Number(totalExpenses || 0)
               ).toFixed(1)}
             />
-            <p style={{ fontSize: "20px", lineHeight: "20px" }}>€</p>
+            <p
+              style={{
+                fontSize: "18px",
+                lineHeight: "18px",
+                fontWeight: "bold",
+              }}
+            >
+              €
+            </p>
           </div>
         </div>
         <div className="flex items-end">
