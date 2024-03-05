@@ -16,7 +16,7 @@ const HeaderMobile = () => {
         flex justify-between px-5 fixed top-0 w-full bg-white  p-2 border-b border-slate-500 border-solid z-20"
     >
       <BusinessSelectModal />
-      <TimeRangeSelectModal />
+
       <div className="flex items-center">
         <P className="  text-slate-600 text-xs font-semibold ">
           {Number(cumulativeIncomes).toFixed(0) || 0}
