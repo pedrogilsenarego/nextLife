@@ -77,9 +77,21 @@ const useMonthExpenses = () => {
             return accumulator;
           }, [] as MonthExpense[])
           .filter((expense) => onlyBalanceIds.includes(expense.businessId))
-      : (expensesQuery.data?.data as MonthExpense[])?.filter(
-          (expense) => expense.businessId === selectedBusiness
-        );
+      : (expensesQuery.data?.data as MonthExpense[])
+          ?.filter((expense) => expense.businessId === selectedBusiness)
+          .reduce((accumulator, expense) => {
+            const existingExpense = accumulator.find(
+              (item: MonthExpense) => item.category === expense.category
+            );
+
+            if (existingExpense) {
+              existingExpense.amount += expense.amount;
+            } else {
+              accumulator.push({ ...expense });
+            }
+
+            return accumulator;
+          }, [] as MonthExpense[]);
 
   const totalExpenses = expensesByCategory
     ?.reduce((sum, expense) => sum + (expense.amount || 0), 0)

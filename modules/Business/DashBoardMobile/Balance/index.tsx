@@ -1,0 +1,79 @@
+import useMonthExpenses from "@/hooks/useMonthExpenses";
+import useMonthIncomes from "@/hooks/useMonthIncomes";
+import SlotCounter from "react-slot-counter";
+import "./index.css";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { useState } from "react";
+import { QuestionMarkCircledIcon } from "@radix-ui/react-icons";
+
+const Balance = () => {
+  const { totalIncomes } = useMonthIncomes();
+  const { totalExpenses } = useMonthExpenses();
+  const [open, setOpen] = useState<boolean>(false);
+  const handleOpenInfo = () => {
+    setOpen(true);
+  };
+
+  return (
+    <>
+      <div className="flex items-center gap-2" onClick={handleOpenInfo}>
+        <div>
+          <p style={{ color: "darkGrey" }} className="text-sm">
+            Your balance
+          </p>
+          <div className="flex items-center">
+            <SlotCounter
+              separatorClassName="slot2"
+              charClassName="slot2"
+              value={(
+                Number(totalIncomes || 0) - Number(totalExpenses || 0)
+              ).toFixed(1)}
+            />
+            <p
+              style={{
+                fontSize: "18px",
+                lineHeight: "18px",
+                fontWeight: "bold",
+              }}
+            >
+              €
+            </p>
+          </div>
+        </div>
+        <QuestionMarkCircledIcon
+          style={{ height: "30px", width: "20px", color: "grey" }}
+        />
+      </div>
+
+      <Dialog open={open} setOpen={setOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle className="flex ">Balance</DialogTitle>
+          </DialogHeader>
+          <DialogDescription>
+            <div>
+              <div className="border-b py-1">
+                <p>Income: {Number(totalIncomes || 0).toFixed(1)}</p>
+                <p>Expenses: {Number(totalExpenses || 0).toFixed(1)}</p>
+              </div>
+              <p className="text-lg text-primary font-bold mt-2">
+                Total:{" "}
+                {(
+                  Number(totalIncomes || 0) - Number(totalExpenses || 0)
+                ).toFixed(1)}
+              </p>
+            </div>
+          </DialogDescription>
+        </DialogContent>
+      </Dialog>
+    </>
+  );
+};
+
+export default Balance;

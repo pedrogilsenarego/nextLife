@@ -5,17 +5,14 @@ import OneLevelChartPie from "@/components/ChartComponents/OneLevelChartPie";
 import { Card } from "@/components/ui/card";
 import useBusinesses from "@/hooks/useBusinesses";
 import useMonthExpenses from "@/hooks/useMonthExpenses";
-import useMonthIncomes from "@/hooks/useMonthIncomes";
 import useUser from "@/hooks/useUser";
-import SlotCounter from "react-slot-counter";
-import "./index.css";
-import { Button } from "@/components/ui/button";
+
 import TimeRangeSelectModal from "@/components/LayoutComponents/HeaderMobile/RangeTimeSelectModal";
+import Balance from "./Balance";
 
 const DashBoardMobile = () => {
-  const { expensesByCategory, expensesQuery, totalExpenses } =
-    useMonthExpenses();
-  const { totalIncomes } = useMonthIncomes();
+  const { expensesByCategory, expensesQuery } = useMonthExpenses();
+
   const { businesses: businessesQuery } = useBusinesses();
   const dataContext = useData();
 
@@ -30,6 +27,7 @@ const DashBoardMobile = () => {
     (business) => business.id === businessSelected
   );
   const typeBusiness = businessSelectedData?.type;
+
   return (
     <div
       style={{ marginTop: "60px" }}
@@ -39,29 +37,7 @@ const DashBoardMobile = () => {
         Hello, <b>{user?.username}</b>
       </p>
       <div className="flex w-full justify-between">
-        <div className="flex flex-col gap-0.5">
-          <p style={{ color: "darkGrey" }} className="text-sm">
-            Your balance
-          </p>
-          <div className="flex items-center">
-            <SlotCounter
-              separatorClassName="slot2"
-              charClassName="slot2"
-              value={(
-                Number(totalIncomes || 0) - Number(totalExpenses || 0)
-              ).toFixed(1)}
-            />
-            <p
-              style={{
-                fontSize: "18px",
-                lineHeight: "18px",
-                fontWeight: "bold",
-              }}
-            >
-              €
-            </p>
-          </div>
-        </div>
+        <Balance />
         <div className="flex items-end">
           <TimeRangeSelectModal />
         </div>
