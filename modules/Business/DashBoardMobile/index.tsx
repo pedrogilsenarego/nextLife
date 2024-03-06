@@ -10,15 +10,47 @@ import useUser from "@/hooks/useUser";
 import TimeRangeSelectModal from "@/components/LayoutComponents/HeaderMobile/RangeTimeSelectModal";
 import Balance from "./Balance";
 import BusinessCard from "./BusinessCard";
+import { buildCards } from "./mapper";
+import useIncomes from "@/hooks/useIncomes";
+import useMonthIncomes from "@/hooks/useMonthIncomes";
+import { useEffect, useState } from "react";
+import { defaultBusiness } from "@/constants/defaultBusinesses";
 
 const DashBoardMobile = () => {
-  const { expensesByCategory, expensesQuery } = useMonthExpenses();
+  const {
+    expensesByCategory,
+    expensesQuery,
+
+    expensesByBusiness,
+  } = useMonthExpenses();
+  const { incomesByBusiness } = useMonthIncomes();
 
   const { businesses: businessesQuery } = useBusinesses();
   const dataContext = useData();
-
   const { user } = useUser();
   const businessSelected = dataContext.state.currentBusiness;
+
+  const cards = () => {
+    if (!businessesQuery.data) return [];
+    const mapedData: any = businessesQuery?.data.map((business) => {
+      const income =
+        incomesByBusiness?.find((income) => income.businessId === business.id)
+          ?.amount || 0;
+      const expense =
+        expensesByBusiness?.find(
+          (expense) => expense.businessId === business.id
+        )?.amount || 0;
+      return {
+        businessType: business.type,
+        businessId: business.id,
+        businessName: business.businessName,
+        income,
+        expense,
+        balance: income - expense,
+      };
+    });
+    return mapedData;
+  };
 
   const mappedExpensesByCategory =
     expensesByCategory?.map((expenses) => {
@@ -47,10 +79,21 @@ const DashBoardMobile = () => {
       {!expensesQuery.isLoading && mappedExpensesByCategory.length > 0 && (
         <OneLevelChartPie data1={mappedExpensesByCategory} />
       )}
-      <div className="flex flex-col gap-4">
-        <BusinessCard />
-        <BusinessCard />
-        <BusinessCard />
+      <div style={{ gap: "18px" }} className="flex flex-col ">
+        {cards()?.map((expenses: any) => {
+          return (
+            <BusinessCard
+              balance={expenses.balance}
+              title={expenses.businessName}
+              type={
+                defaultBusiness.find(
+                  (business) =>
+                    parseInt(business.value) === expenses.businessType
+                )?.label || ""
+              }
+            />
+          );
+        })}
       </div>
       {typeBusiness === 1 && <InfoTable />}
       <Card className="flex justify-center p-2">

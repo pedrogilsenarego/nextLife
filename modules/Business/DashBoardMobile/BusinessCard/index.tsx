@@ -1,12 +1,18 @@
 import { Card } from "@/components/ui/card";
 import { GitHubLogoIcon } from "@radix-ui/react-icons";
 
-const BusinessCard = () => {
+type Props = {
+  balance: number;
+  title: string;
+  type: string;
+};
+
+const BusinessCard = ({ balance, title, type }: Props) => {
   return (
-    <Card className="p-2  rounded-none shadow-sm flex justify-between">
+    <Card className="p-3 rounded-none shadow-sm flex justify-between">
       <div>
-        <p className="font-bold">Title of Business</p>
-        <p className="text-sm">Unipessoal</p>
+        <p className="font-bold">{title}</p>
+        <p className="text-sm">{type}</p>
         <p style={{ color: "grey" }} className="text-xs mt-2">
           Available balance
         </p>
@@ -16,7 +22,7 @@ const BusinessCard = () => {
           style={{ width: "30px", height: "30px", color: "orangered" }}
         />
         <p style={{ lineHeight: "16px" }} className="font-bold text-lg">
-          456,1 €
+          {balance.toFixed(1)} €
         </p>
       </div>
     </Card>
