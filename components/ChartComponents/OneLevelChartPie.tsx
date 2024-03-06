@@ -43,27 +43,6 @@ const TwoLevelChartPie = ({ data1 }: Props) => {
     Array.from({ length: modifiedDataArray.length }, (_, index) => index)
   );
 
-  // const COLORS_RED = [
-  //   "#7c0a02",
-  //   "#be4f62",
-  //   "#a40000",
-  //   "#ff355e",
-  //   "#d9603b",
-  //   "#c80815",
-  //   "#d9004c",
-  // ];
-
-  // const COLORS_GREEN = [
-  //   "#5f9ea0",
-  //   "#40826d",
-  //   "#20b2aa",
-  //   "#009b7d",
-  //   "#004040",
-  //   "#aaf0d1",
-  //   "#88d8c0",
-  //   "#29ab87",
-  // ];
-
   const renderActiveShape = (props: any) => {
     const RADIAN = Math.PI / 180;
     const {
@@ -171,7 +150,7 @@ const TwoLevelChartPie = ({ data1 }: Props) => {
   return (
     <PieChart
       width={isSmallScreen ? 350 : 600}
-      height={isSmallScreen ? 300 : 420}
+      height={isSmallScreen ? 250 : 420}
     >
       <Pie
         data={modifiedDataArray}

@@ -9,6 +9,7 @@ import useUser from "@/hooks/useUser";
 
 import TimeRangeSelectModal from "@/components/LayoutComponents/HeaderMobile/RangeTimeSelectModal";
 import Balance from "./Balance";
+import BusinessCard from "./BusinessCard";
 
 const DashBoardMobile = () => {
   const { expensesByCategory, expensesQuery } = useMonthExpenses();
@@ -42,10 +43,15 @@ const DashBoardMobile = () => {
           <TimeRangeSelectModal />
         </div>
       </div>
+
       {!expensesQuery.isLoading && mappedExpensesByCategory.length > 0 && (
         <OneLevelChartPie data1={mappedExpensesByCategory} />
       )}
-
+      <div className="flex flex-col gap-4">
+        <BusinessCard />
+        <BusinessCard />
+        <BusinessCard />
+      </div>
       {typeBusiness === 1 && <InfoTable />}
       <Card className="flex justify-center p-2">
         <ResumedTable />
