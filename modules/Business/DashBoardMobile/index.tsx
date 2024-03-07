@@ -15,6 +15,13 @@ import useIncomes from "@/hooks/useIncomes";
 import useMonthIncomes from "@/hooks/useMonthIncomes";
 import { useEffect, useState } from "react";
 import { defaultBusiness } from "@/constants/defaultBusinesses";
+import Chart from "@/app/[slug]/components/MainCard/Chart";
+import { CarouselCard } from "@/components/ui/Wrappers/CarouselCard";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+} from "@/components/ui/carousel";
 
 const DashBoardMobile = () => {
   const {
@@ -92,10 +99,20 @@ const DashBoardMobile = () => {
           <TimeRangeSelectModal />
         </div>
       </div>
+      <Carousel className="w-full max-w-xs">
+        <CarouselContent>
+          <CarouselItem>
+            {!expensesQuery.isLoading &&
+              mappedExpensesByCategory.length > 0 && (
+                <OneLevelChartPie data1={mappedExpensesByCategory} />
+              )}
+          </CarouselItem>
+          <CarouselItem>
+            <Chart />
+          </CarouselItem>
+        </CarouselContent>
+      </Carousel>
 
-      {!expensesQuery.isLoading && mappedExpensesByCategory.length > 0 && (
-        <OneLevelChartPie data1={mappedExpensesByCategory} />
-      )}
       <div style={{ gap: "18px" }} className="flex flex-col ">
         {cards()?.map((expenses: any) => {
           return (

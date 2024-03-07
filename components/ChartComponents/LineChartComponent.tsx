@@ -1,3 +1,5 @@
+"use client";
+import useScreenSize from "@/hooks/useScreenSize";
 import moment from "moment";
 import React from "react";
 import {
@@ -21,6 +23,7 @@ type Props = {
 const LineChartComponent = ({ data = [] }: Props) => {
   // just to remove the errors on the chart
   const error = console.error;
+  const { isSmallScreen } = useScreenSize();
   console.error = (...args: any) => {
     if (/defaultProps/.test(args[0])) return;
     error(...args);
@@ -47,17 +50,15 @@ const LineChartComponent = ({ data = [] }: Props) => {
   };
 
   return (
-    <ResponsiveContainer width="100%" height={300}>
+    <ResponsiveContainer width="100%" height={isSmallScreen ? 250 : 300}>
       <AreaChart
-        width={500}
-        height={200}
         data={data}
         syncId="anyId"
         margin={{
-          top: 10,
-          right: 30,
-          left: 0,
-          bottom: 0,
+          top: isSmallScreen ? 30 : 10,
+          right: isSmallScreen ? 0 : 30,
+          left: isSmallScreen ? -20 : 0,
+          bottom: isSmallScreen ? 30 : 0,
         }}
       >
         <defs>
@@ -72,14 +73,24 @@ const LineChartComponent = ({ data = [] }: Props) => {
         </defs>
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis
-          tick={{ fill: "black", fontSize: 12, dy: 8 }}
+          tick={{
+            fill: "black",
+            fontSize: isSmallScreen ? 10 : 12,
+            dy: isSmallScreen ? 2 : 8,
+          }}
           dataKey="xAxis"
           domain={[data[0]?.xAxis, data[data.length - 1]?.xAxis]}
           scale="time"
           type="number"
           tickFormatter={dateFormatter}
         />
-        <YAxis tick={{ fill: "black", fontSize: 12, dx: -3 }} />
+        <YAxis
+          tick={{
+            fill: "black",
+            fontSize: isSmallScreen ? 10 : 12,
+            dx: isSmallScreen ? 0 : -3,
+          }}
+        />
         <Tooltip content={<CustomTooltip />} cursor={false} />
         <Area
           type="monotone"
