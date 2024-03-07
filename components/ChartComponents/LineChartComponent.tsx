@@ -49,6 +49,15 @@ const LineChartComponent = ({ data = [] }: Props) => {
     return null;
   };
 
+  const formatYAxisTick = (tick: number): string => {
+    if (tick >= 1000000) {
+      return `${(tick / 1000000).toFixed(1)}M`;
+    } else if (tick >= 100) {
+      return `${(tick / 1000).toFixed(1)}K`;
+    }
+    return tick.toString();
+  };
+
   return (
     <ResponsiveContainer width="100%" height={isSmallScreen ? 250 : 300}>
       <AreaChart
@@ -56,8 +65,8 @@ const LineChartComponent = ({ data = [] }: Props) => {
         syncId="anyId"
         margin={{
           top: isSmallScreen ? 30 : 10,
-          right: isSmallScreen ? 0 : 30,
-          left: isSmallScreen ? -20 : 0,
+          right: isSmallScreen ? 20 : 30,
+          left: isSmallScreen ? -30 : 0,
           bottom: isSmallScreen ? 30 : 0,
         }}
       >
@@ -76,7 +85,6 @@ const LineChartComponent = ({ data = [] }: Props) => {
           tick={{
             fill: "black",
             fontSize: isSmallScreen ? 10 : 12,
-            dy: isSmallScreen ? 2 : 8,
           }}
           dataKey="xAxis"
           domain={[data[0]?.xAxis, data[data.length - 1]?.xAxis]}
@@ -90,6 +98,7 @@ const LineChartComponent = ({ data = [] }: Props) => {
             fontSize: isSmallScreen ? 10 : 12,
             dx: isSmallScreen ? 0 : -3,
           }}
+          tickFormatter={formatYAxisTick}
         />
         <Tooltip content={<CustomTooltip />} cursor={false} />
         <Area

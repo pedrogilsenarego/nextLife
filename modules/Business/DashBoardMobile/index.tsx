@@ -19,6 +19,7 @@ import Chart from "@/app/[slug]/components/MainCard/Chart";
 import { CarouselCard } from "@/components/ui/Wrappers/CarouselCard";
 import {
   Carousel,
+  CarouselApi,
   CarouselContent,
   CarouselItem,
 } from "@/components/ui/carousel";
@@ -31,11 +32,25 @@ const DashBoardMobile = () => {
     expensesByBusiness,
   } = useMonthExpenses();
   const { incomesByBusiness } = useMonthIncomes();
+  const [api, setApi] = useState<CarouselApi>();
+  const [current, setCurrent] = useState(0);
 
   const { businesses: businessesQuery } = useBusinesses();
   const dataContext = useData();
   const { user } = useUser();
   const businessSelected = dataContext.state.currentBusiness;
+
+  useEffect(() => {
+    if (!api) {
+      return;
+    }
+
+    setCurrent(api.selectedScrollSnap());
+
+    api.on("select", () => {
+      setCurrent(api.selectedScrollSnap());
+    });
+  }, [api]);
 
   const cards = () => {
     if (!businessesQuery.data) return [];
@@ -99,7 +114,7 @@ const DashBoardMobile = () => {
           <TimeRangeSelectModal />
         </div>
       </div>
-      <Carousel className="w-full max-w-xs">
+      <Carousel setApi={setApi} className="w-full max-w-xs">
         <CarouselContent>
           <CarouselItem>
             {!expensesQuery.isLoading &&
@@ -112,11 +127,35 @@ const DashBoardMobile = () => {
           </CarouselItem>
         </CarouselContent>
       </Carousel>
+      <div
+        style={{ marginTop: "-15px", marginBottom: "30px" }}
+        className="flex w-full justify-center gap-2"
+      >
+        <div
+          className="bg-primary"
+          style={{
+            height: "6px",
+            width: "6px",
+            borderRadius: "50%",
+            opacity: current === 0 ? 1 : 0.5,
+          }}
+        />
+        <div
+          className="bg-primary"
+          style={{
+            height: "6px",
+            width: "6px",
+            borderRadius: "50%",
+            opacity: current === 1 ? 1 : 0.5,
+          }}
+        />
+      </div>
 
       <div style={{ gap: "18px" }} className="flex flex-col ">
-        {cards()?.map((expenses: any) => {
+        {cards()?.map((expenses: any, index: number) => {
           return (
             <BusinessCard
+              key={index}
               balance={expenses.balance}
               title={expenses.businessName}
               type={
