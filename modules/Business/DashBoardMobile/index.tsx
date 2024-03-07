@@ -33,19 +33,39 @@ const DashBoardMobile = () => {
   const cards = () => {
     if (!businessesQuery.data) return [];
     const mapedData: any = businessesQuery?.data.map((business) => {
-      const income =
-        incomesByBusiness?.find((income) => income.businessId === business.id)
-          ?.amount || 0;
       const expense =
         expensesByBusiness?.find(
           (expense) => expense.businessId === business.id
         )?.amount || 0;
+
+      const rawIncome =
+        incomesByBusiness?.find((income) => income.businessId === business.id)
+          ?.amount || 0;
+
+      const iva = rawIncome * (business.type === 1 ? 0.23 : 0);
+
+      const incomeAfterIva = rawIncome - iva;
+
+      const irs = Math.max(
+        (incomeAfterIva - expense) * (business.type === 1 ? 0.35 : 0),
+        0
+      );
+      const irc = Math.max(
+        (incomeAfterIva - expense) * (business.type === 1 ? 0.17 : 0),
+        0
+      );
+
+      const income = incomeAfterIva - irs;
+
       return {
         businessType: business.type,
         businessId: business.id,
         businessName: business.businessName,
         income,
         expense,
+        iva,
+        irs,
+        irc,
         balance: income - expense,
       };
     });
@@ -67,7 +87,7 @@ const DashBoardMobile = () => {
         Hello, <b>{user?.username}</b>
       </p>
       <div className="flex w-full justify-between">
-        <Balance />
+        <Balance cards={cards()} />
         <div className="flex items-end">
           <TimeRangeSelectModal />
         </div>

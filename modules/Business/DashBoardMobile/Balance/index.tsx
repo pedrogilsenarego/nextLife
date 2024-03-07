@@ -12,13 +12,39 @@ import {
 import { useState } from "react";
 import { QuestionMarkCircledIcon } from "@radix-ui/react-icons";
 
-const Balance = () => {
-  const { totalIncomes } = useMonthIncomes();
-  const { totalExpenses } = useMonthExpenses();
+type Props = {
+  cards: any;
+};
+
+const Balance = ({ cards }: Props) => {
   const [open, setOpen] = useState<boolean>(false);
   const handleOpenInfo = () => {
     setOpen(true);
   };
+
+  const totalIncomes = cards.reduce(
+    (total: number, card: any) => total + card.income,
+    0
+  );
+
+  const totalExpenses = cards.reduce(
+    (total: number, card: any) => total + card.expense,
+    0
+  );
+
+  const totalIVA = cards.reduce(
+    (total: number, card: any) => total + card.iva,
+    0
+  );
+
+  const totalIRS = cards.reduce(
+    (total: number, card: any) => total + card.irs,
+    0
+  );
+  const totalIRC = cards.reduce(
+    (total: number, card: any) => total + card.irc,
+    0
+  );
 
   return (
     <>
@@ -40,6 +66,7 @@ const Balance = () => {
                 fontSize: "18px",
                 lineHeight: "18px",
                 fontWeight: "bold",
+                marginTop: "2px",
               }}
             >
               €
@@ -59,6 +86,11 @@ const Balance = () => {
           <DialogDescription>
             <div>
               <div className="border-b py-1">
+                <p>Iva: {Number(totalIVA || 0).toFixed(1)}</p>
+                <p>
+                  Irs: {Number(totalIRS || 0).toFixed(1)} / Irc:{" "}
+                  {Number(totalIRC || 0).toFixed(1)}
+                </p>
                 <p>Income: {Number(totalIncomes || 0).toFixed(1)}</p>
                 <p>Expenses: {Number(totalExpenses || 0).toFixed(1)}</p>
               </div>
