@@ -9,9 +9,9 @@ type Props = {
 
 const BusinessCard = ({ balance, title, type }: Props) => {
   return (
-    <Card className="p-3 rounded-none shadow-sm flex justify-between">
+    <Card className="p-3 rounded-none shadow-md flex justify-between">
       <div>
-        <p className="font-bold">{title}</p>
+        <p className="font-bold capitalize text-lg">{title}</p>
         <p className="text-sm">{type}</p>
         <p style={{ color: "grey" }} className="text-xs mt-2">
           Available balance

@@ -147,7 +147,7 @@ const MainCard = () => {
                     Settings
                   </Button>
                 </div>
-                <Card className="py-2">
+                <Card className="py-2 rounded-none">
                   <Chart />
                 </Card>
               </div>

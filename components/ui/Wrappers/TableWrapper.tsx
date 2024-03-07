@@ -20,6 +20,7 @@ import { useEffect } from "react";
 import { Button } from "../button";
 import { H3 } from "../h3";
 import { DataTablePagination } from "../table-pagination";
+import useScreenSize from "@/hooks/useScreenSize";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -45,7 +46,7 @@ export function TableWrapper<TData, TValue>({
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
   });
-
+  const { isSmallScreen } = useScreenSize();
   const handleDeleteRows = () => {
     if (onDelete) {
       const selectedRows = table
@@ -76,14 +77,23 @@ export function TableWrapper<TData, TValue>({
           )}
         </div>
         <div>
-          <div className="rounded-md border w-full shadow-md">
+          <div
+            className={
+              isSmallScreen
+                ? " border w-full shadow-md"
+                : " border w-full shadow-md"
+            }
+          >
             <Table>
-              <TableHeader>
+              <TableHeader className="text-md">
                 {table.getHeaderGroups().map((headerGroup) => (
                   <TableRow key={headerGroup.id}>
                     {headerGroup.headers.map((header) => {
                       return (
-                        <TableHead key={header.id}>
+                        <TableHead
+                          className="font-bold text-primary text-lg"
+                          key={header.id}
+                        >
                           {header.isPlaceholder
                             ? null
                             : flexRender(

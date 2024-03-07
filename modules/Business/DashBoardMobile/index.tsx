@@ -62,10 +62,7 @@ const DashBoardMobile = () => {
   const typeBusiness = businessSelectedData?.type;
 
   return (
-    <div
-      style={{ marginTop: "60px" }}
-      className="w-full p-4 gap-1 flex flex-col"
-    >
+    <div style={{ marginTop: "60px" }} className="w-full p-4  flex flex-col">
       <p className="text-xl">
         Hello, <b>{user?.username}</b>
       </p>
@@ -96,9 +93,9 @@ const DashBoardMobile = () => {
         })}
       </div>
       {typeBusiness === 1 && <InfoTable />}
-      <Card className="flex justify-center p-2">
+      <div className="mt-4">
         <ResumedTable />
-      </Card>
+      </div>
     </div>
   );
 };
