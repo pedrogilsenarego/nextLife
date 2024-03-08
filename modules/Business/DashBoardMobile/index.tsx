@@ -2,27 +2,23 @@ import InfoTable from "@/app/[slug]/components/MainMetrics/InfoTable";
 import ResumedTable from "@/app/[slug]/components/MainMetrics/ResumedTable";
 import { useData } from "@/app/[slug]/components/dashboard.provider";
 import OneLevelChartPie from "@/components/ChartComponents/OneLevelChartPie";
-import { Card } from "@/components/ui/card";
 import useBusinesses from "@/hooks/useBusinesses";
 import useMonthExpenses from "@/hooks/useMonthExpenses";
 import useUser from "@/hooks/useUser";
-
 import TimeRangeSelectModal from "@/components/LayoutComponents/HeaderMobile/RangeTimeSelectModal";
 import Balance from "./Balance";
 import BusinessCard from "./BusinessCard";
-import { buildCards } from "./mapper";
-import useIncomes from "@/hooks/useIncomes";
 import useMonthIncomes from "@/hooks/useMonthIncomes";
 import { useEffect, useState } from "react";
 import { defaultBusiness } from "@/constants/defaultBusinesses";
 import Chart from "@/app/[slug]/components/MainCard/Chart";
-import { CarouselCard } from "@/components/ui/Wrappers/CarouselCard";
 import {
   Carousel,
   CarouselApi,
   CarouselContent,
   CarouselItem,
 } from "@/components/ui/carousel";
+import AddBusinessCard from "./AddBusinessCard";
 
 const DashBoardMobile = () => {
   const {
@@ -167,6 +163,7 @@ const DashBoardMobile = () => {
             />
           );
         })}
+        <AddBusinessCard />
       </div>
       {typeBusiness === 1 && <InfoTable />}
       <div className="mt-4">

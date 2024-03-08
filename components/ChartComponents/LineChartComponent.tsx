@@ -36,12 +36,18 @@ const LineChartComponent = ({ data = [] }: Props) => {
     if (active && payload && payload.length) {
       return (
         <div>
-          <p style={{ color: "#82ca9d" }}>{` $${payload[0]?.payload?.pv.toFixed(
-            1
-          )}`}</p>
-          <p style={{ color: "#c80815" }}>{`$${payload[0].payload?.uv.toFixed(
-            1
-          )}`}</p>
+          <p
+            style={{
+              color: "#82ca9d",
+              fontSize: isSmallScreen ? "12px" : "16px",
+            }}
+          >{` $${payload[0]?.payload?.pv.toFixed(0)}`}</p>
+          <p
+            style={{
+              color: "#c80815",
+              fontSize: isSmallScreen ? "12px" : "16px",
+            }}
+          >{`$${payload[0].payload?.uv.toFixed(0)}`}</p>
         </div>
       );
     }
@@ -66,7 +72,7 @@ const LineChartComponent = ({ data = [] }: Props) => {
         margin={{
           top: isSmallScreen ? 30 : 10,
           right: isSmallScreen ? 20 : 30,
-          left: isSmallScreen ? -30 : 0,
+          left: isSmallScreen ? -20 : 0,
           bottom: isSmallScreen ? 30 : 0,
         }}
       >
