@@ -19,7 +19,6 @@ import {
   CarouselItem,
 } from "@/components/ui/carousel";
 import AddBusinessCard from "./AddBusinessCard";
-import DrawerWrapperRight from "@/components/ui/Wrappers/DrawerWrapperRight";
 
 const DashBoardMobile = () => {
   const [openBusiness, setOpenBusiness] = useState(false);
@@ -28,7 +27,6 @@ const DashBoardMobile = () => {
   const { incomesByBusiness } = useMonthIncomes();
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
-  const [drawerSelected, setDrawerSelected] = useState<string | null>(null);
 
   const { businesses: businessesQuery } = useBusinesses();
   const dataContext = useData();
@@ -148,27 +146,8 @@ const DashBoardMobile = () => {
         </div>
 
         <div style={{ gap: "18px" }} className="flex flex-col ">
-          {cards()?.map((expenses: any, index: number) => {
-            return (
-              <div
-                onClick={() => {
-                  setOpenBusiness(true);
-                  setDrawerSelected(expenses.businessId);
-                }}
-              >
-                <BusinessCard
-                  key={index}
-                  balance={expenses.balance}
-                  title={expenses.businessName}
-                  type={
-                    defaultBusiness.find(
-                      (business) =>
-                        parseInt(business.value) === expenses.businessType
-                    )?.label || ""
-                  }
-                />
-              </div>
-            );
+          {cards()?.map((card: any, index: number) => {
+            return <BusinessCard key={index} card={card} />;
           })}
           <AddBusinessCard />
         </div>
@@ -177,9 +156,6 @@ const DashBoardMobile = () => {
           <ResumedTable />
         </div>
       </div>
-      <DrawerWrapperRight open={openBusiness} setOpen={setOpenBusiness}>
-        {drawerSelected}
-      </DrawerWrapperRight>
     </>
   );
 };
