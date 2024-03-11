@@ -6,7 +6,7 @@ const FooterMobile = () => {
     <div
       style={{
         background:
-          "linear-gradient(to top, rgba(255, 255, 255, 1) 20%, rgba(255, 255, 255, 0.8) 70%, rgba(255, 255, 255, 0.7) 100%)",
+          "linear-gradient(to top, rgba(255, 255, 255, 1) 20%, rgba(255, 255, 255, 0.95) 70%, rgba(255, 255, 255, 0.9) 100%)",
       }}
       className="
       flex justify-around fixed bottom-0 w-full bg-white  pb-10 border border-solid"

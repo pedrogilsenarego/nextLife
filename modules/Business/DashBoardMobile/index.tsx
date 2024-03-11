@@ -19,14 +19,12 @@ import {
   CarouselItem,
 } from "@/components/ui/carousel";
 import AddBusinessCard from "./AddBusinessCard";
+import DrawerWrapperRight from "@/components/ui/Wrappers/DrawerWrapperRight";
 
 const DashBoardMobile = () => {
-  const {
-    expensesByCategory,
-    expensesQuery,
-
-    expensesByBusiness,
-  } = useMonthExpenses();
+  const [openBusiness, setOpenBusiness] = useState(false);
+  const { expensesByCategory, expensesQuery, expensesByBusiness } =
+    useMonthExpenses();
   const { incomesByBusiness } = useMonthIncomes();
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
@@ -100,76 +98,82 @@ const DashBoardMobile = () => {
   const typeBusiness = businessSelectedData?.type;
 
   return (
-    <div style={{ marginTop: "60px" }} className="w-full p-4  flex flex-col">
-      <p className="text-xl">
-        Hello, <b>{user?.username}</b>
-      </p>
-      <div className="flex w-full justify-between">
-        <Balance cards={cards()} />
-        <div className="flex items-end">
-          <TimeRangeSelectModal />
+    <>
+      <div style={{ marginTop: "60px" }} className="w-full p-4  flex flex-col">
+        <p className="text-xl">
+          Hello, <b>{user?.username}</b>
+        </p>
+        <div className="flex w-full justify-between">
+          <Balance cards={cards()} />
+          <div className="flex items-end">
+            <TimeRangeSelectModal />
+          </div>
+        </div>
+        <Carousel setApi={setApi} className="w-full max-w-xs">
+          <CarouselContent>
+            <CarouselItem>
+              {!expensesQuery.isLoading &&
+                mappedExpensesByCategory.length > 0 && (
+                  <OneLevelChartPie data1={mappedExpensesByCategory} />
+                )}
+            </CarouselItem>
+            <CarouselItem>
+              <Chart />
+            </CarouselItem>
+          </CarouselContent>
+        </Carousel>
+        <div
+          style={{ marginTop: "-15px", marginBottom: "30px" }}
+          className="flex w-full justify-center gap-2"
+        >
+          <div
+            className="bg-primary"
+            style={{
+              height: "6px",
+              width: "6px",
+              borderRadius: "50%",
+              opacity: current === 0 ? 1 : 0.5,
+            }}
+          />
+          <div
+            className="bg-primary"
+            style={{
+              height: "6px",
+              width: "6px",
+              borderRadius: "50%",
+              opacity: current === 1 ? 1 : 0.5,
+            }}
+          />
+        </div>
+
+        <div style={{ gap: "18px" }} className="flex flex-col ">
+          {cards()?.map((expenses: any, index: number) => {
+            return (
+              <BusinessCard
+                setOpenBusiness={setOpenBusiness}
+                key={index}
+                balance={expenses.balance}
+                title={expenses.businessName}
+                type={
+                  defaultBusiness.find(
+                    (business) =>
+                      parseInt(business.value) === expenses.businessType
+                  )?.label || ""
+                }
+              />
+            );
+          })}
+          <AddBusinessCard />
+        </div>
+        {typeBusiness === 1 && <InfoTable />}
+        <div className="mt-4">
+          <ResumedTable />
         </div>
       </div>
-      <Carousel setApi={setApi} className="w-full max-w-xs">
-        <CarouselContent>
-          <CarouselItem>
-            {!expensesQuery.isLoading &&
-              mappedExpensesByCategory.length > 0 && (
-                <OneLevelChartPie data1={mappedExpensesByCategory} />
-              )}
-          </CarouselItem>
-          <CarouselItem>
-            <Chart />
-          </CarouselItem>
-        </CarouselContent>
-      </Carousel>
-      <div
-        style={{ marginTop: "-15px", marginBottom: "30px" }}
-        className="flex w-full justify-center gap-2"
-      >
-        <div
-          className="bg-primary"
-          style={{
-            height: "6px",
-            width: "6px",
-            borderRadius: "50%",
-            opacity: current === 0 ? 1 : 0.5,
-          }}
-        />
-        <div
-          className="bg-primary"
-          style={{
-            height: "6px",
-            width: "6px",
-            borderRadius: "50%",
-            opacity: current === 1 ? 1 : 0.5,
-          }}
-        />
-      </div>
-
-      <div style={{ gap: "18px" }} className="flex flex-col ">
-        {cards()?.map((expenses: any, index: number) => {
-          return (
-            <BusinessCard
-              key={index}
-              balance={expenses.balance}
-              title={expenses.businessName}
-              type={
-                defaultBusiness.find(
-                  (business) =>
-                    parseInt(business.value) === expenses.businessType
-                )?.label || ""
-              }
-            />
-          );
-        })}
-        <AddBusinessCard />
-      </div>
-      {typeBusiness === 1 && <InfoTable />}
-      <div className="mt-4">
-        <ResumedTable />
-      </div>
-    </div>
+      <DrawerWrapperRight open={openBusiness} setOpen={setOpenBusiness}>
+        teste
+      </DrawerWrapperRight>
+    </>
   );
 };
 
