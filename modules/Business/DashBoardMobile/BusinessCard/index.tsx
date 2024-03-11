@@ -5,15 +5,11 @@ type Props = {
   balance: number;
   title: string;
   type: string;
-  setOpenBusiness: (openBusiness: boolean) => void;
 };
 
-const BusinessCard = ({ balance, title, type, setOpenBusiness }: Props) => {
+const BusinessCard = ({ balance, title, type }: Props) => {
   return (
-    <Card
-      onClick={() => setOpenBusiness(true)}
-      className="p-3 rounded-none shadow-md flex justify-between"
-    >
+    <Card className="p-3 rounded-none shadow-md flex justify-between">
       <div>
         <p className="font-bold capitalize text-lg">{title}</p>
         <p className="text-sm">{type}</p>

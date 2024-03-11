@@ -25,13 +25,7 @@ const DrawerWrapperRight = ({ open, setOpen, children }: Props) => {
       }}
     >
       <DrawerContent className="rounded-none h-full" showDivider={false}>
-        <div className="mx-auto w-full max-w-sm p-4 pb-20">
-          <DrawerHeader>
-            <DrawerTitle>Move Goal</DrawerTitle>
-            <DrawerDescription>Set your daily activity goal.</DrawerDescription>
-          </DrawerHeader>
-          {children}
-        </div>
+        <div className="mx-auto w-full max-w-sm p-4 pb-20">{children}</div>
       </DrawerContent>
     </Drawer>
   );

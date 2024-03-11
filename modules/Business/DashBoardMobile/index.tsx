@@ -28,6 +28,7 @@ const DashBoardMobile = () => {
   const { incomesByBusiness } = useMonthIncomes();
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
+  const [drawerSelected, setDrawerSelected] = useState<string | null>(null);
 
   const { businesses: businessesQuery } = useBusinesses();
   const dataContext = useData();
@@ -149,18 +150,24 @@ const DashBoardMobile = () => {
         <div style={{ gap: "18px" }} className="flex flex-col ">
           {cards()?.map((expenses: any, index: number) => {
             return (
-              <BusinessCard
-                setOpenBusiness={setOpenBusiness}
-                key={index}
-                balance={expenses.balance}
-                title={expenses.businessName}
-                type={
-                  defaultBusiness.find(
-                    (business) =>
-                      parseInt(business.value) === expenses.businessType
-                  )?.label || ""
-                }
-              />
+              <div
+                onClick={() => {
+                  setOpenBusiness(true);
+                  setDrawerSelected(expenses.businessId);
+                }}
+              >
+                <BusinessCard
+                  key={index}
+                  balance={expenses.balance}
+                  title={expenses.businessName}
+                  type={
+                    defaultBusiness.find(
+                      (business) =>
+                        parseInt(business.value) === expenses.businessType
+                    )?.label || ""
+                  }
+                />
+              </div>
             );
           })}
           <AddBusinessCard />
@@ -171,7 +178,7 @@ const DashBoardMobile = () => {
         </div>
       </div>
       <DrawerWrapperRight open={openBusiness} setOpen={setOpenBusiness}>
-        teste
+        {drawerSelected}
       </DrawerWrapperRight>
     </>
   );
