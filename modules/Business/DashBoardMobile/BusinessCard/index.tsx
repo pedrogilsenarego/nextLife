@@ -2,9 +2,10 @@ import DrawerWrapperRight from "@/components/ui/Wrappers/DrawerWrapperRight";
 import { Card } from "@/components/ui/card";
 import { defaultBusiness } from "@/constants/defaultBusinesses";
 import useExpenses from "@/hooks/useExpenses";
-import { GitHubLogoIcon } from "@radix-ui/react-icons";
+import { CrossCircledIcon, GitHubLogoIcon } from "@radix-ui/react-icons";
 import moment from "moment";
 import { useState } from "react";
+import Item from "./Item";
 
 type Props = {
   card: any;
@@ -13,9 +14,7 @@ type Props = {
 const BusinessCard = ({ card }: Props) => {
   const [openDrawer, setOpenDrawer] = useState<boolean>(false);
   const { expenses } = useExpenses();
-  const dateFormatter = (date: Date) => {
-    return moment(date).format("DD HH:MM");
-  };
+
   const type =
     defaultBusiness.find(
       (business) => parseInt(business.value) === card.businessType
@@ -53,13 +52,7 @@ const BusinessCard = ({ card }: Props) => {
           </div>
           <div>
             {expensesFiltered?.slice(0, 10).map((expense) => {
-              return (
-                <div key={expense.id} className="flex justify-between">
-                  <p>{dateFormatter(expense.created_at)}</p>
-                  <p>{expense.category}</p>
-                  <p>{expense.amount}€</p>
-                </div>
-              );
+              return <Item key={expense.id} expense={expense} />;
             })}
           </div>
         </div>
