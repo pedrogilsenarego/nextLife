@@ -55,7 +55,12 @@ const BusinessCard = ({ card }: Props) => {
         </div>
       </Card>
       <DrawerWrapperRight open={openDrawer} setOpen={setOpenDrawer}>
-        <div className="p-3 w-full ">
+        <div
+          style={{
+            overflow: "scroll",
+          }}
+          className="p-3 w-full h-full"
+        >
           <div className="flex flex-col items-center mt-2">
             <p className="capitalize font-bold text-md">{card?.businessName}</p>
             <p className="text-slate-500">{type}</p>
