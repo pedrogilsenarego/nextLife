@@ -46,7 +46,6 @@ const DashBoard = ({ params }: LayoutProps) => {
 
         {isSmallScreen && (
           <>
-            <HeaderMobile />
             <DashBoardMobile />
             <FooterMobile />
           </>

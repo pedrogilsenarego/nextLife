@@ -149,7 +149,7 @@ const TwoLevelChartPie = ({ data1 }: Props) => {
 
   return (
     <PieChart
-      width={isSmallScreen ? 350 : 600}
+      width={isSmallScreen ? 320 : 600}
       height={isSmallScreen ? 250 : 420}
     >
       <Pie

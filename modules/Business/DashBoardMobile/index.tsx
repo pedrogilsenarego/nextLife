@@ -103,7 +103,7 @@ const DashBoardMobile = () => {
 
   return (
     <>
-      <div style={{ marginTop: "60px" }} className="w-full p-4  flex flex-col">
+      <div className="w-full p-4  flex flex-col">
         <p className="text-xl">
           Hello, <b>{user?.username}</b>
         </p>

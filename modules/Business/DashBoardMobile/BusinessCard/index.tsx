@@ -9,6 +9,7 @@ import Item from "./Item";
 import useMonthExpenses from "@/hooks/useMonthExpenses";
 import OneLevelChartPie from "@/components/ChartComponents/OneLevelChartPie";
 import Chart from "./Chart";
+import ResumedTable from "./ResumedTable";
 
 type Props = {
   card: any;
@@ -59,17 +60,19 @@ const BusinessCard = ({ card }: Props) => {
           style={{
             overflow: "scroll",
           }}
-          className="p-3 w-full h-full"
+          className="p-3 w-full h-full pb-4"
         >
           <div className="flex flex-col items-center mt-2">
             <p className="capitalize font-bold text-md">{card?.businessName}</p>
             <p className="text-slate-500">{type}</p>
           </div>
+
           {!expensesQuery.isLoading && mappedExpensesByCategory.length > 0 && (
             <OneLevelChartPie data1={mappedExpensesByCategory} />
           )}
           <Chart business={card.businessId} />
-          <div>
+          <ResumedTable business={card.businessId} />
+          <div className="mt-2">
             {expensesFiltered?.slice(0, 10).map((expense) => {
               return <Item key={expense.id} expense={expense} />;
             })}
