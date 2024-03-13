@@ -156,7 +156,7 @@ const DashBoardMobile = () => {
           })}
           <AddBusinessCard />
         </div>
-        {typeBusiness === 1 && <InfoTable />}
+
         <div className="mt-4">
           <ResumedTable />
         </div>

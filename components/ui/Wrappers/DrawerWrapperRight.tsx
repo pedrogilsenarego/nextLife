@@ -24,7 +24,15 @@ const DrawerWrapperRight = ({ open, setOpen, children }: Props) => {
         if (setOpen) setOpen(newOpen);
       }}
     >
-      <DrawerContent className="rounded-none h-full" showDivider={false}>
+      <DrawerContent
+        style={{
+          border: "solid 2px black",
+          overflow: "scroll",
+          WebkitOverflowScrolling: "touch",
+        }}
+        className="rounded-none h-full"
+        showDivider={false}
+      >
         {children}
       </DrawerContent>
     </Drawer>

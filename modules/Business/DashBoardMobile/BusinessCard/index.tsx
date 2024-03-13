@@ -8,6 +8,7 @@ import { useState } from "react";
 import Item from "./Item";
 import useMonthExpenses from "@/hooks/useMonthExpenses";
 import OneLevelChartPie from "@/components/ChartComponents/OneLevelChartPie";
+import Chart from "./Chart";
 
 type Props = {
   card: any;
@@ -16,7 +17,7 @@ type Props = {
 const BusinessCard = ({ card }: Props) => {
   const [openDrawer, setOpenDrawer] = useState<boolean>(false);
   const { expenses } = useExpenses();
-  const { getExpensesByCategoryFiltered } = useMonthExpenses();
+  const { getExpensesByCategoryFiltered, expensesQuery } = useMonthExpenses();
 
   const type =
     defaultBusiness.find(
@@ -54,12 +55,15 @@ const BusinessCard = ({ card }: Props) => {
         </div>
       </Card>
       <DrawerWrapperRight open={openDrawer} setOpen={setOpenDrawer}>
-        <div className="p-3 w-full">
+        <div className="p-3 w-full ">
           <div className="flex flex-col items-center mt-2">
             <p className="capitalize font-bold text-md">{card?.businessName}</p>
             <p className="text-slate-500">{type}</p>
           </div>
-          <OneLevelChartPie data1={mappedExpensesByCategory} />
+          {!expensesQuery.isLoading && mappedExpensesByCategory.length > 0 && (
+            <OneLevelChartPie data1={mappedExpensesByCategory} />
+          )}
+          <Chart business={card.businessId} />
           <div>
             {expensesFiltered?.slice(0, 10).map((expense) => {
               return <Item key={expense.id} expense={expense} />;
