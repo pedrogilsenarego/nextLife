@@ -86,19 +86,26 @@ const Balance = ({ cards }: Props) => {
           <DialogDescription>
             <div>
               <div className="border-b py-1">
-                <p>Iva: {Number(totalIVA || 0).toFixed(1)}</p>
-                <p>
-                  Irs: {Number(totalIRS || 0).toFixed(1)} / Irc:{" "}
-                  {Number(totalIRC || 0).toFixed(1)}
-                </p>
                 <p>Income: {Number(totalIncomes || 0).toFixed(1)}</p>
                 <p>Expenses: {Number(totalExpenses || 0).toFixed(1)}</p>
               </div>
-              <p className="text-lg text-primary font-bold mt-2">
+              <p className="text-lg text-primary font-bold mt-1">
                 Total:{" "}
                 {(
                   Number(totalIncomes || 0) - Number(totalExpenses || 0)
                 ).toFixed(1)}
+              </p>
+            </div>
+          </DialogDescription>
+          <DialogHeader>
+            <DialogTitle className="flex ">Anual metrics:</DialogTitle>
+          </DialogHeader>
+          <DialogDescription>
+            <div>
+              <p>Iva: {Number(totalIVA || 0).toFixed(1)}</p>
+              <p>
+                Irs: {Number(totalIRS || 0).toFixed(1)} / Irc:{" "}
+                {Number(totalIRC || 0).toFixed(1)}
               </p>
             </div>
           </DialogDescription>

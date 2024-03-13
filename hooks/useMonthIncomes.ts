@@ -7,6 +7,7 @@ import { MonthIncome, MonthIncomesQuery } from "@/types/incomesTypes";
 import { dateQueriesMap } from "@/utils/dateFormat";
 import { useQuery } from "@tanstack/react-query";
 import useBusinesses from "./useBusinesses";
+import { getByCategoryForBusinessFiltered } from "@/lib/dataCalculations";
 
 const useMonthIncomes = () => {
   const dataContex = useData();
@@ -55,6 +56,9 @@ const useMonthIncomes = () => {
           (expense) => expense.businessId === selectedBusiness
         );
 
+  const getIncomesByCategoryFiltered = (business: string) =>
+    getByCategoryForBusinessFiltered(incomesQuery?.data?.data || [], business);
+
   const incomesByCategory =
     selectedBusiness === "total"
       ? (incomesQuery?.data?.data as MonthIncome[])
@@ -71,9 +75,7 @@ const useMonthIncomes = () => {
             return accumulator;
           }, [] as MonthIncome[])
           .filter((expense) => onlyBalanceIds.includes(expense.businessId))
-      : (incomesQuery.data?.data as MonthIncome[])?.filter(
-          (expense) => expense.businessId === selectedBusiness
-        );
+      : getIncomesByCategoryFiltered(selectedBusiness);
 
   const totalIncomes = incomesByCategory
     ?.reduce((sum, expense) => sum + (expense.amount || 0), 0)
@@ -86,6 +88,7 @@ const useMonthIncomes = () => {
     incomesByCategory,
     incomesByMonth,
     incomesByBusiness,
+    getIncomesByCategoryFiltered,
   };
 };
 

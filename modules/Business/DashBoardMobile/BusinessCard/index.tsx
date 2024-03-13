@@ -6,6 +6,8 @@ import { CrossCircledIcon, GitHubLogoIcon } from "@radix-ui/react-icons";
 import moment from "moment";
 import { useState } from "react";
 import Item from "./Item";
+import useMonthExpenses from "@/hooks/useMonthExpenses";
+import OneLevelChartPie from "@/components/ChartComponents/OneLevelChartPie";
 
 type Props = {
   card: any;
@@ -14,6 +16,7 @@ type Props = {
 const BusinessCard = ({ card }: Props) => {
   const [openDrawer, setOpenDrawer] = useState<boolean>(false);
   const { expenses } = useExpenses();
+  const { getExpensesByCategoryFiltered } = useMonthExpenses();
 
   const type =
     defaultBusiness.find(
@@ -22,6 +25,12 @@ const BusinessCard = ({ card }: Props) => {
   const expensesFiltered = expenses?.filter(
     (expense) => expense.businessId === card.businessId
   );
+
+  const mappedExpensesByCategory =
+    getExpensesByCategoryFiltered(card.businessId)?.map((expenses) => {
+      return { value: expenses.amount, name: expenses.category };
+    }) || [];
+
   return (
     <>
       <Card
@@ -50,6 +59,7 @@ const BusinessCard = ({ card }: Props) => {
             <p className="capitalize font-bold text-md">{card?.businessName}</p>
             <p className="text-slate-500">{type}</p>
           </div>
+          <OneLevelChartPie data1={mappedExpensesByCategory} />
           <div>
             {expensesFiltered?.slice(0, 10).map((expense) => {
               return <Item key={expense.id} expense={expense} />;

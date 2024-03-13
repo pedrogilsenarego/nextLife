@@ -19,6 +19,7 @@ import {
   CarouselItem,
 } from "@/components/ui/carousel";
 import AddBusinessCard from "./AddBusinessCard";
+import { MonthExpense } from "@/types/expensesTypes";
 
 const DashBoardMobile = () => {
   const [openBusiness, setOpenBusiness] = useState(false);
@@ -45,9 +46,15 @@ const DashBoardMobile = () => {
     });
   }, [api]);
 
+  const mappedExpensesByCategory =
+    expensesByCategory?.map((expenses) => {
+      return { value: expenses.amount, name: expenses.category };
+    }) || [];
+
   const cards = () => {
     if (!businessesQuery.data) return [];
-    const mapedData: any = businessesQuery?.data.map((business) => {
+
+    const mapedData: any[] = businessesQuery?.data.map((business: any) => {
       const expense =
         expensesByBusiness?.find(
           (expense) => expense.businessId === business.id
@@ -84,16 +91,14 @@ const DashBoardMobile = () => {
         balance: income - expense,
       };
     });
+
     return mapedData;
   };
 
-  const mappedExpensesByCategory =
-    expensesByCategory?.map((expenses) => {
-      return { value: expenses.amount, name: expenses.category };
-    }) || [];
   const businessSelectedData = businessesQuery?.data?.find(
     (business) => business.id === businessSelected
   );
+
   const typeBusiness = businessSelectedData?.type;
 
   return (

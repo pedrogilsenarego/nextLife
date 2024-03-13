@@ -11,6 +11,7 @@ import {
 import { dateQueriesMap } from "@/utils/dateFormat";
 import { useQuery } from "@tanstack/react-query";
 import useBusinesses from "./useBusinesses";
+import { getByCategoryForBusinessFiltered } from "@/lib/dataCalculations";
 
 const useMonthExpenses = () => {
   const dataContex = useData();
@@ -60,6 +61,9 @@ const useMonthExpenses = () => {
           (expense) => expense.businessId === selectedBusiness
         );
 
+  const getExpensesByCategoryFiltered = (business: string) =>
+    getByCategoryForBusinessFiltered(expensesQuery?.data?.data || [], business);
+
   const expensesByCategory =
     selectedBusiness === "total"
       ? (expensesQuery?.data?.data as MonthExpense[])
@@ -77,21 +81,7 @@ const useMonthExpenses = () => {
             return accumulator;
           }, [] as MonthExpense[])
           .filter((expense) => onlyBalanceIds.includes(expense.businessId))
-      : (expensesQuery.data?.data as MonthExpense[])
-          ?.filter((expense) => expense.businessId === selectedBusiness)
-          .reduce((accumulator, expense) => {
-            const existingExpense = accumulator.find(
-              (item: MonthExpense) => item.category === expense.category
-            );
-
-            if (existingExpense) {
-              existingExpense.amount += expense.amount;
-            } else {
-              accumulator.push({ ...expense });
-            }
-
-            return accumulator;
-          }, [] as MonthExpense[]);
+      : getExpensesByCategoryFiltered(selectedBusiness);
 
   const totalExpenses = expensesByCategory
     ?.reduce((sum, expense) => sum + (expense.amount || 0), 0)
@@ -106,6 +96,7 @@ const useMonthExpenses = () => {
     expensesByCategory,
     expensesByMonth,
     expensesByBusiness,
+    getExpensesByCategoryFiltered,
   };
 };
 
