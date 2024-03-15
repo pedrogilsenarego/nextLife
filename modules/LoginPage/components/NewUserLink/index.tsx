@@ -1,6 +1,4 @@
 "use client";
-
-import { P } from "@/components/ui/p";
 import { ROUTE_PATHS } from "@/constants/routes";
 import { useRouter } from "next/navigation";
 
