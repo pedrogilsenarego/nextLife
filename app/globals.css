@@ -86,9 +86,11 @@ input:-webkit-autofill:active{
   }
   html {
     overscroll-behavior: none;
+    overscroll-behavior-block:contain
   }
   body {
     @apply bg-background text-foreground;
     overscroll-behavior: none;
+    overscroll-behavior-block:contain
   }
 }
