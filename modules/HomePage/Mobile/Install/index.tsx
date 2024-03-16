@@ -1,8 +1,12 @@
 import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { Share2Icon } from "@radix-ui/react-icons";
+import { userAgent } from "next/server";
 import { useEffect, useState } from "react";
 
 const Install = () => {
   const [visible, setVisible] = useState<boolean>(false);
+  const [visibleIos, setVisibleIos] = useState<boolean>(false);
   const [prompt, setPrompt] = useState<any>(null);
 
   useEffect(() => {
@@ -15,7 +19,7 @@ const Install = () => {
       "standalone" in window.navigator && window.navigator.standalone;
 
     if (isIos() && !isInStandaloneMode()) {
-      setVisible(true);
+      setVisibleIos(true);
     }
   }, []);
 
@@ -51,7 +55,22 @@ const Install = () => {
       });
     }
   };
-  return visible && <Button onClick={onInstall}>Install this app</Button>;
+  return (
+    <>
+      {visible && <Button onClick={onInstall}>Install this app</Button>}
+      {visibleIos && !visible && (
+        <Card className="flex items-center flex-col gap-2 rounded-none p-2">
+          <p className="w-full text-center">
+            To install this app click on and then
+          </p>
+          <p className="w-full text-center">
+            <b>Add to Homescreen</b>
+          </p>
+          <Share2Icon style={{ width: "30px", height: "30px" }} />
+        </Card>
+      )}
+    </>
+  );
 };
 
 export default Install;
