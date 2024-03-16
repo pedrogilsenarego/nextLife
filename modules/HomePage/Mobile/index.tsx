@@ -3,6 +3,7 @@ import NewUserLink from "@/modules/LoginPage/components/NewUserLink";
 import Logo from "../../../assets/logo.svg";
 import Image from "next/image";
 import { Card } from "@/components/ui/card";
+import Install from "./Install";
 
 const HomePageMobile = () => {
   return (
@@ -18,6 +19,7 @@ const HomePageMobile = () => {
           <LoginForm />
         </Card>
         <NewUserLink />
+        <Install />
       </div>
       <p className="text-xs p-6">
         Powered by <a className="font-bold hover:underline">SenaRego</a>
