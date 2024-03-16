@@ -2,7 +2,7 @@ import { Toaster } from "@/components/ui/toaster";
 import ReactQueryProvider from "@/providers/ReactQueryProvider";
 import { GeistSans } from "geist/font/sans";
 import "./globals.css";
-import { Metadata } from "next";
+import { Metadata, Viewport } from "next";
 
 const defaultUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
@@ -12,6 +12,10 @@ export const metadata: Metadata = {
   title: "NextLife",
   description: "Money flow control app",
   manifest: "/manifest.json",
+};
+
+export const viewport: Viewport = {
+  themeColor: "#f5432b",
 };
 
 export default function RootLayout({
