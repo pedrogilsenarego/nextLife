@@ -9,7 +9,7 @@ const defaultUrl = process.env.VERCEL_URL
   : "http://localhost:3000";
 
 export const metadata: Metadata = {
-  title: "Next Life",
+  title: "NextLife",
   description: "Money flow control app",
   manifest: "/manifest.json",
 };
