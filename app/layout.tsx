@@ -31,6 +31,42 @@ export default function RootLayout({
             name="viewport"
             content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
           />
+          <meta name="apple-mobile-web-app-capable" content="yes" />
+          <link
+            href="/icon-512*512.png"
+            sizes="2048x2732"
+            rel="apple-touch-startup-image"
+          />
+          <link
+            href="/icon-512*512.png"
+            sizes="1668x2224"
+            rel="apple-touch-startup-image"
+          />
+          <link
+            href="/icon-512*512.png"
+            sizes="1536x2048"
+            rel="apple-touch-startup-image"
+          />
+          <link
+            href="/icon-512*512.png"
+            sizes="1125x2436"
+            rel="apple-touch-startup-image"
+          />
+          <link
+            href="/icon-512*512.png"
+            sizes="1242x2208"
+            rel="apple-touch-startup-image"
+          />
+          <link
+            href="/icon-512*512.png"
+            sizes="750x1334"
+            rel="apple-touch-startup-image"
+          />
+          <link
+            href="/icon-512*512.png"
+            sizes="640x1136"
+            rel="apple-touch-startup-image"
+          />
         </head>
         <body className="bg-background text-foreground">
           <main className="min-h-screen flex flex-col items-center">

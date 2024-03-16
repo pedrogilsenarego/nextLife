@@ -6,6 +6,20 @@ const Install = () => {
   const [prompt, setPrompt] = useState<any>(null);
 
   useEffect(() => {
+    const isIos = () => {
+      const userAgent = window.navigator.userAgent.toLowerCase();
+      return /iphone|ipad|ipod/.test(userAgent);
+    };
+
+    const isInStandaloneMode = () =>
+      "standalone" in window.navigator && window.navigator.standalone;
+
+    if (isIos() && !isInStandaloneMode()) {
+      setVisible(true);
+    }
+  }, []);
+
+  useEffect(() => {
     const handleBeforeInstallPrompt = (event: any) => {
       event.preventDefault();
       setPrompt(event);
