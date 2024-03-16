@@ -17,7 +17,7 @@ input:-webkit-autofill:active{
 
 @layer base {
   :root {
-    --background: #ffffff;
+    --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
 
     --card: 0 0% 100%;
@@ -84,13 +84,7 @@ input:-webkit-autofill:active{
   * {
     @apply border-border;
   }
-  html {
-    overscroll-behavior: none;
-    overscroll-behavior-block:contain
-  }
   body {
     @apply bg-background text-foreground;
-    overscroll-behavior: none;
-    overscroll-behavior-block:contain
   }
 }
