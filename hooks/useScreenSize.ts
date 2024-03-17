@@ -5,7 +5,7 @@ const SMALL_SCREEN_THRESHOLD = 768;
 
 // Custom hook to determine if the screen size is small
 function useScreenSize() {
-  const [isSmallScreen, setIsSmallScreen] = useState(false);
+  const [isSmallScreen, setIsSmallScreen] = useState<boolean | null>(null);
 
   useEffect(() => {
     function handleResize() {

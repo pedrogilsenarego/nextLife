@@ -212,3 +212,24 @@ export const userLogout = async (): Promise<any> => {
     queryClient.removeQueries();
   } catch {}
 };
+
+export const recoverPassword = async ({
+  email,
+}: {
+  email: string;
+}): Promise<string> => {
+  console.log("recoverPassword");
+
+  try {
+    const { error } = await supabase.auth.resetPasswordForEmail(email);
+
+    if (error) {
+      throw new Error(error.message);
+    }
+
+    return "Password recovery email sent successfully. Please check your inbox.";
+  } catch (error) {
+    console.error("Error recovering password:", error);
+    throw error;
+  }
+};

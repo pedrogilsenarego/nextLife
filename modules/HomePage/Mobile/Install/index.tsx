@@ -64,8 +64,9 @@ const Install = () => {
             To install this app on your phone click on
           </p>
           <Share2Icon style={{ width: "30px", height: "30px" }} />
+          <p className="w-full text-center">and then</p>
           <p className="w-full text-center">
-            and then<b>Add to Homescreen</b>
+            <b>Add to Homescreen</b>
           </p>
         </Card>
       )}

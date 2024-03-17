@@ -1,41 +1,43 @@
 "use client";
 
-import { signinUser } from "@/clientActions/userAction";
+import { recoverPassword, signinUser } from "@/clientActions/userAction";
 import { useToast } from "@/components/ui/use-toast";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
-import { Login, loginSchema } from "./validation";
+import { RecoverPwd, recoverPwdSchema } from "./validation";
+import { ROUTE_PATHS } from "@/constants/routes";
 
 const useRecoverForm = () => {
   const { toast } = useToast();
   const router = useRouter();
-  const form = useForm<Login>({
-    resolver: zodResolver(loginSchema),
+  const form = useForm<RecoverPwd>({
+    resolver: zodResolver(recoverPwdSchema),
     defaultValues: {
       email: "",
-      password: "",
     },
   });
 
   const { mutate: loginMutation, isPending } = useMutation({
-    mutationFn: signinUser,
+    mutationFn: recoverPassword,
     onError: (data: string) => {
       toast({
         variant: "destructive",
         title: "Uh oh! Something went wrong.",
-        description: data,
       });
     },
     onSuccess: (data: any) => {
-      router.push(`/${data}`);
-
+      toast({
+        variant: "default",
+        title: "Check your email",
+        description: data,
+      });
       form.reset();
     },
   });
 
-  function onSubmit(data: Login) {
+  function onSubmit(data: RecoverPwd) {
     loginMutation(data);
   }
 

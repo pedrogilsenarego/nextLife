@@ -1,8 +1,7 @@
 import z from "zod";
 
 // Define the validation schema
-export const loginSchema = z.object({
+export const recoverPwdSchema = z.object({
   email: z.string().email(),
-  password: z.string(),
 });
-export type Login = z.infer<typeof loginSchema>;
+export type RecoverPwd = z.infer<typeof recoverPwdSchema>;
