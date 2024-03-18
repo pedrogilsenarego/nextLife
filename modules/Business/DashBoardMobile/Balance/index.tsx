@@ -60,8 +60,6 @@ const Balance = ({ cards }: Props) => {
             Your balance
           </p>
           <div className="flex items-center">
-            {slotValue}
-
             <SlotCounter
               separatorClassName="slot2"
               charClassName="slot2"
