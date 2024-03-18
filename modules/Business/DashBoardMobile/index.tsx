@@ -157,10 +157,15 @@ const DashBoardMobile = () => {
           })}
           {cards()?.length === 0 && (
             <div
-              style={{ height: "150px", display: "flex", alignItems: "center" }}
+              style={{
+                height: "150px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
             >
-              <p style={{ color: "grey" }} className="text-center py-4">
-                You have no businesses yet, start by adding a new business
+              <p style={{ color: "grey" }} className="text-center text-md py-4">
+                Start by adding a new business!
               </p>
             </div>
           )}
