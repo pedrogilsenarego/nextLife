@@ -1,5 +1,6 @@
-import SlotCounter from "react-slot-counter";
+"use client";
 
+import SlotCounter from "react-slot-counter";
 import "./index.css";
 import {
   Dialog,
