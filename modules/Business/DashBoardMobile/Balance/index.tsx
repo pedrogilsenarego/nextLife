@@ -61,6 +61,9 @@ const Balance = ({ cards }: Props) => {
           </p>
           <div className="flex items-center">
             <SlotCounter
+              startValue={0}
+              startValueOnce
+              animateUnchanged
               separatorClassName="slot2"
               charClassName="slot2"
               value={slotValue}
