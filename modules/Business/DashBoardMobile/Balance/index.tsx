@@ -18,6 +18,8 @@ type Props = {
 
 const Balance = ({ cards }: Props) => {
   const [open, setOpen] = useState<boolean>(false);
+  const { expensesQuery } = useMonthExpenses();
+  const { incomesQuery } = useMonthIncomes();
   const handleOpenInfo = () => {
     setOpen(true);
   };
@@ -54,11 +56,16 @@ const Balance = ({ cards }: Props) => {
             Your balance
           </p>
           <div className="flex items-center">
-            <SlotCounter
-              separatorClassName="slot2"
-              charClassName="slot2"
-              value={(Number(totalIncomes) - Number(totalExpenses)).toFixed(1)}
-            />
+            {!incomesQuery?.isLoading && !expensesQuery?.isLoading && (
+              <SlotCounter
+                separatorClassName="slot2"
+                charClassName="slot2"
+                value={(Number(totalIncomes) - Number(totalExpenses)).toFixed(
+                  1
+                )}
+              />
+            )}
+
             <p
               style={{
                 fontSize: "18px",
