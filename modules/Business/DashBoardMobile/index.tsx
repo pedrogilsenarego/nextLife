@@ -116,9 +116,11 @@ const DashBoardMobile = () => {
           <CarouselContent>
             <CarouselItem>
               {!expensesQuery.isLoading &&
-                mappedExpensesByCategory.length > 0 && (
-                  <OneLevelChartPie data1={mappedExpensesByCategory} />
-                )}
+              mappedExpensesByCategory.length > 0 ? (
+                <OneLevelChartPie data1={mappedExpensesByCategory} />
+              ) : (
+                <div style={{ height: "30px" }} />
+              )}
             </CarouselItem>
             <CarouselItem>
               <Chart />
@@ -158,14 +160,16 @@ const DashBoardMobile = () => {
           {cards()?.length === 0 && (
             <div
               style={{
-                height: "150px",
+                padding: "60px 0px 0px 0px",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
               }}
             >
               <p style={{ color: "grey" }} className="text-center text-md py-4">
-                Start by adding a new business!
+                This app uses businesses has any activity. Start by adding a new
+                business! For example add a Business named General and type
+                Default
               </p>
             </div>
           )}

@@ -13,10 +13,13 @@ const useBusinesses = () => {
 
   const onlyBalanceIds =
     businesses?.data
-      ?.filter(
-        (business: Business) =>
-          business.settings?.filters?.balanceStatus === true
-      )
+      ?.filter((business: Business) => {
+        const balanceStatus =
+          business.settings?.filters?.balanceStatus !== undefined
+            ? business.settings.filters.balanceStatus
+            : true;
+        return balanceStatus === true;
+      })
       .map((business: Business) => business.id) ?? [];
 
   return { businesses, onlyBalanceIds };
