@@ -9,7 +9,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { QuestionMarkCircledIcon } from "@radix-ui/react-icons";
 
 type Props = {
@@ -18,7 +18,7 @@ type Props = {
 
 const Balance = ({ cards }: Props) => {
   const [open, setOpen] = useState<boolean>(false);
-  const [slotValue, setSlotValue] = useState<number>(0);
+
   const handleOpenInfo = () => {
     setOpen(true);
   };
@@ -32,6 +32,8 @@ const Balance = ({ cards }: Props) => {
     (total: number, card: any) => total + card.expense,
     0
   );
+
+  const total = Math.floor(totalIncomes - totalExpenses);
 
   const totalIVA = cards.reduce(
     (total: number, card: any) => total + card.iva,
@@ -47,11 +49,6 @@ const Balance = ({ cards }: Props) => {
     0
   );
 
-  useEffect(() => {
-    const slotVue = Math.floor(totalIncomes - totalExpenses);
-    setSlotValue(slotVue);
-  }, [totalExpenses, totalIncomes]);
-
   return (
     <>
       <div className="flex items-center gap-2" onClick={handleOpenInfo}>
@@ -66,7 +63,7 @@ const Balance = ({ cards }: Props) => {
               animateUnchanged
               separatorClassName="slot2"
               charClassName="slot2"
-              value={slotValue}
+              value={total}
             />
 
             <p

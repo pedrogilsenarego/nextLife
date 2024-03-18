@@ -24,7 +24,7 @@ import Loader from "@/components/Loader";
 const DashBoardMobile = () => {
   const { expensesByCategory, expensesQuery, expensesByBusiness } =
     useMonthExpenses();
-  const { incomesByBusiness } = useMonthIncomes();
+  const { incomesByBusiness, incomesQuery } = useMonthIncomes();
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
   const { businesses: businessesQuery } = useBusinesses();
@@ -48,29 +48,35 @@ const DashBoardMobile = () => {
     }) || [];
 
   const cards = () => {
-    if (!businessesQuery.data) return [];
+    if (!businessesQuery.data || !incomesByBusiness || !expensesByBusiness)
+      return [];
 
     const mapedData: any[] = businessesQuery?.data.map((business: any) => {
-      const expense =
+      const expense = Math.floor(
         expensesByBusiness?.find(
           (expense) => expense.businessId === business.id
-        )?.amount || 0;
+        )?.amount || 0
+      );
 
       const rawIncome =
         incomesByBusiness?.find((income) => income.businessId === business.id)
           ?.amount || 0;
 
-      const iva = rawIncome * (business.type === 1 ? 0.23 : 0);
+      const iva = Math.floor(rawIncome * (business.type === 1 ? 0.23 : 0));
 
       const incomeAfterIva = rawIncome - iva;
 
-      const irs = Math.max(
-        (incomeAfterIva - expense) * (business.type === 1 ? 0.35 : 0),
-        0
+      const irs = Math.floor(
+        Math.max(
+          (incomeAfterIva - expense) * (business.type === 1 ? 0.35 : 0),
+          0
+        )
       );
-      const irc = Math.max(
-        (incomeAfterIva - expense) * (business.type === 1 ? 0.17 : 0),
-        0
+      const irc = Math.floor(
+        Math.max(
+          (incomeAfterIva - expense) * (business.type === 1 ? 0.17 : 0),
+          0
+        )
       );
 
       const income = incomeAfterIva - irs;
