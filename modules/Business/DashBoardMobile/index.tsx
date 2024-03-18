@@ -125,38 +125,44 @@ const DashBoardMobile = () => {
             </CarouselItem>
           </CarouselContent>
         </Carousel>
-        <div
-          style={{ marginTop: "-15px", marginBottom: "30px" }}
-          className="flex w-full justify-center gap-2"
-        >
+        {mappedExpensesByCategory.length > 0 && (
           <div
-            className="bg-primary"
-            style={{
-              height: "6px",
-              width: "6px",
-              borderRadius: "50%",
-              opacity: current === 0 ? 1 : 0.5,
-            }}
-          />
-          <div
-            className="bg-primary"
-            style={{
-              height: "6px",
-              width: "6px",
-              borderRadius: "50%",
-              opacity: current === 1 ? 1 : 0.5,
-            }}
-          />
-        </div>
+            style={{ marginTop: "-15px", marginBottom: "30px" }}
+            className="flex w-full justify-center gap-2"
+          >
+            <div
+              className="bg-primary"
+              style={{
+                height: "6px",
+                width: "6px",
+                borderRadius: "50%",
+                opacity: current === 0 ? 1 : 0.5,
+              }}
+            />
+            <div
+              className="bg-primary"
+              style={{
+                height: "6px",
+                width: "6px",
+                borderRadius: "50%",
+                opacity: current === 1 ? 1 : 0.5,
+              }}
+            />
+          </div>
+        )}
 
         <div style={{ gap: "18px" }} className="flex flex-col ">
           {cards()?.map((card: any, index: number) => {
             return <BusinessCard key={index} card={card} />;
           })}
           {cards()?.length === 0 && (
-            <p style={{ color: "grey" }} className="text-center py-4">
-              You have no businesses yet, start by adding a new business
-            </p>
+            <div
+              style={{ height: "150px", display: "flex", alignItems: "center" }}
+            >
+              <p style={{ color: "grey" }} className="text-center py-4">
+                You have no businesses yet, start by adding a new business
+              </p>
+            </div>
           )}
           <AddBusinessCard />
         </div>
