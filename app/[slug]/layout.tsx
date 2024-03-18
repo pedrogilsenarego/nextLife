@@ -1,7 +1,6 @@
 "use server";
 
 import Footer from "@/components/LayoutComponents/Footer";
-import FooterMobile from "@/components/LayoutComponents/FooterMobile";
 import Header from "@/components/LayoutComponents/Header";
 import { createClient } from "@/utils/supabase/server";
 import { cookies } from "next/headers";

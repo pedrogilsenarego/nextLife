@@ -6,14 +6,12 @@ import { useRouter } from "next/navigation";
 import HeaderDashboard from "./HeaderDashboard";
 import MainCard from "./MainCard";
 import MainMetrics from "./MainMetrics";
-import MainValue from "./MainValue";
 import { DataProvider } from "./dashboard.provider";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { getUserSession } from "@/clientActions/userAction";
 import useScreenSize from "@/hooks/useScreenSize";
 import FooterMobile from "@/components/LayoutComponents/FooterMobile";
 import DashBoardMobile from "@/modules/Business/DashBoardMobile";
-import HeaderMobile from "@/components/LayoutComponents/HeaderMobile";
+import PreDashBoardMobile from "./PreDashBoardMobile";
 
 type LayoutProps = {
   params: {
@@ -44,12 +42,7 @@ const DashBoard = ({ params }: LayoutProps) => {
           </div>
         )}
 
-        {isSmallScreen && (
-          <>
-            <DashBoardMobile />
-            <FooterMobile />
-          </>
-        )}
+        {isSmallScreen && <PreDashBoardMobile />}
       </TooltipProvider>
     </DataProvider>
   );

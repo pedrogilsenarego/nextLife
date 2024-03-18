@@ -7,6 +7,7 @@ type Props = {
 
 const Footer = ({ lightMode }: Props) => {
   const { isSmallScreen } = useScreenSize();
+  if (isSmallScreen) return;
   return (
     <footer
       style={{

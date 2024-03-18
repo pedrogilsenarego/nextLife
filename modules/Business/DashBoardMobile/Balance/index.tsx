@@ -57,9 +57,7 @@ const Balance = ({ cards }: Props) => {
             <SlotCounter
               separatorClassName="slot2"
               charClassName="slot2"
-              value={(
-                Number(totalIncomes || 0) - Number(totalExpenses || 0)
-              ).toFixed(1)}
+              value={(Number(totalIncomes) - Number(totalExpenses)).toFixed(1)}
             />
             <p
               style={{

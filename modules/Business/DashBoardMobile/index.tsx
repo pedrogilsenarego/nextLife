@@ -19,20 +19,16 @@ import {
   CarouselItem,
 } from "@/components/ui/carousel";
 import AddBusinessCard from "./AddBusinessCard";
-import { MonthExpense } from "@/types/expensesTypes";
+import Loader from "@/components/Loader";
 
 const DashBoardMobile = () => {
-  const [openBusiness, setOpenBusiness] = useState(false);
   const { expensesByCategory, expensesQuery, expensesByBusiness } =
     useMonthExpenses();
   const { incomesByBusiness } = useMonthIncomes();
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
-
   const { businesses: businessesQuery } = useBusinesses();
-  const dataContext = useData();
   const { user } = useUser();
-  const businessSelected = dataContext.state.currentBusiness;
 
   useEffect(() => {
     if (!api) {
@@ -94,12 +90,6 @@ const DashBoardMobile = () => {
 
     return mapedData;
   };
-
-  const businessSelectedData = businessesQuery?.data?.find(
-    (business) => business.id === businessSelected
-  );
-
-  const typeBusiness = businessSelectedData?.type;
 
   return (
     <>
