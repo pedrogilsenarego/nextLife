@@ -162,7 +162,7 @@ export const signupUser = async ({
       });
 
       if (error) {
-        reject(error);
+        reject(error.message);
       }
 
       const user_id = data?.user?.id;
@@ -179,9 +179,9 @@ export const signupUser = async ({
         reject("Error adding user data");
       }
       return resolve("Check email to continue sign in process");
-    } catch (error) {
+    } catch (error: any) {
       console.error("error", error);
-      reject(error);
+      reject(error.message);
     }
   });
 };

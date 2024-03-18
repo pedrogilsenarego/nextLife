@@ -24,7 +24,7 @@ import Loader from "@/components/Loader";
 const DashBoardMobile = () => {
   const { expensesByCategory, expensesQuery, expensesByBusiness } =
     useMonthExpenses();
-  const { incomesByBusiness, incomesQuery } = useMonthIncomes();
+  const { incomesByBusiness } = useMonthIncomes();
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
   const { businesses: businessesQuery } = useBusinesses();
@@ -99,7 +99,10 @@ const DashBoardMobile = () => {
 
   return (
     <>
-      <div className="w-full p-4  flex flex-col">
+      <div
+        style={{ marginBottom: "100px" }}
+        className="w-full p-4  flex flex-col"
+      >
         <p className="text-xl">
           Hello, <b>{user?.username}</b>
         </p>
@@ -150,6 +153,11 @@ const DashBoardMobile = () => {
           {cards()?.map((card: any, index: number) => {
             return <BusinessCard key={index} card={card} />;
           })}
+          {cards()?.length === 0 && (
+            <p style={{ color: "grey" }} className="text-center py-4">
+              You have no businesses yet, start by adding a new business
+            </p>
+          )}
           <AddBusinessCard />
         </div>
 
