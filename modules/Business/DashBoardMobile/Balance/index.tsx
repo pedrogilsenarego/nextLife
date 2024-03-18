@@ -1,6 +1,5 @@
-import useMonthExpenses from "@/hooks/useMonthExpenses";
-import useMonthIncomes from "@/hooks/useMonthIncomes";
 import SlotCounter from "react-slot-counter";
+
 import "./index.css";
 import {
   Dialog,
@@ -18,7 +17,7 @@ type Props = {
 
 const Balance = ({ cards }: Props) => {
   const [open, setOpen] = useState<boolean>(false);
-  const [slotValue, setSlotValue] = useState(null);
+  const [slotValue, setSlotValue] = useState<number>(0);
   const handleOpenInfo = () => {
     setOpen(true);
   };
@@ -47,10 +46,10 @@ const Balance = ({ cards }: Props) => {
     0
   );
 
-  //   useEffect(()=>{
-  //     const slotValue =  (totalIncomes - totalExpenses).toFixed(1)
-  // setSlotValue(slotValue)
-  //   }, [totalExpenses, totalIncomes])
+  useEffect(() => {
+    const slotVue = Math.floor(totalIncomes - totalExpenses);
+    setSlotValue(slotVue);
+  }, [totalExpenses, totalIncomes]);
 
   return (
     <>
@@ -60,12 +59,12 @@ const Balance = ({ cards }: Props) => {
             Your balance
           </p>
           <div className="flex items-center">
-            {Math.floor(totalIncomes - totalExpenses)}
+            {slotValue}
 
             <SlotCounter
               separatorClassName="slot2"
               charClassName="slot2"
-              value={Math.floor(totalIncomes - totalExpenses)}
+              value={slotValue}
             />
 
             <p
