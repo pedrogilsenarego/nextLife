@@ -36,16 +36,16 @@ const Balance = ({ cards }: Props) => {
   const total = Math.floor(totalIncomes - totalExpenses);
 
   const totalIVA = cards.reduce(
-    (total: number, card: any) => total + card.iva,
+    (total: number, card: any) => total + card.ivaAnual,
     0
   );
 
   const totalIRS = cards.reduce(
-    (total: number, card: any) => total + card.irs,
+    (total: number, card: any) => total + card.irsAnual,
     0
   );
   const totalIRC = cards.reduce(
-    (total: number, card: any) => total + card.irc,
+    (total: number, card: any) => total + card.ircAnual,
     0
   );
 

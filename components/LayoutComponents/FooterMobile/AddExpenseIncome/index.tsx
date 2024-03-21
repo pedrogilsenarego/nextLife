@@ -12,7 +12,7 @@ const AddExpenseIncome = () => {
   return (
     <>
       <div onClick={() => setOpenAdd(true)} className="py-1 px-2">
-        <PlusSquare className="text-primary" size={26} />
+        <PlusSquare className="text-primary" size={26} color="white" />
       </div>
       <DrawerWrapper open={openAdd} setOpen={setOpenAdd}>
         <div>

@@ -1,6 +1,4 @@
 "use client";
-import BusinessForm from "@/app/[slug]/components/MainValue/AddExpense/ExpensesForm/ExpenseForm";
-import IncomeForm from "@/app/[slug]/components/MainValue/AddIncome/IncomeForm";
 import { userLogout } from "@/clientActions/userAction";
 import DrawerWrapper from "@/components/ui/Wrappers/DrawerWrapper";
 import { Button } from "@/components/ui/button";
@@ -19,7 +17,7 @@ const User = () => {
   return (
     <>
       <div onClick={() => setOpenAdd(true)} className="py-1 px-2">
-        <User2 className="text-primary" size={26} />
+        <User2 className="text-primary" size={26} color="white" />
       </div>
       <DrawerWrapper open={openAdd} setOpen={setOpenAdd}>
         <div>

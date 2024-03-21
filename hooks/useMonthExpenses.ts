@@ -16,15 +16,15 @@ import {
   getByMonthForBusinessFiltered,
 } from "@/lib/dataCalculations";
 
-const useMonthExpenses = () => {
+const useMonthExpenses = (timeSelected?: string) => {
   const dataContex = useData();
   const selectedBusiness = dataContex.state.currentBusiness;
-  const timeRange = dataContex.state.timeRange;
+  const timeRange = timeSelected || dataContex.state.timeRange;
   const datesToQuery = dateQueriesMap(timeRange);
   const { onlyBalanceIds } = useBusinesses();
 
   const expensesQuery = useQuery<MonthExpensesQuery, Error>({
-    queryKey: [queryKeys.monthExpenses],
+    queryKey: [queryKeys.monthExpenses, timeRange],
     queryFn: () =>
       getCumulativeExpensesForCurrentMonth({
         timeRange: {
