@@ -7,11 +7,12 @@ const FooterMobile = () => {
     <div
       style={{
         backgroundColor: "#f5432b",
+        borderTop: "solid 2px red",
         // background:
         //   "linear-gradient(to top, rgba(255, 255, 255, 1) 20%, rgba(255, 255, 255, 0.97) 70%, rgba(255, 255, 255, 0.93) 100%)",
       }}
       className="
-      flex justify-around fixed bottom-0 w-full bg-white pt-2  pb-10 border border-solid"
+      flex justify-around fixed bottom-0 w-full  pt-2  pb-10"
     >
       <div className="py-1 px-2">
         <SettingsIcon className="text-primary" size={26} color="white" />
