@@ -178,7 +178,17 @@ export const signupUser = async ({
       if (userError) {
         reject("Error adding user data");
       }
-      return resolve("Check email to continue sign in process");
+      const { error: businessError } = await supabase.from("business").upsert([
+        {
+          businessName: "general",
+          type: 0,
+          user_id: user_id,
+        },
+      ]);
+      if (businessError) {
+        reject("Error adding user data");
+      }
+      return resolve("Welcome to NextLife enjoy");
     } catch (error: any) {
       console.error("error", error);
       reject(error.message);

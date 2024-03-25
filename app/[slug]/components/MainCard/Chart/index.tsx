@@ -10,7 +10,6 @@ const Chart = () => {
   const { incomesByMonth } = useMonthIncomes();
 
   if (!expensesByMonth || !incomesByMonth) return;
-
   const data = buildData(
     dataByMonth(expensesByMonth),
     dataByMonth(incomesByMonth)
