@@ -5,10 +5,12 @@ export const buildData = (expenses: any[], incomes: any[]) => {
     amount: expense.amount,
   }));
 
-  const incomesData = incomes.map((income) => ({
-    date: new Date(income.date).toISOString(),
-    amount: income.amount,
-  }));
+  const incomesData = incomes.map((income) => {
+    return {
+      date: new Date(income.date).toISOString(),
+      amount: income.amount,
+    };
+  });
 
   // Create a map to store merged data
   const mergedDataMap = new Map<

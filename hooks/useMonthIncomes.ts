@@ -17,7 +17,7 @@ const useMonthIncomes = (timeSelected?: string) => {
   const selectedBusiness = dataContex.state.currentBusiness;
   const timeRange = timeSelected || dataContex.state.timeRange;
   const datesToQuery = dateQueriesMap(timeRange);
-  const { onlyBalanceIds } = useBusinesses();
+  const { onlyBalanceIds, getBusinesesType1 } = useBusinesses();
   const incomesQuery = useQuery<MonthIncomesQuery, Error>({
     queryKey: [queryKeys.monthIncomes, timeRange],
     queryFn: () =>
@@ -29,14 +29,30 @@ const useMonthIncomes = (timeSelected?: string) => {
       }),
   });
 
-  const getIncomesByMonth = (business: string) =>
-    getByMonthForBusinessFiltered(incomesQuery?.data?.data || [], business);
+  const getIncomesByMonth = (business: string) => {
+    return getByMonthForBusinessFiltered(
+      incomesQuery?.data?.data || [],
+      business
+    ).map((income) => {
+      if (getBusinesesType1().includes(income.businessId)) {
+        return { ...income, amount: income.amount * 0.77 };
+      } else {
+        return income;
+      }
+    });
+  };
 
   const incomesByMonth =
     selectedBusiness === "total"
-      ? incomesQuery?.data?.data.filter((expense) =>
-          onlyBalanceIds.includes(expense.businessId)
-        )
+      ? incomesQuery?.data?.data
+          .filter((expense) => onlyBalanceIds.includes(expense.businessId))
+          .map((income) => {
+            if (getBusinesesType1().includes(income.businessId)) {
+              return { ...income, amount: income.amount * 0.77 };
+            } else {
+              return income;
+            }
+          })
       : getIncomesByMonth(selectedBusiness);
 
   const incomesByBusiness =

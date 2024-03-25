@@ -11,6 +11,21 @@ const useBusinesses = () => {
     queryFn: getBusinesses,
   });
 
+  const getTypeBusiness = (businessId: string): number | undefined => {
+    const foundBusiness = businesses.data?.find(
+      (business: Business) => business.id === businessId
+    );
+    return foundBusiness?.type;
+  };
+
+  const getBusinesesType1 = () => {
+    return (
+      businesses?.data
+        ?.filter((business: Business) => business.type === 1)
+        ?.map((business: Business) => business.id) ?? []
+    );
+  };
+
   const onlyBalanceIds =
     businesses?.data
       ?.filter((business: Business) => {
@@ -22,7 +37,7 @@ const useBusinesses = () => {
       })
       .map((business: Business) => business.id) ?? [];
 
-  return { businesses, onlyBalanceIds };
+  return { businesses, onlyBalanceIds, getTypeBusiness, getBusinesesType1 };
 };
 
 export default useBusinesses;

@@ -1,6 +1,7 @@
 "use client";
 import { buildData } from "@/app/[slug]/components/MainCard/Chart/utils";
 import LineChartComponent from "@/components/ChartComponents/LineChartComponent";
+import useBusinesses from "@/hooks/useBusinesses";
 import useMonthExpenses from "@/hooks/useMonthExpenses";
 import useMonthIncomes from "@/hooks/useMonthIncomes";
 import { dataByMonth } from "@/utils/dataRearrange";

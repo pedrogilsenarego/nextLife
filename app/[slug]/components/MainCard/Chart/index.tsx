@@ -4,12 +4,14 @@ import useMonthExpenses from "@/hooks/useMonthExpenses";
 import useMonthIncomes from "@/hooks/useMonthIncomes";
 import { dataByMonth } from "@/utils/dataRearrange";
 import { buildData } from "./utils";
+import useBusinesses from "@/hooks/useBusinesses";
 
 const Chart = () => {
   const { expensesByMonth } = useMonthExpenses();
   const { incomesByMonth } = useMonthIncomes();
 
   if (!expensesByMonth || !incomesByMonth) return;
+
   const data = buildData(
     dataByMonth(expensesByMonth),
     dataByMonth(incomesByMonth)
