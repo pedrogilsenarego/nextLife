@@ -23,7 +23,7 @@ export const addBusiness = async ({
 
       const { error: userError } = await supabase.from("business").upsert([
         {
-          businessName,
+          business_name: businessName,
           type,
           user_id: user.id,
         },
@@ -64,7 +64,19 @@ export const getBusinesses = async (): Promise<BusinessesQuery> => {
         return reject(businessesError);
       }
 
-      resolve(businesses || []);
+      const formattedBusinesses: BusinessesQuery = businesses.map(
+        (business: any) => ({
+          user_id: business.user_id,
+          type: business.type,
+          id: business.id,
+          created_at: business.created_at,
+          settings: business.settings,
+          businessName: business.business_name, // Mapping business_name to businessName
+          // Add other fields as needed
+        })
+      );
+
+      resolve(formattedBusinesses || []);
     } catch (error) {
       console.error("error", error);
       reject(error);
