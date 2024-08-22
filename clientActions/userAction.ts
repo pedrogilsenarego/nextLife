@@ -231,7 +231,16 @@ export const recoverPassword = async ({
   console.log("recoverPassword");
 
   try {
-    const { error } = await supabase.auth.resetPasswordForEmail(email);
+    const { data: resetData, error } =
+      await supabase.auth.resetPasswordForEmail(
+        email
+        //   {
+        //   redirectTo: (window.location.href = window.location.href.replace(
+        //     "recover-password",
+        //     "reset-password"
+        //   )),
+        // }
+      );
 
     if (error) {
       throw new Error(error.message);
@@ -242,4 +251,34 @@ export const recoverPassword = async ({
     console.error("Error recovering password:", error);
     throw error;
   }
+};
+
+export const updatePassword = async ({
+  password,
+}: {
+  password: string;
+}): Promise<any> => {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+      console.log(user);
+      if (!user) {
+        reject("no session");
+      }
+      const { data: resetData, error } = await supabase.auth.updateUser({
+        password,
+      });
+
+      if (error) {
+        throw new Error(error.message);
+      }
+
+      resolve(resetData);
+    } catch (error) {
+      console.error("Error recovering password:", error);
+      throw error;
+    }
+  });
 };
