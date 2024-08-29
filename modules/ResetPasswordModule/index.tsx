@@ -8,9 +8,11 @@ import { useRouter } from "next/navigation";
 import { ROUTE_PATHS } from "@/constants/routes";
 import Image from "next/image";
 import Logo from "../../assets/logo.svg";
+import OTP from "./components/OTP/SignupForm";
 
 export default function ResetPasswordModule() {
   const { isSmallScreen } = useScreenSize();
+
   const router = useRouter();
   return isSmallScreen ? (
     <div className="w-full gap-6 p-4 h-full flex flex-col justify-between items-center my-6">
@@ -22,6 +24,7 @@ export default function ResetPasswordModule() {
           className="w-full px-4"
         />
         <Card className="p-4 rounded-none shadow-md flex flex-col justify-between gap-4">
+          {/* <OTP /> */}
           <SignupForm />
         </Card>
       </div>
@@ -38,6 +41,7 @@ export default function ResetPasswordModule() {
     </div>
   ) : (
     <Card className="flex flex-col py-10 justify-center px-10">
+      {/* <OTP /> */}
       <SignupForm />
     </Card>
   );
