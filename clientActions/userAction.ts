@@ -230,11 +230,9 @@ export const recoverPassword = async ({
 }): Promise<string> => {
   try {
     const { data: resetData, error } =
-      await supabase.auth.resetPasswordForEmail(
-        email,
-
-        { redirectTo: "https://zyr-o.com/reset-password" }
-      );
+      await supabase.auth.resetPasswordForEmail(email, {
+        redirectTo: `${process.env.NEXT_PUBLIC_DOMAIN}/reset-password`,
+      });
 
     if (error) {
       throw new Error(error.message);
@@ -265,7 +263,7 @@ export const updatePassword = async ({
       });
 
       if (error) {
-        throw new Error(error.message);
+        reject(error.message);
       }
 
       resolve(resetData);

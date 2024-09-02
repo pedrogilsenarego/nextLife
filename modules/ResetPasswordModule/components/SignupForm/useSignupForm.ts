@@ -1,10 +1,6 @@
 "use client";
 
-import {
-  signinUser,
-  signupUser,
-  updatePassword,
-} from "@/clientActions/userAction";
+import { updatePassword } from "@/clientActions/userAction";
 import { useToast } from "@/components/ui/use-toast";
 import { ROUTE_PATHS } from "@/constants/routes";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -30,17 +26,16 @@ const useSignupForm = () => {
       toast({
         variant: "destructive",
         title: "Uh oh! Something went wrong.",
-        description: "something",
+        description: data,
       });
     },
     onSuccess: (data: any) => {
       toast({
         variant: "default",
         title: "Password reseted with success",
-        description: data,
+        description: "Welcome back",
       });
       router.push(ROUTE_PATHS.LOGIN);
-      form.reset();
     },
   });
 
