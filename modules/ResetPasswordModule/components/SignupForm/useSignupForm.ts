@@ -35,9 +35,9 @@ const useSignupForm = () => {
     },
     onSuccess: (data: any) => {
       toast({
-        // variant: "default",
-        // title: "Password reseted with success",
-        // description: data,
+        variant: "default",
+        title: "Password reseted with success",
+        description: data,
       });
 
       form.reset();
