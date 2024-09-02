@@ -27,11 +27,11 @@ const useSignupForm = () => {
   const { mutate: updatePasswordMutation, isPending } = useMutation({
     mutationFn: updatePassword,
     onError: (data: string) => {
-      // toast({
-      //   variant: "destructive",
-      //   title: "Uh oh! Something went wrong.",
-      //   description: data,
-      // });
+      toast({
+        variant: "destructive",
+        title: "Uh oh! Something went wrong.",
+        description: "something",
+      });
     },
     onSuccess: (data: any) => {
       toast({
@@ -39,7 +39,7 @@ const useSignupForm = () => {
         title: "Password reseted with success",
         description: data,
       });
-
+      router.push(ROUTE_PATHS.LOGIN);
       form.reset();
     },
   });
