@@ -257,11 +257,6 @@ export const updatePassword = async ({
       const {
         data: { user },
       } = await supabase.auth.getUser();
-<<<<<<< HEAD
-
-=======
-      console.log(user);
->>>>>>> ccc08a9a5832f5cad44d38f9a19b95e3dc214453
       if (!user) {
         reject("no session");
       }
@@ -280,7 +275,6 @@ export const updatePassword = async ({
     }
   });
 };
-<<<<<<< HEAD
 
 export const loginWithOtp = async ({
   email,
@@ -310,5 +304,3 @@ export const loginWithOtp = async ({
     }
   });
 };
-=======
->>>>>>> ccc08a9a5832f5cad44d38f9a19b95e3dc214453
